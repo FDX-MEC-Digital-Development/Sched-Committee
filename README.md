@@ -1,26 +1,35 @@
-# Nuxt 3 Minimal Starter
+# FedEx ALPA Scheduling Committee mobile application
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Roadmap
 
-## Setup
+* Scaffold Project Framework
+* Scaffold UI Framework
+* Scaffold Mobile app Framework
+* Scaffold Application UI
+  * [Use Tailwind UI?]([https://tailwindui.com/components/application-ui/application-shells/stacked]) - Waiting on budget approval
+* Scaffold testing
+* Build basic layout with placeholders
+* Add UI elements
+* Add duty time calculation functions
+  * Create UI composable functions
+  * Add composables to app UI
+* Design UI
+  * Add color theme
+  * Header
+  * Menu
+  * Tabs
+  * Main section
+* Tests
+  * Unit tests for duty time calculations via vitest
+  * component tests for duty time calculations via vitest
+  * End-to-end testing via Playwright
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
+# Documentation
 
-# pnpm
-pnpm install
+## Instructions
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
+### Development Server
 
 Start the development server on `http://localhost:3000`:
 
