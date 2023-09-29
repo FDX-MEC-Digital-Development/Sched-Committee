@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     // Simple usage
     "@nuxtjs/eslint-module",
+    "@nuxtjs/tailwindcss",
   ],
   eslint: {
     /* module options */
