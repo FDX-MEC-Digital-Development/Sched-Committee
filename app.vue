@@ -55,7 +55,7 @@
               <!-- Profile dropdown -->
               <HeadlessMenu as="div" class="relative ml-3">
                 <div>
-                  <MenuButton
+                  <HeadlessMenuButton
                     class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span class="absolute -inset-1.5" />
@@ -65,7 +65,7 @@
                       :src="user.imageUrl"
                       alt=""
                     />
-                  </MenuButton>
+                  </HeadlessMenuButton>
                 </div>
                 <transition
                   enter-active-class="transition ease-out duration-100"
@@ -212,10 +212,9 @@ const user = {
 };
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
+  { name: "Duty", href: "#", current: false },
+  { name: "Fatigue", href: "#", current: false },
+  { name: "Links", href: "#", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
