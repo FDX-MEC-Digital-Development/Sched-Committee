@@ -1,9 +1,9 @@
-vo# FedEx ALPA Scheduling Committee mobile application
+# FedEx ALPA Scheduling Committee mobile application
 
 ## Roadmap
 
 - Scaffold Project Framework ✅
-- Scaffold UI Framework
+- Scaffold UI Framework ✅
 - Scaffold Mobile app Framework
 - Scaffold Application UI
   - [Use Tailwind UI?]([https://tailwindui.com/components/application-ui/application-shells/stacked]) - Waiting on budget approval
