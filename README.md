@@ -50,7 +50,7 @@ The services shall commence on September 29, 2023, and shall continue through De
 | ITEM DESCRIPTION                                             |  | COST    |
 | ------------------------------------------------------------ | --------------------- | ------- |
 | Apple Laptop | required for iOS emulation and Apple app store submission| $1500   |
-| Mobile App UI Template | will save time in development and produce a professionally designed app| $328.15 |
+| Mobile App UI Template | will save time in development and produce a better app design | $328.15 |
 
 ## Project Change Control Procedure
 
@@ -58,7 +58,7 @@ Both parties will discuss the proposed changes, assess their impact on the proje
 
 ## Attribution
 
-Attribution will be included in the footer or appropriate section of the mobile app:
+Attribution will be included in the footer or appropriate section of the mobile app.
 
 **App Store Disclaimer:**
 
@@ -74,11 +74,10 @@ While I am committed to delivering the mobile app according to the agreed-upon s
 
 ## [Roadmap](https://github.com/users/acrobid/projects/2/views/1)
 
-- Scaffold Project Framework ✅
-- Scaffold UI Framework ✅
+- Scaffold Project Framework
+- Scaffold UI Framework
 - Scaffold Mobile app Framework
 - Scaffold Application UI
-  - [Use Tailwind UI?]([https://tailwindui.com/components/application-ui/application-shells/stacked]) - Waiting on budget approval
 - Scaffold testing
 - Build basic layout with placeholders
 - Add UI elements
