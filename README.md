@@ -51,6 +51,7 @@ The services shall commence on September 29, 2023, and shall continue through De
 | ------------------------------------------------------------ | --------------------- | ------- |
 | Apple Laptop | required for iOS emulation and Apple app store submission| $1500   |
 | Mobile App UI Template | will save time in development and produce a better app design | $328.15 |
+| App store registrations | | $125 |
 
 ## Project Change Control Procedure
 
