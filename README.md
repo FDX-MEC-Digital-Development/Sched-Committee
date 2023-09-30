@@ -3,6 +3,7 @@
 # Project Overview
 
 **SERVICES PERFORMED BY:** Joshua Carter
+
 **SERVICES PERFORMED FOR:** FedEx ALPA
 
 This outlines the collaborative effort between Joshua Carter and ALPA to develop a FedEx ALPA Scheduling Committee mobile application. In this document, I will define the project's objectives, scope, responsibilities, and key details to ensure a smooth and successful development process.
@@ -71,7 +72,7 @@ The mobile app developed as part of this project will be released under the term
 
 While I am committed to delivering the mobile app according to the agreed-upon scope and timeline, I acknowledge that unforeseen circumstances may arise that could impact the project's completion. It is essential to establish that there are no punitive consequences if, for any reason, the project is not completed within the specified timeframe. I prioritize open communication and flexibility to address challenges that may arise during the project.
 
-## Roadmap
+## [Roadmap](https://github.com/users/acrobid/projects/2/views/1)
 
 - Scaffold Project Framework ✅
 - Scaffold UI Framework ✅
