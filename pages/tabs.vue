@@ -2,6 +2,7 @@
   <ion-page>
     <ion-content>
       <ion-tabs>
+        <AppHeader />
         <ion-router-outlet />
 
         <NavigationTabs />
