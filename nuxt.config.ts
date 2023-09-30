@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "nuxt-headlessui",
+    "@nuxtjs/ionic",
   ],
   eslint: {
     /* module options */
@@ -14,4 +15,5 @@ export default defineNuxtConfig({
   headlessui: {
     prefix: "Headless",
   },
+  ssr: false,
 });
