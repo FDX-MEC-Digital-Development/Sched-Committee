@@ -47,11 +47,11 @@ The services shall commence on September 29, 2023, and shall continue through De
 
 ## Other Costs
 
-| ITEM DESCRIPTION                                             |  | COST    |
-| ------------------------------------------------------------ | --------------------- | ------- |
-| Apple Laptop | required for iOS emulation and Apple app store submission| $1500   |
-| Mobile App UI Template | will save time in development and produce a better app design | $328.15 |
-| App store registrations | | $125 |
+| ITEM DESCRIPTION        |                                                               | COST    |
+| ----------------------- | ------------------------------------------------------------- | ------- |
+| Apple Laptop            | required for iOS emulation and Apple app store submission     | $1500   |
+| Mobile App UI Template  | will save time in development and produce a better app design | $328.15 |
+| App store registrations |                                                               | $125    |
 
 ## Project Change Control Procedure
 
@@ -85,7 +85,7 @@ While I am committed to delivering the mobile app according to the agreed-upon s
 - Add duty time calculation functions
   - Create UI composable functions
   - Add composables to app UI
-- Design UI
+- Design UI - TailwindUI? FlowBite? DaisyUI?
   - Add color theme
   - Header
   - Menu
