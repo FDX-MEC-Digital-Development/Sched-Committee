@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     'nuxt-headlessui',
     '@nuxtjs/ionic',
+    '@vueuse/nuxt',
   ],
   eslint: {
     /* module options */

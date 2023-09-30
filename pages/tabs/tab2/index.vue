@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+// eslint-disable-next-line
 definePageMeta({
   alias: ['/'],
 });
