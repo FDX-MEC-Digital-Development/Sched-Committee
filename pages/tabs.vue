@@ -1,3 +1,5 @@
+<script lang="ts " setup></script>
+
 <template>
   <ion-page>
     <ion-content>
@@ -10,7 +12,5 @@
     </ion-content>
   </ion-page>
 </template>
-
-<script lang="ts" setup></script>
 
 <style></style>
