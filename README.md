@@ -51,7 +51,7 @@ The services shall commence on September 29, 2023, and shall continue through De
 | ----------------------- | ------------------------------------------------------------- | ------- |
 | Apple Laptop            | required for iOS emulation and Apple app store submission     | $1500   |
 | Mobile App UI Template  | will save time in development and produce a better app design | $328.15 |
-| App store registrations |                                                               | $125    |
+| App store registrations | Apple app store + Google Play Store costs                     | $125    |
 
 ## Project Change Control Procedure
 
@@ -61,11 +61,11 @@ Both parties will discuss the proposed changes, assess their impact on the proje
 
 Attribution will be included in the footer or appropriate section of the mobile app.
 
-**App Store Disclaimer:**
+## App Store Disclaimer:
 
 The mobile app may be rejected from the Apple App Store or Google Play Store. App store approval is subject to the policies and guidelines of Apple and Google, and any decisions made by these platforms are beyond the control of Joshua Carter.
 
-**Open-Source Licensing:**
+## Open-Source Licensing:
 
 The mobile app developed as part of this project will be released under the terms of the GNU General Public License (GPL) version 3. The GPL license terms will apply to the distribution, modification, and use of the app's source code.
 
@@ -74,27 +74,6 @@ The mobile app developed as part of this project will be released under the term
 While I am committed to delivering the mobile app according to the agreed-upon scope and timeline, I acknowledge that unforeseen circumstances may arise that could impact the project's completion. It is essential to establish that there are no punitive consequences if, for any reason, the project is not completed within the specified timeframe. I prioritize open communication and flexibility to address challenges that may arise during the project.
 
 ## [Roadmap](https://github.com/users/acrobid/projects/2/views/1)
-
-- Scaffold Project Framework
-- Scaffold UI Framework
-- Scaffold Mobile app Framework
-- Scaffold Application UI
-- Scaffold testing
-- Build basic layout with placeholders
-- Add UI elements
-- Add duty time calculation functions
-  - Create UI composable functions
-  - Add composables to app UI
-- Design UI - TailwindUI? FlowBite? DaisyUI?
-  - Add color theme
-  - Header
-  - Menu
-  - Tabs
-  - Main section
-- Tests
-  - Unit tests for duty time calculations via vitest
-  - component tests for duty time calculations via vitest
-  - End-to-end testing via Playwright
 
 # Documentation
 
