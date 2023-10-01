@@ -47,7 +47,7 @@ export function useDutyLimits(dutyStartTimeZulu: Date, domicile: Domicile, optio
    */
   function calculateDomesticDutyLimit(dutyStartTime: Date, domicile: Domicile, options?: DutyLimitOptions) {
     // get local time of duty start time based on domicile using timeZonesLBT using date-fns
-    const localDutyStartTime = Number.parseInt(formatInTimeZone(dutyStartTime, timeZonesLBT[domicile], 'HHmm')); // returns in format 0500, 0530, 0600, etc.
+    const localDutyStartTime = getLBTInHHMM(dutyStartTime, domicile); // returns in format 0500, 0530, 0600, etc.
 
     if (options?.isInternational)
       return undefined;
@@ -69,5 +69,11 @@ export function useDutyLimits(dutyStartTimeZulu: Date, domicile: Domicile, optio
     return dutyLimitMinutes ? addMinutes(new Date(dutyStartTimeZulu), dutyLimitMinutes) : undefined;
   }
 
-  return { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime };
+  function getLBTInHHMM(dutyStartTimeZulu: Date, domicile: Domicile) {
+    return Number.parseInt(formatInTimeZone(dutyStartTimeZulu, timeZonesLBT[domicile], 'HHmm'));
+  }
+
+  const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZulu, domicile));
+
+  return { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT };
 }
