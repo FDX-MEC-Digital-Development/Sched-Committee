@@ -8,3 +8,5 @@ export interface DutyLimitOptions {
   crewNumberOfPilots?: number
   layoverLength?: number
 }
+
+export type Domicile = 'MEM' | 'IND' | 'OAK' | 'LAX' | 'ANC' | 'CGN';

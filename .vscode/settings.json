@@ -3,6 +3,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+
   // Enable the ESlint flat config support
 
   "eslint.experimental.useFlatConfig": true,
