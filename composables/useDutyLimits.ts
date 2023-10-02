@@ -22,22 +22,32 @@ const timeZonesLBT = {
   CGN: 'Europe/Berlin',
 } as const;
 
-export function useDutyLimits (dutyStartTimeZulu: Date, domicile: Domicile, options?: DutyLimitOptions) {
+export function useDutyLimits (dutyStartTimeZulu: Ref<Date>, domicile: Ref<Domicile>, options?: DutyLimitOptions) {
   /**
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit?]: [number, number, number?] - in minutes
    */
-  const dutyLimits = computed(() => {
-    if (!dutyStartTimeZulu || !domicile) { return undefined; }
-    if (!isValid(dutyStartTimeZulu)) { return undefined; }
 
-    if (!options?.isInternational) { return calculateDomesticDutyLimit(dutyStartTimeZulu, domicile, options); }
+  const dutyStartTimeZuluValue = toValue(dutyStartTimeZulu);
+  const domicileValue = toValue(domicile);
+
+  const dutyLimits = computed(() => {
+    console.log({ dutyStartTimeZuluValue });
+    if (!dutyStartTimeZuluValue || !domicileValue) { return undefined; }
+    if (!isValid(dutyStartTimeZuluValue)) { return undefined; }
+
+    const calculatedDomesticDutyLimits = calculateDomesticDutyLimit(dutyStartTimeZuluValue, domicile, options);
+
+    if (!options?.isInternational && calculatedDomesticDutyLimits !== undefined) {
+      const [scheduledDutyLimit, operationalDutyLimit, farDutyLimit] = calculatedDomesticDutyLimits;
+      return { scheduledDutyLimit, operationalDutyLimit, farDutyLimit };
+    }
 
     return undefined;
   });
 
-  const endOfScheduledDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZulu, dutyLimits.value[0]) : undefined);
-  const endOfOperationalDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZulu, dutyLimits.value[1]) : undefined);
-  const endOfFARDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZulu, dutyLimits.value[2]) : undefined);
+  const endOfScheduledDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluValue, dutyLimits.value.scheduledDutyLimit) : undefined);
+  const endOfOperationalDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluValue, dutyLimits.value.operationalDutyLimit) : undefined);
+  const endOfFARDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluValue, dutyLimits.value.farDutyLimit) : undefined);
   /**
    *
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit]: [number, number, number] - in minutes
@@ -57,15 +67,15 @@ export function useDutyLimits (dutyStartTimeZulu: Date, domicile: Domicile, opti
     return !options?.is2TripsWithOneOptional ? CRITICAL_DUTY_LIMITS : CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
   }
 
-  function calculateEndOfDutyTime (dutyStartTimeZulu: Date, dutyLimitMinutes: number) {
-    return dutyLimitMinutes ? addMinutes(new Date(dutyStartTimeZulu), dutyLimitMinutes) : undefined;
+  function calculateEndOfDutyTime (dutyStartTimeZuluValue: Date, dutyLimitMinutes: number) {
+    return dutyLimitMinutes ? addMinutes(new Date(dutyStartTimeZuluValue), dutyLimitMinutes) : undefined;
   }
 
-  function getLBTInHHMM (dutyStartTimeZulu: Date, domicile: Domicile) {
-    return Number.parseInt(formatInTimeZone(dutyStartTimeZulu, timeZonesLBT[domicile], 'HHmm'));
+  function getLBTInHHMM (dutyStartTimeZuluValue: Date, domicile: Domicile) {
+    return Number.parseInt(formatInTimeZone(dutyStartTimeZuluValue, timeZonesLBT[domicile], 'HHmm'));
   }
 
-  const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZulu, domicile));
+  const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZuluValue, domicile));
 
   return { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT };
 }

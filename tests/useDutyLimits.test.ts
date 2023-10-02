@@ -20,7 +20,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
-    const expectedDutyLimits = [13 * 60, 14.5 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 13 * 60,
+      operationalDutyLimit: 14.5 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-02T07:00:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-02T08:30:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T10:00:00Z');
@@ -39,7 +43,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
-    const expectedDutyLimits = [13 * 60, 13.5 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 13 * 60,
+      operationalDutyLimit: 13.5 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-02T02:15:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-02T02:45:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T05:15:00Z');
@@ -58,7 +66,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
-    const expectedDutyLimits = [13 * 60, 14 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 13 * 60,
+      operationalDutyLimit: 14 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-01T23:45:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-02T00:45:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T02:45:00Z');
@@ -78,7 +90,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
-    const expectedDutyLimits = [13.5 * 60, 15 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 13.5 * 60,
+      operationalDutyLimit: 15 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-02T00:15:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-02T01:45:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T02:45:00Z');
@@ -98,7 +114,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
-    const expectedDutyLimits = [13.5 * 60, 15 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 13.5 * 60,
+      operationalDutyLimit: 15 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-02T07:30:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-02T09:00:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T10:00:00Z');
@@ -117,7 +137,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
-    const expectedDutyLimits = [11.5 * 60, 13 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 11.5 * 60,
+      operationalDutyLimit: 13 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-01T16:30:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-01T18:00:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-01T21:00:00Z');
@@ -137,7 +161,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
-    const expectedDutyLimits = [13 * 60, 14.5 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 13 * 60,
+      operationalDutyLimit: 14.5 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-01T18:00:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-01T19:30:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-01T21:00:00Z');
@@ -156,7 +184,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
-    const expectedDutyLimits = [9 * 60, 10.5 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 9 * 60,
+      operationalDutyLimit: 10.5 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-01T19:00:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-01T20:30:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T02:00:00Z');
@@ -176,7 +208,11 @@ describe('test duty limit logic', async () => {
 
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
-    const expectedDutyLimits = [9 * 60, 10.5 * 60, 16 * 60];
+    const expectedDutyLimits = {
+      scheduledDutyLimit: 9 * 60,
+      operationalDutyLimit: 10.5 * 60,
+      farDutyLimit: 16 * 60,
+    };
     const expectedEndOfScheduledDutyTime = new Date('2021-09-01T19:00:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-01T20:30:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-02T02:00:00Z');

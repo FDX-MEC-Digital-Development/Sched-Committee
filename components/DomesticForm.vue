@@ -16,7 +16,7 @@
 
           <div class="col-span-full">
             <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
-            <USelect v-model="domicile" :options="domicileOptions" />
+            <USelect :model-value="domicile" :options="domicileOptions" @update:model-value="handleDomicileUpdate" />
           </div>
 
           <div class="col-span-full">
@@ -41,16 +41,30 @@
 </template>
 
 <script setup lang="ts">
-import { DutyLimitOptions } from '~/sched-committee-types';
+import { isValid } from 'date-fns';
+import { DutyLimitOptions, Domicile } from '~/sched-committee-types';
+
+const props = defineProps({
+  dutyStartTimeZulu: {
+    type: Date,
+    default: null,
+  },
+  domicile: {
+    type: String,
+    default: 'MEM',
+  },
+});
+
+const emit = defineEmits(['update:dutyStartTimeZulu', 'update:domicile']);
 
 // const dateStringFormat = 'yyyy-MM-dd';
-const todaysDateInDateStringFormat = new Date().toISOString().split('T')[0];
-const timeRightNowInTimeStringFormat = new Date().toISOString().split('T')[1].split('.')[0];
+const todaysDateInDateStringFormat = props.dutyStartTimeZulu ? props.dutyStartTimeZulu.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+const timeRightNowInTimeStringFormat = props.dutyStartTimeZulu ? props.dutyStartTimeZulu.toISOString().split('T')[1].split('.')[0] : new Date().toISOString().split('T')[1].split('.')[0];
+
 const dateInput = ref<string>(todaysDateInDateStringFormat);
 const timeInput = ref<string>(timeRightNowInTimeStringFormat);
 
-const domicileOptions = ['ANC', 'CGN', 'IND', 'LAX', 'MEM', 'OAK'];
-const domicile = ref<string>('MEM');
+const domicileOptions : Domicile[] = ['MEM', 'IND', 'OAK', 'LAX', 'ANC', 'CGN'];
 
 const options = ref<DutyLimitOptions>({
   is2TripsWithOneOptional: false,
@@ -58,5 +72,25 @@ const options = ref<DutyLimitOptions>({
 });
 
 watchEffect(() => console.log(options.value.is2TripsWithOneOptional, options.value.isDayRoomScheduledAndReserved));
+
+function handleDomicileUpdate (newDomicile: Domicile) {
+  console.log(newDomicile);
+  console.log('domicile updated');
+  emit('update:domicile', newDomicile);
+}
+
+const updatedDutyStartTimeZulu = computed(() => {
+  const newDate = new Date(`${dateInput.value}T${timeInput.value}`);
+  return newDate;
+});
+
+watchEffect(() => {
+  console.log(`Updating dutyStartTimeZulu to ${updatedDutyStartTimeZulu.value}`);
+
+  if (isValid(updatedDutyStartTimeZulu.value)) {
+    emit('update:dutyStartTimeZulu', updatedDutyStartTimeZulu.value);
+  }
+})
+;
 
 </script>
