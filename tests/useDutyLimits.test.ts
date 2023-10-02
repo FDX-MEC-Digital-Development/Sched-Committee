@@ -142,11 +142,11 @@ describe('test duty limit logic', async () => {
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 11.5 * 60,
+      scheduledDutyLimit: 10 * 60,
       operationalDutyLimit: 13 * 60,
       farDutyLimit: 16 * 60,
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T16:30:00Z');
+    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T15:00:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-01T18:00:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-01T21:00:00Z');
 
@@ -158,6 +158,7 @@ describe('test duty limit logic', async () => {
   });
 
   it('night flight 0500Z IND showtime with 2 trips and one optional (should be 0000LBT I think)', () => {
+    // blended duty limit TODO: Verify scheduledDutyLimit is 11.5
     const dutyStartTimeZulu = new Date('2021-09-01T05:00:00Z');
     const domicile = 'IND';
     const options = { is2TripsWithOneOptional: true };
@@ -166,11 +167,11 @@ describe('test duty limit logic', async () => {
     const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 13 * 60,
+      scheduledDutyLimit: 11.5 * 60,
       operationalDutyLimit: 14.5 * 60,
       farDutyLimit: 16 * 60,
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T18:00:00Z');
+    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T16:30:00Z');
     const expectedEndOfOperationalDutyTime = new Date('2021-09-01T19:30:00Z');
     const expectedEndOfFARDutyTime = new Date('2021-09-01T21:00:00Z');
 

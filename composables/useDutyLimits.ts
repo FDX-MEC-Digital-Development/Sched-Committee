@@ -64,27 +64,12 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
 
     if (options?.isInternational) { return undefined; }
 
-    console.log({ localDutyStartTime });
-
-    // blended scheduled duty limit
-    if (localDutyStartTime < 1645 && localDutyStartTime > 1545 && !options?.isDayRoomScheduledAndReserved) {
-      const slopeAdjustment = Math.abs(localDutyStartTime - 1645);
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
-      const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 13 hours to 11:30 hours
-      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
-    } else if ((localDutyStartTime < 100 || localDutyStartTime > 2230) && options?.isDayRoomScheduledAndReserved) {
-      const adjustedStartTimeForDayTransition = localDutyStartTime < 100 ? localDutyStartTime + 2400 : localDutyStartTime; // adjust for day transition
-      const slopeAdjustment = Math.abs(adjustedStartTimeForDayTransition - 2230);
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
-      const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 11:30 hours to 9 hours
-      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
-    } else if (localDutyStartTime < 530 && localDutyStartTime > 500 && !options?.isDayRoomScheduledAndReserved) {
-      const slopeAdjustment = Math.abs(localDutyStartTime - 530) * 4; // 30 minutes is 2 hours
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
-      const blendedScheduledDutyLimit = startingScheduledDutyLimit - 2 * 60 + slopeAdjustment; // from 11 hours to 13 hours
-      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
+    if (!options?.isDayRoomScheduledAndReserved) {
+      const blendedDutyLimits = calculateBlendedDutyLimit(localDutyStartTime, options);
+      if (blendedDutyLimits) { return blendedDutyLimits; }
     }
 
+    // non-blended
     if (localDutyStartTime < 1559) {
       if (localDutyStartTime > 600) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
       if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
@@ -92,6 +77,37 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
     }
     if (localDutyStartTime > 1600 || localDutyStartTime < 100) { return !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL; }
     return !options?.is2TripsWithOneOptional ? CRITICAL_DUTY_LIMITS : CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
+  }
+
+  function calculateBlendedDutyLimit (localDutyStartTime: number, options?: DutyLimitOptions) {
+    // blended scheduled duty limit
+    if (localDutyStartTime < 1645 && localDutyStartTime > 1545) {
+      const slopeAdjustment = calculateMinuteDifference(1645, localDutyStartTime);
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 13 hours to 11:30 hours
+      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
+    } else if ((localDutyStartTime < 100 || localDutyStartTime > 2230)) {
+      const adjustedStartTimeForDayTransition = localDutyStartTime < 100 ? localDutyStartTime + 2400 : localDutyStartTime; // adjust for day transition
+      const slopeAdjustment = calculateMinuteDifference(adjustedStartTimeForDayTransition, 2230);
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 11:30 hours to 9 hours
+      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
+    } else if (localDutyStartTime < 530 && localDutyStartTime > 500) {
+      const slopeAdjustment = calculateMinuteDifference(530, localDutyStartTime) * 4; // 30 minutes is 2 hours
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingScheduledDutyLimit - 2 * 60 + slopeAdjustment; // from 11 hours to 13 hours
+      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
+    }
+
+    function calculateMinuteDifference (HHMM1: number, HHMM2: number) {
+      const HH1 = Math.floor(HHMM1 / 100);
+      const HH2 = Math.floor(HHMM2 / 100);
+      const MM1 = HHMM1 % 100;
+      const MM2 = HHMM2 % 100;
+      return (HH1 - HH2) * 60 + MM1 - MM2;
+    }
+
+    return false;
   }
 
   /**
