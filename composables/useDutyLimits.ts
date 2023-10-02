@@ -22,22 +22,23 @@ const timeZonesLBT = {
   CGN: 'Europe/Berlin',
 } as const;
 
-export function useDutyLimits (dutyStartTimeZulu: Ref<Date>, domicile: Ref<Domicile>, options?: DutyLimitOptions) {
+export function useDutyLimits (dutyStartTimeZulu: MaybeRefOrGetter<Date>, domicile: MaybeRefOrGetter<Domicile>, options?: MaybeRefOrGetter<DutyLimitOptions>) {
   /**
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit?]: [number, number, number?] - in minutes
    */
 
   const dutyStartTimeZuluRef = toRef(dutyStartTimeZulu);
-  const domicileValue = toRef(domicile);
+  const domicileRef = toRef(domicile);
+  const optionsRef = toRef(options);
 
   const dutyLimits = computed(() => {
     console.log(dutyStartTimeZuluRef.value);
-    if (!dutyStartTimeZuluRef.value || !domicileValue.value) { return undefined; }
+    if (!dutyStartTimeZuluRef.value || !domicileRef.value) { return undefined; }
     if (!isValid(dutyStartTimeZuluRef.value)) { return undefined; }
 
-    const calculatedDomesticDutyLimits = calculateDomesticDutyLimit(dutyStartTimeZuluRef.value, domicile, options);
+    const calculatedDomesticDutyLimits = calculateDomesticDutyLimit(dutyStartTimeZuluRef.value, domicileRef.value, optionsRef.value);
 
-    if (!options?.isInternational && calculatedDomesticDutyLimits !== undefined) {
+    if (!optionsRef.value?.isInternational && calculatedDomesticDutyLimits !== undefined) {
       const [scheduledDutyLimit, operationalDutyLimit, farDutyLimit] = calculatedDomesticDutyLimits;
       return { scheduledDutyLimit, operationalDutyLimit, farDutyLimit };
     }
