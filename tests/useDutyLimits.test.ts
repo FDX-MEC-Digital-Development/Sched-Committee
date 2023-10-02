@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { setup } from '@nuxt/test-utils';
+
 import { useDutyLimits } from '../composables/useDutyLimits';
 
 // npm run test
