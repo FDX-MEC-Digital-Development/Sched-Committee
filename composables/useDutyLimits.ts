@@ -66,22 +66,23 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
 
     console.log({ localDutyStartTime });
 
+    // blended scheduled duty limit
     if (localDutyStartTime < 1645 && localDutyStartTime > 1545 && !options?.isDayRoomScheduledAndReserved) {
       const slopeAdjustment = Math.abs(localDutyStartTime - 1645);
-      const startingDutyLimits = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
-      const blendedScheduledDutyLimit = startingDutyLimits[0] - slopeAdjustment;
-      return [blendedScheduledDutyLimit, startingDutyLimits[1], startingDutyLimits[2]];
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 13 hours to 11:30 hours
+      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     } else if ((localDutyStartTime < 100 || localDutyStartTime > 2230) && options?.isDayRoomScheduledAndReserved) {
-      const adjustedStartTimeForDayTransition = localDutyStartTime < 100 ? localDutyStartTime + 2400 : localDutyStartTime;
+      const adjustedStartTimeForDayTransition = localDutyStartTime < 100 ? localDutyStartTime + 2400 : localDutyStartTime; // adjust for day transition
       const slopeAdjustment = Math.abs(adjustedStartTimeForDayTransition - 2230);
-      const startingDutyLimits = !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
-      const blendedScheduledDutyLimit = startingDutyLimits[0] - slopeAdjustment;
-      return [blendedScheduledDutyLimit, startingDutyLimits[1], startingDutyLimits[2]];
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 11:30 hours to 9 hours
+      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     } else if (localDutyStartTime < 530 && localDutyStartTime > 500 && !options?.isDayRoomScheduledAndReserved) {
       const slopeAdjustment = Math.abs(localDutyStartTime - 530) * 4; // 30 minutes is 2 hours
-      const startingDutyLimits = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
-      const blendedScheduledDutyLimit = startingDutyLimits[0] - 2 * 60 + slopeAdjustment;
-      return [blendedScheduledDutyLimit, startingDutyLimits[1], startingDutyLimits[2]];
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingScheduledDutyLimit - 2 * 60 + slopeAdjustment; // from 11 hours to 13 hours
+      return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     }
 
     if (localDutyStartTime < 1559) {
