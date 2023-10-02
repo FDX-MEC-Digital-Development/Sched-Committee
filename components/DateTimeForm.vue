@@ -23,16 +23,23 @@ defineProps({
 
 const emit = defineEmits(['update:date', 'update:time']);
 
-const handleDateUpdate = (event: Event) => {
+const handleDateUpdate = (event: string) => {
   console.log(event);
   console.log('date updated');
   emit('update:date', event);
 };
 
-const handleTimeUpdate = (event: Event) => {
-  console.log(event);
-  console.log('time updated');
-  emit('update:time', event);
+const handleTimeUpdate = (event: string) => {
+  // if time is in format HH:MM:ss, remove the seconds
+  if (/\d{2}:\d{2}:\d{2}/.test(event)) {
+    event = event.split(':').slice(0, 2).join(':');
+  }
+  if (/\d{2}:\d{2}/.test(event)) {
+    console.log(event);
+    console.log('time updated');
+
+    emit('update:time', event);
+  }
 };
 </script>
 
