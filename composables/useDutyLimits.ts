@@ -6,14 +6,74 @@ import { DomesticDutyLimit } from '../sched-committee-types';
 import type { Domicile, DutyLimitOptions } from '~/sched-committee-types';
 
 // Domestic duty limits in format [scheduled, operational, far]
-const DAY_DUTY_LIMITS = [13 * 60, 14.5 * 60, 16 * 60];
-const DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 = [13 * 60, 13.5 * 60, 16 * 60]; // if a pilot's showtime is 0500-0530, then the operational duty limit is 13:30.
-const DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 = [13 * 60, 14 * 60, 16 * 60]; // If a pilot's showtime is 0531-0600, operational limits are 14:00
-const DAY_DUTY_LIMITS_WITH_OPTIONAL = [13.5 * 60, 15 * 60, 16 * 60]; // TODO: Understand this: If a day or night duty period comprised of 2 trips exceeds scheduled on duty limitations, then the duty period shall be limted to a max of 13:30 Day/13:00 night
-const NIGHT_DUTY_LIMITS = [11.5 * 60, 13 * 60, 16 * 60];
-const NIGHT_DUTY_LIMITS_WTIH_OPTIONAL = [13 * 60, 14.5 * 60, 16 * 60];// TODO: Understand this: If a day or night duty period comprised of 2 trips exceeds scheduled on duty limitations, then the duty period shall be limted to a max of 13:30 Day/13:00 night
-const CRITICAL_DUTY_LIMITS = [9 * 60, 10.5 * 60, 16 * 60];
-const CRITICAL_DUTY_LIMITS_WITH_OPTIONAL = [9 * 60, 10.5 * 60, 16 * 60];
+const DOMESTIC_DAY_DUTY_LIMITS = [13 * 60, 14.5 * 60, 16 * 60];
+const DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 = [13 * 60, 13.5 * 60, 16 * 60]; // if a pilot's showtime is 0500-0530, then the operational duty limit is 13:30.
+const DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 = [13 * 60, 14 * 60, 16 * 60]; // If a pilot's showtime is 0531-0600, operational limits are 14:00
+const DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL = [13.5 * 60, 15 * 60, 16 * 60]; // TODO: Understand this: If a day or night duty period comprised of 2 trips exceeds scheduled on duty limitations, then the duty period shall be limted to a max of 13:30 Day/13:00 night
+const DOMESTIC_NIGHT_DUTY_LIMITS = [11.5 * 60, 13 * 60, 16 * 60];
+const DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL = [13 * 60, 14.5 * 60, 16 * 60];// TODO: Understand this: If a day or night duty period comprised of 2 trips exceeds scheduled on duty limitations, then the duty period shall be limted to a max of 13:30 Day/13:00 night
+const DOMESTIC_CRITICAL_DUTY_LIMITS = [9 * 60, 10.5 * 60, 16 * 60];
+const DOMESTIC_CRITICAL_DUTY_LIMITS_WITH_OPTIONAL = [9 * 60, 10.5 * 60, 16 * 60];
+
+const INTERNATIONAL_GRID_DUTY_LIMITS = {
+  TZZof5OrMore: {
+    twoPilots: {
+      reset: [{
+        scheduledDuty: 13.5 * 60,
+        landings: 3,
+
+      }, {
+        scheduledDuty: 12 * 60,
+        landings: 4,
+      }],
+      adjusted: [{
+        scheduledDuty: 10 * 60,
+        landings: 2,
+      }],
+      notAdjusted: [{
+        scheduledDuty: 8.5 * 60,
+        landings: 2,
+      }],
+      blockHours: 8,
+
+    },
+
+    threePilots: {
+      reset: [{
+        scheduledDuty: 13.5 * 60,
+        landings: 2,
+      }],
+      adjusted: [{
+        scheduledDuty: 12.5 * 60,
+        landings: 2,
+      }],
+      notAdjusted: [{
+        scheduledDuty: 10 * 60,
+        landings: 2,
+      }],
+      blockHours: 12,
+
+    },
+    fourPilots: {
+      reset: [{
+        scheduledDuty: 18 * 60,
+        landings: 2,
+        note: 'This international grid landing limit may be increased by 1 for the accommodation of a scheduled \'tech stop\' or where otherwise authorized by VP, SCP, or Dir Ops.',
+      }],
+      adjusted: [{
+        scheduledDuty: 16 * 60,
+        landings: 2,
+      }],
+      notAdjusted: [{
+        scheduledDuty: 16 * 60,
+        landings: 2,
+      }],
+      blockHours: 16,
+
+    },
+
+  },
+};
 
 const timeZonesLBT = {
   MEM: 'America/Chicago',
@@ -70,30 +130,30 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
 
     // non-blended
     if (localDutyStartTime < 1559) {
-      if (localDutyStartTime > 600) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
-      if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
-      if (localDutyStartTime > 500) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
+      if (localDutyStartTime > 600) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
+      if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
+      if (localDutyStartTime > 500) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
     }
-    if (localDutyStartTime > 1600 || localDutyStartTime < 100) { return !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL; }
-    return !options?.is2TripsWithOneOptional ? CRITICAL_DUTY_LIMITS : CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
+    if (localDutyStartTime > 1600 || localDutyStartTime < 100) { return !options?.is2TripsWithOneOptional ? DOMESTIC_NIGHT_DUTY_LIMITS : DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL; }
+    return !options?.is2TripsWithOneOptional ? DOMESTIC_CRITICAL_DUTY_LIMITS : DOMESTIC_CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
   }
 
   function calculateBlendedDutyLimit (localDutyStartTime: number, options?: DutyLimitOptions) {
     // blended scheduled duty limit
     if (localDutyStartTime < 1645 && localDutyStartTime > 1545) {
       const slopeAdjustment = calculateMinuteDifference(1645, localDutyStartTime);
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL;
       const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 13 hours to 11:30 hours
       return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     } else if ((localDutyStartTime < 100 || localDutyStartTime > 2230)) {
       const adjustedStartTimeForDayTransition = localDutyStartTime < 100 ? localDutyStartTime + 2400 : localDutyStartTime; // adjust for day transition
       const slopeAdjustment = calculateMinuteDifference(adjustedStartTimeForDayTransition, 2230);
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DOMESTIC_NIGHT_DUTY_LIMITS : DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
       const blendedScheduledDutyLimit = startingScheduledDutyLimit - slopeAdjustment; // from 11:30 hours to 9 hours
       return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     } else if (localDutyStartTime < 530 && localDutyStartTime > 500) {
       const slopeAdjustment = calculateMinuteDifference(530, localDutyStartTime) * 4; // 30 minutes is 2 hours
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL;
       const blendedScheduledDutyLimit = startingScheduledDutyLimit - 2 * 60 + slopeAdjustment; // from 11 hours to 13 hours
       return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     }
