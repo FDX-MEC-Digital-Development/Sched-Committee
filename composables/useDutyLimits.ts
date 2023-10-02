@@ -73,10 +73,22 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRefOrGetter<Date>, domici
     return !options?.is2TripsWithOneOptional ? CRITICAL_DUTY_LIMITS : CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
   }
 
+  /**
+   * Calculates the end of duty time based on the duty start time and duty limit in minutes.
+   * @param {Date} dutyStartTime - The duty start time.
+   * @param {number} dutyLimitMinutes - The duty limit in minutes.
+   * @returns {Date | undefined} - The end of duty time or undefined if the duty limit is not defined.
+   */
   function calculateEndOfDutyTime (dutyStartTime: Date, dutyLimitMinutes: number) {
     return dutyLimitMinutes ? addMinutes(new Date(dutyStartTime), dutyLimitMinutes) : undefined;
   }
 
+  /**
+   * Returns the local base time in format HHMM based on the domicile.
+   * @param {Date}
+   * @param {Domicile}
+   * @returns {number} - The local base time in format HHMM. For example, 0500, 0530, 0600, etc.
+   */
   function getLBTInHHMM (dutyStartTimeInZulu: Date, domicile: Domicile) {
     return Number.parseInt(formatInTimeZone(dutyStartTimeInZulu, timeZonesLBT[domicile], 'HHmm'));
   }

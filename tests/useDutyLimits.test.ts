@@ -19,22 +19,24 @@ describe('test duty limit logic', async () => {
     const domicile = 'MEM';
     const expectedLBT = 1300;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { scheduledDutyLimit, operationalDutyLimit, farDutyLimit, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
       scheduledDutyLimit: 13 * 60,
       operationalDutyLimit: 14.5 * 60,
       farDutyLimit: 16 * 60,
+      endOfScheduledDutyTime: new Date('2021-09-02T07:00:00Z'),
+      endOfOperationalDutyTime: new Date('2021-09-02T08:30:00Z'),
+      endOfFARDutyTime: new Date('2021-09-02T10:00:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-02T07:00:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-02T08:30:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T10:00:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(scheduledDutyLimit.value).toEqual(expectedDutyLimits.scheduledDutyLimit);
+    expect(operationalDutyLimit.value).toEqual(expectedDutyLimits.operationalDutyLimit);
+    expect(farDutyLimit.value).toEqual(expectedDutyLimits.farDutyLimit);
+    expect(endOfScheduledDutyTime.value).toEqual(expectedDutyLimits.endOfScheduledDutyTime);
+    expect(endOfOperationalDutyTime.value).toEqual(expectedDutyLimits.endOfOperationalDutyTime);
+    expect(endOfFARDutyTime.value).toEqual(expectedDutyLimits.endOfFARDutyTime);
   });
 
   it('day flight 1315 ANC showtime (should be 0515 LBT I think)', () => {
