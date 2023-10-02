@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { Domicile } from '~/sched-committee-types';
+import { Domicile, DutyLimitOptions } from '~/sched-committee-types';
 
 const dutyStartTimeZulu = ref<Date>(new Date());
 const domicile = ref<Domicile>('MEM');
+const options = ref<DutyLimitOptions>({
+  is2TripsWithOneOptional: false,
+  isDayRoomScheduledAndReserved: false,
+});
 
-const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile);
+const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
 </script>
 
@@ -19,7 +23,7 @@ const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile);
     </header>
     <main class="bg-white">
       <UCard>
-        <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:domicile="domicile" />
+        <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:domicile="domicile" v-model:options="options" />
         <domestic-duty-limit-results
           :based-on-time="dutyStartTimeZulu"
           :duty-limits="calculatedDutyLimits"

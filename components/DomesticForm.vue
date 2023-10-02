@@ -29,8 +29,8 @@
               }]"
             >
               <template #item="{ }">
-                <UCheckbox v-model="options.is2TripsWithOneOptional" name="Optional assignment" label="Optional assignment" help="2 trips with one as an optional assignment (eg. SON, SWP, PDO, VLT, DRF)" />
-                <UCheckbox v-model="options.isDayRoomScheduledAndReserved" name="Day room" label="Day room" help="Duty period contains flight segments with at least 4 hours between block-in and block-out and a day room is scheduled and reserved during that time" />
+                <UCheckbox :model-value="options.is2TripsWithOneOptional" name="Optional assignment" label="Optional assignment" help="2 trips with one as an optional assignment (eg. SON, SWP, PDO, VLT, DRF)" @update:model-value="(event) => handleOptionsUpdate({is2TripsWithOneOptional: event})" />
+                <UCheckbox :model-value="options.isDayRoomScheduledAndReserved" name="Day room" label="Day room" help="Duty period contains flight segments with at least 4 hours between block-in and block-out and a day room is scheduled and reserved during that time" @update:model-value="(event) => handleOptionsUpdate({isDayRoomScheduledAndReserved: event})" />
               </template>
             </UAccordion>
           </div>
@@ -53,9 +53,16 @@ const props = defineProps({
     type: String,
     default: 'MEM',
   },
+  options: {
+    type: Object as PropType<DutyLimitOptions>,
+    default: () => ({
+      is2TripsWithOneOptional: false,
+      isDayRoomScheduledAndReserved: false,
+    }),
+  },
 });
 
-const emit = defineEmits(['update:dutyStartTimeZulu', 'update:domicile']);
+const emit = defineEmits(['update:dutyStartTimeZulu', 'update:domicile', 'update:options']);
 
 // const dateStringFormat = 'yyyy-MM-dd';
 const todaysDateInDateStringFormat = props.dutyStartTimeZulu ? props.dutyStartTimeZulu.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
@@ -66,17 +73,21 @@ const timeInput = ref<string>(timeRightNowInTimeStringFormat);
 
 const domicileOptions : Domicile[] = ['MEM', 'IND', 'OAK', 'LAX', 'ANC', 'CGN'];
 
-const options = ref<DutyLimitOptions>({
-  is2TripsWithOneOptional: false,
-  isDayRoomScheduledAndReserved: false,
-});
-
-watchEffect(() => console.log(options.value.is2TripsWithOneOptional, options.value.isDayRoomScheduledAndReserved));
+watchEffect(() => console.log(props.options.is2TripsWithOneOptional, props.options.isDayRoomScheduledAndReserved));
 
 function handleDomicileUpdate (newDomicile: Domicile) {
   console.log(newDomicile);
   console.log('domicile updated');
   emit('update:domicile', newDomicile);
+}
+
+function handleOptionsUpdate (newOptions: DutyLimitOptions) {
+  console.log(newOptions);
+  console.log('options updated');
+  emit('update:options', {
+    ...props.options,
+    ...newOptions,
+  });
 }
 
 const updatedDutyStartTimeZulu = computed(() => {
