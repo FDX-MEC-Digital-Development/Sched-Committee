@@ -9,4 +9,15 @@ export interface DutyLimitOptions {
   layoverLength?: number
 }
 
+export interface DomesticDutyLimit {
+  dutyLimits: Ref<DutyLimits>;
+  scheduledDutyLimit: Ref<number>;
+  operationalDutyLimit: Ref<number>;
+  farDutyLimit: Ref<number>;
+  endOfScheduledDutyTime: Ref<Date>;
+  endOfOperationalDutyTime: Ref<Date>;
+  endOfFARDutyTime: Ref<Date>;
+  dutyStartTimeLBT: Ref<number>;
+};
+
 export type Domicile = 'MEM' | 'IND' | 'OAK' | 'LAX' | 'ANC' | 'CGN';

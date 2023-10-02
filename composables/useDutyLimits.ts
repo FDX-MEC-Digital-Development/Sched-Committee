@@ -1,6 +1,8 @@
 import { addMinutes, isValid } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { computed, toRef } from 'vue';
+// import { DomesticDutyLimit } from '../sched-committee-types';
+import { DomesticDutyLimit } from '../sched-committee-types';
 import type { Domicile, DutyLimitOptions } from '~/sched-committee-types';
 
 // Domestic duty limits in format [scheduled, operational, far]
@@ -22,7 +24,7 @@ const timeZonesLBT = {
   CGN: 'Europe/Berlin',
 } as const;
 
-export function useDutyLimits (dutyStartTimeZulu: MaybeRefOrGetter<Date>, domicile: MaybeRefOrGetter<Domicile>, options?: MaybeRefOrGetter<DutyLimitOptions>) {
+export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: MaybeRef<Domicile>, options?: MaybeRef<DutyLimitOptions>): DomesticDutyLimit {
   /**
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit?]: [number, number, number?] - in minutes
    */
@@ -46,12 +48,12 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRefOrGetter<Date>, domici
     return undefined;
   });
 
-  const scheduledDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.scheduledDutyLimit : undefined);
-  const operationalDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.operationalDutyLimit : undefined);
-  const farDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.farDutyLimit : undefined);
-  const endOfScheduledDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.scheduledDutyLimit) : undefined);
-  const endOfOperationalDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.operationalDutyLimit) : undefined);
-  const endOfFARDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.farDutyLimit) : undefined);
+  const scheduledDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.scheduledDutyLimit : 0);
+  const operationalDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.operationalDutyLimit : 0);
+  const farDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.farDutyLimit : 0);
+  const endOfScheduledDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.scheduledDutyLimit) : 0);
+  const endOfOperationalDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.operationalDutyLimit) : 0);
+  const endOfFARDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.farDutyLimit) : 0);
   /**
    *
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit]: [number, number, number] - in minutes

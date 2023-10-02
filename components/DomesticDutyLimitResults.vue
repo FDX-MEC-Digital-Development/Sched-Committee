@@ -5,7 +5,7 @@
         Duty limits
       </h3>
       <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-        Based on a duty start time of {{ formattedBasedOnDate }}, you have {{ dutyLimitType }} duty limits.
+        Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyLimits.dutyStartTimeLBT.value.toString().padStart(4,"0") }} LBT), you have {{ dutyLimitType }} duty limits.
       </p>
     </div>
     <div class="mt-6 border-t border-gray-100">
@@ -15,7 +15,7 @@
             Scheduled duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            {{ props.scheduledDutyLimit }} @ {{ format(props.scheduledDutyLimitTime, 'MM-dd-yy HH:mm') }}Z {{ timeUntilScheduledDutyLimit }}
+            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.scheduledDutyLimit.value" :duty-end-time-zulu="dutyLimits.endOfScheduledDutyTime.value" />
           </dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -23,7 +23,7 @@
             Operational duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            {{ props.operationalDutyLimit }}
+            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.operationalDutyLimit.value" :duty-end-time-zulu="dutyLimits.endOfOperationalDutyTime.value" />
           </dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -31,7 +31,7 @@
             FAR duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            {{ props.farDutyLimit }}
+            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.farDutyLimit.value" :duty-end-time-zulu="dutyLimits.endOfFARDutyTime.value" />
           </dd>
         </div>
 
@@ -71,53 +71,35 @@
 
 <script lang="ts" setup>
 import { format } from 'date-fns';
+import { PropType } from 'vue';
+import { DomesticDutyLimit } from '~/sched-committee-types';
 
 const props = defineProps({
   basedOnTime: {
     type: Date,
-    default: null,
+    required: true,
   },
-  dutyLimitType: {
-    type: String,
-    default: 'non-blended',
-  },
-  scheduledDutyLimit: {
-    type: String,
-    default: 'Not calculated yet',
-  },
-  operationalDutyLimit: {
-    type: String,
-    default: 'Not calculated yet',
-  },
-  farDutyLimit: {
-    type: String,
-    default: 'Not calculated yet',
-  },
-  scheduledDutyLimitTime: {
-    type: Date,
-    default: undefined,
-    required: false,
-
-  },
-  operationalDutyLimitTime: {
-    type: Date,
-    default: null,
-
-  },
-  farDutyLimitTime: {
-    type: Date,
-    default: null,
-
+  dutyLimits: {
+    type: Object as PropType<DomesticDutyLimit>,
+    required: true,
   },
 
 },
 );
 
 const formattedBasedOnDate = computed(() =>
-  props.basedOnTime?.toISOString().split('T')[0],
+  format(props.basedOnTime, 'MM-dd-yy HH:mm'),
+
 );
 
-const timeUntilScheduledDutyLimit = useTimeAgo(() => props.scheduledDutyLimitTime!);
+const dutyLimitType = computed(() =>
+  (props.dutyLimits.dutyStartTimeLBT.value >= 0 && props.dutyLimits.dutyStartTimeLBT.value <= 100) ||
+(props.dutyLimits.dutyStartTimeLBT.value >= 1515 && props.dutyLimits.dutyStartTimeLBT.value <= 1645) ||
+(props.dutyLimits.dutyStartTimeLBT.value >= 2230 && props.dutyLimits.dutyStartTimeLBT.value <= 2400)
+    ? 'blended'
+    : 'non-blended',
+);
+
 </script>
 
 <style>
