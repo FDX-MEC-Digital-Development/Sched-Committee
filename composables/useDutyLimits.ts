@@ -58,9 +58,9 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
    *
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit]: [number, number, number] - in minutes
    */
-  function calculateDomesticDutyLimit (dutyStartTime: Date, domicile: Domicile, options?: DutyLimitOptions) {
+  function calculateDomesticDutyLimit (dutyStartTime: Date, dom: Domicile, options?: DutyLimitOptions) {
     // get local time of duty start time based on domicile using timeZonesLBT using date-fns
-    const localDutyStartTime = getLBTInHHMM(dutyStartTime, domicile); // returns in format 0500, 0530, 0600, etc.
+    const localDutyStartTime = getLBTInHHMM(dutyStartTime, dom); // returns in format 0500, 0530, 0600, etc.
 
     if (options?.isInternational) { return undefined; }
 
@@ -87,15 +87,15 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
 
   /**
    * Returns the local base time in format HHMM based on the domicile.
-   * @param {Date}
-   * @param {Domicile}
+   * @param {Date} startTime - startTime in Zulu
+   * @param {Domicile} dom - domicile
    * @returns {number} - The local base time in format HHMM. For example, 0500, 0530, 0600, etc.
    */
-  function getLBTInHHMM (dutyStartTimeInZulu: Date, domicile: Domicile) {
-    return Number.parseInt(formatInTimeZone(dutyStartTimeInZulu, timeZonesLBT[domicile], 'HHmm'));
+  function getLBTInHHMM (startTime: Date, dom: Domicile) {
+    return Number.parseInt(formatInTimeZone(startTime, timeZonesLBT[dom], 'HHmm'));
   }
 
-  const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZuluRef.value, domicile));
+  const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZuluRef.value, domicileRef.value));
 
   return { dutyLimits, scheduledDutyLimit, operationalDutyLimit, farDutyLimit, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT };
 }

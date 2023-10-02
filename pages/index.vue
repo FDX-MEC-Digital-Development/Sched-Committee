@@ -18,11 +18,13 @@ const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile);
       </div>
     </header>
     <main class="bg-white">
-      <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" :domicile="domicile" />
-      <domestic-duty-limit-results
-        :based-on-time="dutyStartTimeZulu"
-        :duty-limits="calculatedDutyLimits"
-      />
+      <UCard>
+        <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:domicile="domicile" />
+        <domestic-duty-limit-results
+          :based-on-time="dutyStartTimeZulu"
+          :duty-limits="calculatedDutyLimits"
+        />
+      </UCard>
     </main>
   </div>
 </template>

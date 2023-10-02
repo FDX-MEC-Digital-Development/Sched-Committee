@@ -1,7 +1,7 @@
 <template>
   <UFormGroup label="Duty start time" name="dutyStart">
-    <UInput icon="i-heroicons-calendar" type="date" trailing :model-value="date" @update:model-value="handleDateUpdate" />
-    <UInput icon="i-heroicons-clock" type="time" trailing :model-value="time" @update:model-value="handleTimeUpdate" />
+    <UInput type="date" trailing :model-value="date" @update:model-value="handleDateUpdate" />
+    <UInput type="time" trailing :model-value="time" @update:model-value="handleTimeUpdate" />
   </UFormGroup>
 </template>
 

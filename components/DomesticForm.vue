@@ -80,7 +80,7 @@ function handleDomicileUpdate (newDomicile: Domicile) {
 }
 
 const updatedDutyStartTimeZulu = computed(() => {
-  const newDate = new Date(`${dateInput.value}T${timeInput.value}`);
+  const newDate = new Date(`${dateInput.value}T${timeInput.value}Z`);
   return newDate;
 });
 

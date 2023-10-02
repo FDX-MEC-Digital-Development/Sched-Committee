@@ -7,8 +7,9 @@
             <div class="flex items-center">
               <div class="flex-shrink-0">
                 <img
-                  class="h-8 w-8"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  class="h-14 w-14"
+
+                  src="../assets/thumbnail_scheduling logo crop2.0.png"
                   alt="Your Company"
                 >
               </div>
