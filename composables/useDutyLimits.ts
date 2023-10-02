@@ -22,18 +22,15 @@ const timeZonesLBT = {
   CGN: 'Europe/Berlin',
 } as const;
 
-export function useDutyLimits(dutyStartTimeZulu: Date, domicile: Domicile, options?: DutyLimitOptions) {
+export function useDutyLimits (dutyStartTimeZulu: Date, domicile: Domicile, options?: DutyLimitOptions) {
   /**
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit?]: [number, number, number?] - in minutes
    */
   const dutyLimits = computed(() => {
-    if (!dutyStartTimeZulu || !domicile)
-      return undefined;
-    if (!isValid(dutyStartTimeZulu))
-      return undefined;
+    if (!dutyStartTimeZulu || !domicile) { return undefined; }
+    if (!isValid(dutyStartTimeZulu)) { return undefined; }
 
-    if (!options?.isInternational)
-      return calculateDomesticDutyLimit(dutyStartTimeZulu, domicile, options);
+    if (!options?.isInternational) { return calculateDomesticDutyLimit(dutyStartTimeZulu, domicile, options); }
 
     return undefined;
   });
@@ -45,31 +42,26 @@ export function useDutyLimits(dutyStartTimeZulu: Date, domicile: Domicile, optio
    *
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit]: [number, number, number] - in minutes
    */
-  function calculateDomesticDutyLimit(dutyStartTime: Date, domicile: Domicile, options?: DutyLimitOptions) {
+  function calculateDomesticDutyLimit (dutyStartTime: Date, domicile: Domicile, options?: DutyLimitOptions) {
     // get local time of duty start time based on domicile using timeZonesLBT using date-fns
     const localDutyStartTime = getLBTInHHMM(dutyStartTime, domicile); // returns in format 0500, 0530, 0600, etc.
 
-    if (options?.isInternational)
-      return undefined;
+    if (options?.isInternational) { return undefined; }
 
     if (localDutyStartTime < 1559) {
-      if (localDutyStartTime > 600)
-        return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
-      if (localDutyStartTime > 530)
-        return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
-      if (localDutyStartTime > 500)
-        return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      if (localDutyStartTime > 600) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
+      if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
+      if (localDutyStartTime > 500) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
     }
-    if (localDutyStartTime > 1600 || localDutyStartTime < 100)
-      return !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
+    if (localDutyStartTime > 1600 || localDutyStartTime < 100) { return !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL; }
     return !options?.is2TripsWithOneOptional ? CRITICAL_DUTY_LIMITS : CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
   }
 
-  function calculateEndOfDutyTime(dutyStartTimeZulu: Date, dutyLimitMinutes: number) {
+  function calculateEndOfDutyTime (dutyStartTimeZulu: Date, dutyLimitMinutes: number) {
     return dutyLimitMinutes ? addMinutes(new Date(dutyStartTimeZulu), dutyLimitMinutes) : undefined;
   }
 
-  function getLBTInHHMM(dutyStartTimeZulu: Date, domicile: Domicile) {
+  function getLBTInHHMM (dutyStartTimeZulu: Date, domicile: Domicile) {
     return Number.parseInt(formatInTimeZone(dutyStartTimeZulu, timeZonesLBT[domicile], 'HHmm'));
   }
 

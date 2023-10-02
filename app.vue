@@ -1,5 +1,7 @@
 <template>
-  <ion-app>
-    <ion-router-outlet />
-  </ion-app>
+  <div>
+    <AppHeader />
+    <NuxtPage />
+    <NavigationTabs />
+  </div>
 </template>

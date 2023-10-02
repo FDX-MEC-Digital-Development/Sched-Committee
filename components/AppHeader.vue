@@ -10,7 +10,7 @@
                   class="h-8 w-8"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                   alt="Your Company"
-                />
+                >
               </div>
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
@@ -25,8 +25,7 @@
                       'rounded-md px-3 py-2 text-sm font-medium',
                     ]"
                     :aria-current="item.current ? 'page' : undefined"
-                    >{{ item.name }}</a
-                  >
+                  >{{ item.name }}</a>
                 </div>
               </div>
             </div>
@@ -56,7 +55,7 @@
                         class="h-8 w-8 rounded-full"
                         :src="user.imageUrl"
                         alt=""
-                      />
+                      >
                     </HeadlessMenuButton>
                   </div>
                   <transition
@@ -81,8 +80,7 @@
                             active ? 'bg-gray-100' : '',
                             'block px-4 py-2 text-sm text-gray-700',
                           ]"
-                          >{{ item.name }}</a
-                        >
+                        >{{ item.name }}</a>
                       </HeadlessMenuItem>
                     </HeadlessMenuItems>
                   </transition>
@@ -126,8 +124,9 @@
                 'block rounded-md px-3 py-2 text-base font-medium',
               ]"
               :aria-current="item.current ? 'page' : undefined"
-              >{{ item.name }}</HeadlessDisclosureButton
             >
+              {{ item.name }}
+            </HeadlessDisclosureButton>
           </div>
           <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
@@ -136,7 +135,7 @@
                   class="h-10 w-10 rounded-full"
                   :src="user.imageUrl"
                   alt=""
-                />
+                >
               </div>
               <div class="ml-3">
                 <div class="text-base font-medium leading-none text-white">
@@ -166,8 +165,9 @@
                 as="a"
                 :href="item.href"
                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                >{{ item.name }}</HeadlessDisclosureButton
               >
+                {{ item.name }}
+              </HeadlessDisclosureButton>
             </div>
           </div>
         </HeadlessDisclosurePanel>
