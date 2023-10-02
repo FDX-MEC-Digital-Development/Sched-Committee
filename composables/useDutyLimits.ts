@@ -66,6 +66,24 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
 
     console.log({ localDutyStartTime });
 
+    if (localDutyStartTime < 1645 && localDutyStartTime > 1545 && !options?.isDayRoomScheduledAndReserved) {
+      const slopeAdjustment = Math.abs(localDutyStartTime - 1645);
+      const startingDutyLimits = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingDutyLimits[0] - slopeAdjustment;
+      return [blendedScheduledDutyLimit, startingDutyLimits[1], startingDutyLimits[2]];
+    } else if ((localDutyStartTime < 100 || localDutyStartTime > 2230) && options?.isDayRoomScheduledAndReserved) {
+      const adjustedStartTimeForDayTransition = localDutyStartTime < 100 ? localDutyStartTime + 2400 : localDutyStartTime;
+      const slopeAdjustment = Math.abs(adjustedStartTimeForDayTransition - 2230);
+      const startingDutyLimits = !options?.is2TripsWithOneOptional ? NIGHT_DUTY_LIMITS : NIGHT_DUTY_LIMITS_WTIH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingDutyLimits[0] - slopeAdjustment;
+      return [blendedScheduledDutyLimit, startingDutyLimits[1], startingDutyLimits[2]];
+    } else if (localDutyStartTime < 530 && localDutyStartTime > 500 && !options?.isDayRoomScheduledAndReserved) {
+      const slopeAdjustment = Math.abs(localDutyStartTime - 530) * 4; // 30 minutes is 2 hours
+      const startingDutyLimits = !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const blendedScheduledDutyLimit = startingDutyLimits[0] - 2 * 60 + slopeAdjustment;
+      return [blendedScheduledDutyLimit, startingDutyLimits[1], startingDutyLimits[2]];
+    }
+
     if (localDutyStartTime < 1559) {
       if (localDutyStartTime > 600) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
       if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DAY_DUTY_LIMITS_WITH_OPTIONAL; }
