@@ -34,7 +34,6 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, domicile: Mayb
   const optionsRef = toRef(options);
 
   const dutyLimits = computed(() => {
-    console.log(dutyStartTimeZuluRef.value);
     if (!dutyStartTimeZuluRef.value || !domicileRef.value) { return undefined; }
     if (!isValid(dutyStartTimeZuluRef.value)) { return undefined; }
 

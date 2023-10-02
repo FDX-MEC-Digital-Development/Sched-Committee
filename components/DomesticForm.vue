@@ -76,14 +76,10 @@ const domicileOptions : Domicile[] = ['MEM', 'IND', 'OAK', 'LAX', 'ANC', 'CGN'];
 watchEffect(() => console.log(props.options.is2TripsWithOneOptional, props.options.isDayRoomScheduledAndReserved));
 
 function handleDomicileUpdate (newDomicile: Domicile) {
-  console.log(newDomicile);
-  console.log('domicile updated');
   emit('update:domicile', newDomicile);
 }
 
 function handleOptionsUpdate (newOptions: DutyLimitOptions) {
-  console.log(newOptions);
-  console.log('options updated');
   emit('update:options', {
     ...props.options,
     ...newOptions,
