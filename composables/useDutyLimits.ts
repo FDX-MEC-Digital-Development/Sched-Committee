@@ -46,6 +46,8 @@ export function useDutyLimits (dutyStartTimeZulu: Ref<Date>, domicile: Ref<Domic
   });
 
   const scheduledDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.scheduledDutyLimit : undefined);
+  const operationalDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.operationalDutyLimit : undefined);
+  const farDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.farDutyLimit : undefined);
   const endOfScheduledDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.scheduledDutyLimit) : undefined);
   const endOfOperationalDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.operationalDutyLimit) : undefined);
   const endOfFARDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.farDutyLimit) : undefined);
@@ -80,5 +82,5 @@ export function useDutyLimits (dutyStartTimeZulu: Ref<Date>, domicile: Ref<Domic
 
   const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZuluRef.value, domicile));
 
-  return { dutyLimits, scheduledDutyLimit, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT };
+  return { dutyLimits, scheduledDutyLimit, operationalDutyLimit, farDutyLimit, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT };
 }

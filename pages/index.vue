@@ -8,7 +8,7 @@ const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile);
 const formattedDutyLimits = computed(() =>
 // format number of minutes to hours
   // (calculatedDutyLimits.dutyLimits.value?.scheduledDutyLimit ? calculatedDutyLimits.dutyLimits.value.scheduledDutyLimit / 60 : 0).toString(),
-  calculatedDutyLimits.scheduledDutyLimit.value?.toString(),
+  calculatedDutyLimits.scheduledDutyLimit.value ? `${(calculatedDutyLimits.scheduledDutyLimit.value / 60).toString()} hours` : 'Not calculated yet',
 
 );
 
@@ -27,6 +27,7 @@ const formattedDutyLimits = computed(() =>
       <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" :domicile="domicile" />
       <domestic-duty-limit-results
         :scheduled-duty-limit="formattedDutyLimits"
+        :scheduled-duty-limit-time="calculatedDutyLimits.endOfScheduledDutyTime.value"
       />
     </main>
   </div>

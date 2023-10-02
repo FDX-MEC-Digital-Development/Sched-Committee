@@ -15,7 +15,7 @@
             Scheduled duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            {{ props.scheduledDutyLimit }}
+            {{ props.scheduledDutyLimit }} @ {{ format(props.scheduledDutyLimitTime, 'MM-dd-yy HH:mm') }}Z {{ timeUntilScheduledDutyLimit }}
           </dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -70,6 +70,7 @@
 </template>
 
 <script lang="ts" setup>
+import { format } from 'date-fns';
 
 const props = defineProps({
   basedOnTime: {
@@ -94,7 +95,8 @@ const props = defineProps({
   },
   scheduledDutyLimitTime: {
     type: Date,
-    default: null,
+    default: undefined,
+    required: false,
 
   },
   operationalDutyLimitTime: {
@@ -115,6 +117,7 @@ const formattedBasedOnDate = computed(() =>
   props.basedOnTime?.toISOString().split('T')[0],
 );
 
+const timeUntilScheduledDutyLimit = useTimeAgo(() => props.scheduledDutyLimitTime!);
 </script>
 
 <style>
