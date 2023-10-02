@@ -7,7 +7,8 @@ const domicile = ref<Domicile>('MEM');
 const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile);
 const formattedDutyLimits = computed(() =>
 // format number of minutes to hours
-  (calculatedDutyLimits.dutyLimits.value?.scheduledDutyLimit ? calculatedDutyLimits.dutyLimits.value.scheduledDutyLimit / 60 : 0).toString(),
+  // (calculatedDutyLimits.dutyLimits.value?.scheduledDutyLimit ? calculatedDutyLimits.dutyLimits.value.scheduledDutyLimit / 60 : 0).toString(),
+  calculatedDutyLimits.scheduledDutyLimit.value?.toString(),
 
 );
 
