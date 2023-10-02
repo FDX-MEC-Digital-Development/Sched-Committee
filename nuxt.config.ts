@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  colorMode: {
+    preference: 'light',
+  },
+
   devtools: { enabled: true },
   modules: [
     // Simple usage
@@ -7,7 +11,7 @@ export default defineNuxtConfig({
     // '@nuxtjs/tailwindcss',
     'nuxt-icon',
     'nuxt-headlessui',
-    '@nuxtjs/ionic',
+    // '@nuxtjs/ionic',
     '@vueuse/nuxt',
     '@nuxt/ui',
   ],
@@ -18,4 +22,5 @@ export default defineNuxtConfig({
     prefix: 'Headless',
   },
   ssr: false,
+
 });

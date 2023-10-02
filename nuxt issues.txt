@@ -1,0 +1,2 @@
+    defineNuxtConfig is not defined
+    Trying to theme NuxtUI: defineAppConfig is not defined
