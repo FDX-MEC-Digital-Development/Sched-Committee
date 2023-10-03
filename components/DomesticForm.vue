@@ -2,14 +2,7 @@
   <form>
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
-        <h2 class="text-base font-semibold leading-7 text-gray-900">
-          Duty Limits
-        </h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600">
-          Use this tool to calulate scheduled, operational, and FAR duty limits.
-        </p>
-
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-4">
             <date-time-form v-model:date="dateInput" v-model:time="timeInput" />
           </div>
@@ -72,8 +65,6 @@ const dateInput = ref<string>(todaysDateInDateStringFormat);
 const timeInput = ref<string>(timeRightNowInTimeStringFormat);
 
 const domicileOptions : Domicile[] = ['MEM', 'IND', 'OAK', 'LAX', 'ANC', 'CGN'];
-
-watchEffect(() => console.log(props.options.is2TripsWithOneOptional, props.options.isDayRoomScheduledAndReserved));
 
 function handleDomicileUpdate (newDomicile: Domicile) {
   emit('update:domicile', newDomicile);

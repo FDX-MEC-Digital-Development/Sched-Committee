@@ -9,6 +9,12 @@ export interface DutyLimitOptions {
   layoverLength?: number
 }
 
+export interface DutyLimits {
+  scheduledDutyLimit: number,
+  operationalDutyLimit: number,
+  farDutyLimit: number,
+}
+
 export interface DomesticDutyLimit {
   dutyLimits: Ref<DutyLimits>;
   scheduledDutyLimit: Ref<number>;

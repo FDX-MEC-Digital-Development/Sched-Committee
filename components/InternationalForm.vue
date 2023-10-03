@@ -2,35 +2,20 @@
   <form>
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
-        <h2 class="text-base font-semibold leading-7 text-gray-900">
-          Duty Limits
-        </h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600">
-          Use this tool to calulate scheduled, operational, and FAR duty limits.
-        </p>
-
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-4">
             <date-time-form v-model:date="dateInput" v-model:time="timeInput" />
+            <p>{{ options.isGrid }}</p>
           </div>
-
-          <div class="col-span-full">
-            <UAccordion
-              :items="[{
-                label: 'Options',
-                icon: 'i-heroicons-chevron-down',
-                defaultOpen: false,
-
-              }]"
-            >
-              <template #item="{ }">
-                <UCheckbox :model-value="options.isGrid" name="Grid" label="Grid" help="Trip starts more than 96 hours from now" @update:model-value="(event) => handleOptionsUpdate({isGrid: event})" />
-                <UCheckbox :model-value="options.isInboundFlightSegmentGreaterThan5HoursTZD" name="Inbound flight segment > 5 hours" label="Inbound flight segment > 5 hours" help="Inbound flight segment > 5 hours" @update:model-value="(event) => handleOptionsUpdate({isInboundFlightSegmentGreaterThan5HoursTZD: event})" />
-                <UCheckbox :model-value="options.crewNumberOfPilots === 3" name="3 pilots" label="3 pilots" help="3 pilots" @update:model-value="(event) => handleOptionsUpdate({crewNumberOfPilots: event ? 3 : 2})" />
-                <UCheckbox :model-value="options.layoverLength === 36" name="Layover length > 36 hours" label="Layover length > 36 hours" help="Layover length > 36 hours" @update:model-value="(event) => handleOptionsUpdate({layoverLength: event ? 36 : 0})" />
-              </template>
-            </UAccordion>
-          </div>
+          <UFormGroup label="Number of Pilots" class="sm:col-span-4">
+            <USelect :model-value="options.crewNumberOfPilots" label="Number of pilots" :options="[2,3,4]" @update:model-value="(event) =>handleOptionsUpdate({crewNumberOfPilots: event})" />
+          </UFormGroup>
+          <UFormGroup label="Inbound flight segment" class="sm:col-span-4">
+            <UCheckbox :model-value="options.isInboundFlightSegmentGreaterThan5HoursTZD" name="Greater than 5 hours time zone difference" label="Greater than 5 hours time zone difference" @update:model-value="(event) => handleOptionsUpdate({isInboundFlightSegmentGreaterThan5HoursTZD: event})" />
+          </UFormGroup>
+          <UFormGroup label="Layover length (hours)" class="sm:col-span-4">
+            <UInput type="number" :model-value="options.layoverLength" @update:model-value="(event: string)=>handleOptionsUpdate({layoverLength: parseInt(event)})" />
+          </UFormGroup>
         </div>
       </div>
     </div>
@@ -59,11 +44,15 @@ const props = defineProps({
   },
 });
 
+watchEffect(() => console.log(props.options));
+
 const emit = defineEmits(['update:dutyStartTimeZulu', 'update:options']);
 
 // const dateStringFormat = 'yyyy-MM-dd';
 const todaysDateInDateStringFormat = props.dutyStartTimeZulu ? props.dutyStartTimeZulu.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
 const timeRightNowInTimeStringFormat = props.dutyStartTimeZulu ? props.dutyStartTimeZulu.toISOString().split('T')[1].split('.')[0] : new Date().toISOString().split('T')[1].split('.')[0];
+
+const hoursUntilUpdatedDutyStartTimeZulu = computed(() => isValid(updatedDutyStartTimeZulu.value) ? ((updatedDutyStartTimeZulu.value.getTime() - (new Date()).getTime()) / 1000 / 60 / 60) : undefined);
 
 const dateInput = ref<string>(todaysDateInDateStringFormat);
 const timeInput = ref<string>(timeRightNowInTimeStringFormat);
@@ -84,6 +73,8 @@ watchEffect(() => {
   console.log(`Updating dutyStartTimeZulu to ${updatedDutyStartTimeZulu.value}`);
 
   if (isValid(updatedDutyStartTimeZulu.value)) {
+    const isGrid = hoursUntilUpdatedDutyStartTimeZulu?.value && hoursUntilUpdatedDutyStartTimeZulu.value > 96;
+    emit('update:options', { isGrid });
     emit('update:dutyStartTimeZulu', updatedDutyStartTimeZulu.value);
   }
 })

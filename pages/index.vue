@@ -27,6 +27,15 @@ const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options)
       </div>
     </header>
     <main class="bg-white">
+      <UCard>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">
+          Duty Limits
+        </h2>
+        <p class="mt-1 text-sm leading-6 text-gray-600">
+          Use this tool to calulate scheduled, operational, and FAR duty limits.
+        </p>
+      </UCard>
+
       <DomesticInternationalTabs v-model:is-international="options.isInternational" />
       <UCard v-if="options.isInternational == false">
         <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:domicile="domicile" v-model:options="options" />
