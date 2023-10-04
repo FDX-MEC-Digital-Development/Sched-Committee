@@ -6,7 +6,7 @@ const options = ref<DutyLimitOptions>({
   is2TripsWithOneOptional: false,
   isDayRoomScheduledAndReserved: false,
   isInternational: false,
-  isGrid: false, // "grid" means the trip starts more than 96 hours from now
+  isGrid: false, // true means the trip starts more than 96 hours from now
   isInboundFlightSegmentGreaterThan5HoursTZD: false,
   crewNumberOfPilots: 2,
   layoverLength: 36,
@@ -34,6 +34,9 @@ const dutyLimits = useDutyLimits(dutyStartTimeZulu, options);
         <p class="mt-1 text-sm leading-6 text-gray-600">
           Use this tool to calulate scheduled, operational, and FAR duty limits.
         </p>
+      </UCard>
+      <UCard>
+        <DateTimePicker v-model:date="dutyStartTimeZulu" />
       </UCard>
 
       <DomesticInternationalTabs v-model:is-international="options.isInternational" />

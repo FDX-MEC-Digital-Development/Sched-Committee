@@ -3,10 +3,6 @@
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
         <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="sm:col-span-4">
-            <date-time-form v-model:date="dateInput" v-model:time="timeInput" />
-          </div>
-
           <div class="col-span-full">
             <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
             <USelect :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
