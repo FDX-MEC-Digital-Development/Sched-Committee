@@ -6,7 +6,7 @@
           Duty limits
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyLimits.dutyStartTimeLBT.value.toString().padStart(4,"0") }} LBT), you have {{ dutyLimitType }} duty limits.
+          Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyLimits.dutyStartTimeLBT.value.toString().padStart(4,"0") }} LBT), you have {{ dayNightOrCritical }} {{ dutyLimitType }} duty limits.
         </p>
       </div>
     </Transition>
@@ -24,7 +24,7 @@
 
             @enter="onEnter"
           >
-            <div :data-index="index">
+            <div :data-index="index" class="stagger-list">
               <dt class="text-sm font-medium leading-6 text-gray-900">
                 {{ dutyLimit.label }}
               </dt>
@@ -92,6 +92,15 @@ const formattedBasedOnDate = computed(() =>
 
 );
 
+// output 'day', 'night', or 'critical' based on the duty start time (0500-1559 LBT), (1600-0059 LBT), else
+const dayNightOrCritical = computed(() =>
+  props.dutyLimits.dutyStartTimeLBT.value >= 500 && props.dutyLimits.dutyStartTimeLBT.value <= 1559
+    ? 'day'
+    : (props.dutyLimits.dutyStartTimeLBT.value >= 1600 && props.dutyLimits.dutyStartTimeLBT.value <= 2359) || props.dutyLimits.dutyStartTimeLBT.value < 100
+        ? 'night'
+        : 'critical',
+);
+
 const dutyLimitType = computed(() =>
   (props.dutyLimits.dutyStartTimeLBT.value >= 0 && props.dutyLimits.dutyStartTimeLBT.value <= 100) ||
 (props.dutyLimits.dutyStartTimeLBT.value >= 1515 && props.dutyLimits.dutyStartTimeLBT.value <= 1645) ||
@@ -128,22 +137,31 @@ function onEnter (event: any) {
     translateX: [50, 0],
     opacity: [0, 1],
     scale: [1.2, 1],
-    delay: event.dataset.index * 1000,
+    delay: event.dataset.index * 500 + 500,
+    easing: 'easeInQuad',
+    duration: 500,
+  });
+/*   $anime({
+    targets: '.stagger-list',
+    translateX: [50, 0],
+    opacity: [0, 1],
+    scale: [1.2, 1],
+    delay: $anime.stagger(1000, { start: 1000 }),
     easing: 'easeInQuad',
     duration: 1000,
-  });
+  }); */
 }
 
 </script>
 
 <style>
 .fade-enter-active{
-  transition: all 1s ease;
+  transition: all 0.5s ease-in-out;
 }
 
 .fade-enter-from
 {
-  transform: translateY(50px) scale(1.2);
+  transform: translateY(-50px) scale(1.2);
 
   opacity: 0;
 }
