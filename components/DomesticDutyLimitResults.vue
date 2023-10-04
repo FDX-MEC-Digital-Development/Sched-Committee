@@ -95,7 +95,8 @@ const formattedBasedOnDate = computed(() =>
 const dutyLimitType = computed(() =>
   (props.dutyLimits.dutyStartTimeLBT.value >= 0 && props.dutyLimits.dutyStartTimeLBT.value <= 100) ||
 (props.dutyLimits.dutyStartTimeLBT.value >= 1515 && props.dutyLimits.dutyStartTimeLBT.value <= 1645) ||
-(props.dutyLimits.dutyStartTimeLBT.value >= 2230 && props.dutyLimits.dutyStartTimeLBT.value <= 2400)
+(props.dutyLimits.dutyStartTimeLBT.value >= 2230 && props.dutyLimits.dutyStartTimeLBT.value <= 2400) ||
+(props.dutyLimits.dutyStartTimeLBT.value >= 500 && props.dutyLimits.dutyStartTimeLBT.value <= 530)
     ? 'blended'
     : 'non-blended',
 );
