@@ -19,24 +19,19 @@ describe('test duty limit logic', async () => {
     const domicile = 'MEM';
     const expectedLBT = 1300;
 
-    const { domesticDutyTimes } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 13 * 60,
-      operationalDutyLimit: 14.5 * 60,
-      farDutyLimit: 16 * 60,
-      endOfScheduledDutyTime: new Date('2021-09-02T07:00:00Z'),
-      endOfOperationalDutyTime: new Date('2021-09-02T08:30:00Z'),
-      endOfFARDutyTime: new Date('2021-09-02T10:00:00Z'),
+      scheduled: 13 * 60,
+      operational: 14.5 * 60,
+      far: 16 * 60,
+      endOfScheduledDutyDate: new Date('2021-09-02T07:00:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T08:30:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T10:00:00Z'),
     };
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(scheduledDutyLimit.value).toEqual(expectedDutyLimits.scheduledDutyLimit);
-    expect(operationalDutyLimit.value).toEqual(expectedDutyLimits.operationalDutyLimit);
-    expect(farDutyLimit.value).toEqual(expectedDutyLimits.farDutyLimit);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedDutyLimits.endOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedDutyLimits.endOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedDutyLimits.endOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('day flight 1315 ANC showtime (should be 0515 LBT I think)', () => {
@@ -45,22 +40,20 @@ describe('test duty limit logic', async () => {
     const domicile = 'ANC';
     const expectedLBT = 515;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 12 * 60,
-      operationalDutyLimit: 13.5 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 12 * 60,
+      operational: 13.5 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-02T01:15:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T02:45:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T05:15:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-02T01:15:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-02T02:45:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T05:15:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('day flight 1045Z MEM showtime (should be 0545 LBT I think)', () => {
@@ -68,22 +61,19 @@ describe('test duty limit logic', async () => {
     const domicile = 'MEM';
     const expectedLBT = 545;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 13 * 60,
-      operationalDutyLimit: 14 * 60,
-      farDutyLimit: 16 * 60,
-    };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T23:45:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-02T00:45:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T02:45:00Z');
+      scheduled: 13 * 60,
+      operational: 14 * 60,
+      far: 16 * 60,
 
+      endOfScheduledDutyDate: new Date('2021-09-01T23:45:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T00:45:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T02:45:00Z'),
+    };
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('day flight 1045Z MEM showtime with one optional (should be 0545 LBT I think)', () => {
@@ -92,22 +82,20 @@ describe('test duty limit logic', async () => {
     const options = { is2TripsWithOneOptional: true };
     const expectedLBT = 545;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 13.5 * 60,
-      operationalDutyLimit: 15 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 13.5 * 60,
+      operational: 15 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-02T00:15:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T01:45:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T02:45:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-02T00:15:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-02T01:45:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T02:45:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('day flight 1800Z MEM showtime with 2 trips and one optional', () => {
@@ -116,22 +104,20 @@ describe('test duty limit logic', async () => {
     const options = { is2TripsWithOneOptional: true };
     const expectedLBT = 1300;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 13.5 * 60,
-      operationalDutyLimit: 15 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 13.5 * 60,
+      operational: 15 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-02T07:30:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T09:00:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T10:00:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-02T07:30:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-02T09:00:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T10:00:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('night flight 0500Z IND showtime (should be 0000LBT I think)', () => {
@@ -139,22 +125,20 @@ describe('test duty limit logic', async () => {
     const domicile = 'IND';
     const expectedLBT = 0;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 10 * 60,
-      operationalDutyLimit: 13 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 10 * 60,
+      operational: 13 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-01T15:00:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-01T18:00:00Z'),
+      endOfFARDutyDate: new Date('2021-09-01T21:00:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T15:00:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-01T18:00:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-01T21:00:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('night flight 0500Z IND showtime with 2 trips and one optional (should be 0000LBT I think)', () => {
@@ -164,22 +148,20 @@ describe('test duty limit logic', async () => {
     const options = { is2TripsWithOneOptional: true };
     const expectedLBT = 0;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 11.5 * 60,
-      operationalDutyLimit: 14.5 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 11.5 * 60,
+      operational: 14.5 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-01T16:30:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-01T19:30:00Z'),
+      endOfFARDutyDate: new Date('2021-09-01T21:00:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T16:30:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-01T19:30:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-01T21:00:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('critical flight 1000Z OAK showtime (should be 0300LBT I think)', () => {
@@ -187,22 +169,20 @@ describe('test duty limit logic', async () => {
     const domicile = 'OAK';
     const expectedLBT = 300;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 9 * 60,
-      operationalDutyLimit: 10.5 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 9 * 60,
+      operational: 10.5 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-01T19:00:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-01T20:30:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T02:00:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T19:00:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-01T20:30:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T02:00:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
   it('critical flight 1000Z OAK showtime with 2 trips and one optional (should be 0300LBT I think)', () => {
@@ -211,21 +191,19 @@ describe('test duty limit logic', async () => {
     const options = { is2TripsWithOneOptional: true };
     const expectedLBT = 300;
 
-    const { dutyLimits, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
     const expectedDutyLimits = {
-      scheduledDutyLimit: 9 * 60,
-      operationalDutyLimit: 10.5 * 60,
-      farDutyLimit: 16 * 60,
+      scheduled: 9 * 60,
+      operational: 10.5 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-01T19:00:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-01T20:30:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T02:00:00Z'),
     };
-    const expectedEndOfScheduledDutyTime = new Date('2021-09-01T19:00:00Z');
-    const expectedEndOfOperationalDutyTime = new Date('2021-09-01T20:30:00Z');
-    const expectedEndOfFARDutyTime = new Date('2021-09-02T02:00:00Z');
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(dutyLimits.value).toEqual(expectedDutyLimits);
-    expect(endOfScheduledDutyTime.value).toEqual(expectedEndOfScheduledDutyTime);
-    expect(endOfOperationalDutyTime.value).toEqual(expectedEndOfOperationalDutyTime);
-    expect(endOfFARDutyTime.value).toEqual(expectedEndOfFARDutyTime);
+    expect(domestic.value).toEqual(expectedDutyLimits);
   });
 });
