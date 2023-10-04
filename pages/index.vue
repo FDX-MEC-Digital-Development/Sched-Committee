@@ -23,7 +23,9 @@
       <DomesticInternationalTabs v-model:is-international="options.isInternational" />
       <UCard>
         <template #header>
-          <component :is="domesticOrInternationalComponent" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
+          <transition :name="options.isInternational ? 'slide-left' : 'slide-right'">
+            <component :is="domesticOrInternationalComponent" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
+          </transition>
         </template>
         <UButton label="View Duty Limits" class="execute" @click="handleViewDutyLimits" />
         <template #footer>
@@ -107,5 +109,28 @@ async function handleViewDutyLimits () {
 
 </script>
 <style>
-
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.5s;
+}
+.slide-left-enter-from {
+position: absolute;
+  transform: translate(100%, 0);
+}
+.slide-left-leave-to {
+  position: absolute;
+  transform: translate(-100%, 0);
+  opacity: 0;
+}
+.slide-right-enter-from {
+  position: absolute;
+  transform: translate(-100%, 0);
+}
+.slide-right-leave-to {
+  position: absolute;
+  transform: translate(100%, 0);
+  opacity: 0;
+}
 </style>
