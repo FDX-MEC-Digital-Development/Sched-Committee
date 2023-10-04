@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Transition name="fade" appear>
+    <Transition name="fade-slide-down" appear>
       <div class="px-4 sm:px-0">
         <h3 class="text-base font-semibold leading-7 text-gray-900">
           Duty limits
@@ -10,19 +10,19 @@
         </p>
       </div>
     </Transition>
-    <div class="mt-6 border-t border-gray-100">
-      <dl class="divide-y divide-gray-100">
-        <div
-          v-for="(dutyLimit, index) in dutyLimitsDisplay"
-          :key="`dutyLimit${index}`"
-          class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
-        >
-          <Transition
-            ref="dutyLimitList"
-            appear
-            :css="false"
+    <Transition
+      ref="dutyLimitList"
 
-            @enter="onEnter"
+      name="fade"
+      appear
+      @enter="onEnter"
+    >
+      <div class="mt-6 border-t border-gray-100">
+        <dl class="divide-y divide-gray-100">
+          <div
+            v-for="(dutyLimit, index) in dutyLimitsDisplay"
+            :key="`dutyLimit${index}`"
+            class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
           >
             <div :data-index="index" class="stagger-list">
               <dt class="text-sm font-medium leading-6 text-gray-900">
@@ -32,40 +32,13 @@
                 <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
               </dd>
             </div>
-          </Transition>
-        </div>
+          </div>
 
-        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt class="text-sm font-medium leading-6 text-gray-900">
-            Disclaimer
-          </dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
-          </dd>
-        </div>
-        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt class="text-sm font-medium leading-6 text-gray-900">
-            CBA reference
-          </dt>
-          <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-            <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-              <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                <div class="flex w-0 flex-1 items-center">
-                  <UIcon name="i-heroicons-document-text" class="flex-shrink-0 h-5 w-5 text-gray-400" />
-                  <div class="ml-4 flex min-w-0 flex-1 gap-2">
-                    <span class=" font-medium">CBA 12.C</span>
-                    <span class="flex-shrink-0 text-gray-400">External site</span>
-                  </div>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                  <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">View</a>
-                </div>
-              </li>
-            </ul>
-          </dd>
-        </div>
-      </dl>
-    </div>
+          <DutyLimitDisclaimer />
+          <CBAReference />
+        </dl>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -131,8 +104,8 @@ const dutyLimitsDisplay = computed(() => ([
 const dutyLimitList = ref();
 const { $anime } = useNuxtApp();
 // const onEnter = (event: any) => console.log(`here${event}`);
-function onEnter (event: any) {
-  $anime({
+function onEnter () {
+/*   $anime({
     targets: event,
     translateX: [50, 0],
     opacity: [0, 1],
@@ -140,29 +113,37 @@ function onEnter (event: any) {
     delay: event.dataset.index * 500 + 500,
     easing: 'easeInQuad',
     duration: 500,
-  });
-/*   $anime({
+  }); */
+  $anime({
     targets: '.stagger-list',
     translateX: [50, 0],
     opacity: [0, 1],
-    scale: [1.2, 1],
-    delay: $anime.stagger(1000, { start: 1000 }),
+    scale: [0.6, 1],
+    delay: $anime.stagger(300, { start: 500 }),
     easing: 'easeInQuad',
-    duration: 1000,
-  }); */
+    duration: 500,
+  });
 }
 
 </script>
 
 <style>
-.fade-enter-active{
+.fade-slide-down-enter-active{
   transition: all 0.5s ease-in-out;
 }
 
-.fade-enter-from
+.fade-slide-down-enter-from
 {
   transform: translateY(-50px) scale(1.2);
 
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.fade-enter-from {
   opacity: 0;
 }
 
