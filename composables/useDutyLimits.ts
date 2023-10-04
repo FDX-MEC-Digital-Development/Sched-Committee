@@ -15,7 +15,7 @@ const DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL = [13 * 60, 14.5 * 60, 16 * 60];/
 const DOMESTIC_CRITICAL_DUTY_LIMITS = [9 * 60, 10.5 * 60, 16 * 60];
 const DOMESTIC_CRITICAL_DUTY_LIMITS_WITH_OPTIONAL = [9 * 60, 10.5 * 60, 16 * 60];
 
-/* const INTERNATIONAL_GRID_DUTY_LIMITS = {
+export const INTERNATIONAL_GRID_DUTY_LIMITS = {
   TZZof5OrMore: {
     twoPilots: {
       reset: [{
@@ -73,7 +73,7 @@ const DOMESTIC_CRITICAL_DUTY_LIMITS_WITH_OPTIONAL = [9 * 60, 10.5 * 60, 16 * 60]
     },
 
   },
-}; */
+};
 
 const timeZonesLBT = {
   MEM: 'America/Chicago',

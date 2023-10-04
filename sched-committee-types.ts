@@ -24,6 +24,17 @@ export interface DomesticDutyLimit {
     endOfFARDutyDate: Date;
 }
 
+export interface InternationalDutyLimit {
+    scheduled: number;
+    operational: number;
+
+    landings: number;
+    blockHours: number;
+
+    endOfScheduledDutyDate: Date;
+    endOfOperationalDutyDate: Date;
+}
+
 export interface DutyLimitsDeprecated {
   scheduledDutyLimit: number,
   operationalDutyLimit: number,
