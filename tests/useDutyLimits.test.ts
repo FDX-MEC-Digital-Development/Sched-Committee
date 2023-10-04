@@ -19,7 +19,7 @@ describe('test duty limit logic', async () => {
     const domicile = 'MEM';
     const expectedLBT = 1300;
 
-    const { scheduledDutyLimit, operationalDutyLimit, farDutyLimit, endOfScheduledDutyTime, endOfOperationalDutyTime, endOfFARDutyTime, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domesticDutyTimes } = useDutyLimits(dutyStartTimeZulu, domicile);
 
     const expectedDutyLimits = {
       scheduledDutyLimit: 13 * 60,

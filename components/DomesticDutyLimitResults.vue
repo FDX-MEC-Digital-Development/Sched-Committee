@@ -15,7 +15,7 @@
             Scheduled duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.scheduledDutyLimit.value" :duty-end-time-zulu="dutyLimits.endOfScheduledDutyTime.value" />
+            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.domestic.value.scheduled" :duty-end-time-zulu="dutyLimits.domestic.value.endOfScheduledDutyDate" />
           </dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -23,7 +23,7 @@
             Operational duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.operationalDutyLimit.value" :duty-end-time-zulu="dutyLimits.endOfOperationalDutyTime.value" />
+            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.domestic.value.operational" :duty-end-time-zulu="dutyLimits.domestic.value.endOfOperationalDutyDate" />
           </dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -31,7 +31,7 @@
             FAR duty limit
           </dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.farDutyLimit.value" :duty-end-time-zulu="dutyLimits.endOfFARDutyTime.value" />
+            <DutyLimitDisplay :duty-limit-in-minutes="dutyLimits.domestic.value.far" :duty-end-time-zulu="dutyLimits.domestic.value.endOfFARDutyDate" />
           </dd>
         </div>
 
@@ -72,7 +72,7 @@
 <script lang="ts" setup>
 import { format } from 'date-fns';
 import { PropType } from 'vue';
-import { DomesticDutyLimit } from '~/sched-committee-types';
+import { DutyLimits } from '~/sched-committee-types';
 
 const props = defineProps({
   basedOnTime: {
@@ -80,7 +80,7 @@ const props = defineProps({
     required: true,
   },
   dutyLimits: {
-    type: Object as PropType<DomesticDutyLimit>,
+    type: Object as PropType<DutyLimits>,
     required: true,
   },
 

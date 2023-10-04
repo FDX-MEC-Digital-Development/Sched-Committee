@@ -13,7 +13,7 @@ const options = ref<DutyLimitOptions>({
   layoverLength: 36,
 });
 
-const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options);
+const dutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
 </script>
 
@@ -41,7 +41,7 @@ const calculatedDutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options)
         <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:domicile="domicile" v-model:options="options" />
         <domestic-duty-limit-results
           :based-on-time="dutyStartTimeZulu"
-          :duty-limits="calculatedDutyLimits"
+          :duty-limits="dutyLimits"
         />
       </UCard>
       <UCard v-else>
