@@ -20,10 +20,12 @@ const selectedTabIndex = computed(() => {
 });
 
 function handleChange (event: number) {
+  console.log(event);
+  console.log(items[event].isInternational);
   emit('update:isInternational', items[event].isInternational);
 }
 </script>
 
 <template>
-  <UTabs :items="items" :model-value="selectedTabIndex" @change="handleChange" @update:model-value="handleChange" />
+  <UTabs :items="items" :model-value="selectedTabIndex" @change="handleChange" />
 </template>

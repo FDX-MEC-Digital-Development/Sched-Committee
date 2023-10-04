@@ -23,7 +23,7 @@
       <DomesticInternationalTabs v-model:is-international="options.isInternational" />
       <UCard>
         <template #header>
-          <component :is="options.isInternational ? InternationalForm : DomesticForm" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
+          <component :is="domesticOrInternationalComponent" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
         </template>
         <UButton label="View Duty Limits" class="execute" @click="handleViewDutyLimits" />
         <template #footer>
@@ -56,6 +56,18 @@ const options = ref<DutyLimitOptions>({
   domicile: 'MEM',
 });
 
+watchEffect(() => console.log(options.value));
+
+watchEffect(() => {
+  if (isValid(dutyStartTimeZulu.value)) {
+    const hoursUntilUpdatedDutyStartTimeZulu = ((dutyStartTimeZulu.value.getTime() - (new Date()).getTime()) / 1000 / 60 / 60);
+
+    const isGrid = (hoursUntilUpdatedDutyStartTimeZulu > 96);
+    options.value.isGrid = isGrid;
+  }
+})
+;
+
 const dutyLimits = useDutyLimits(dutyStartTimeZulu, options);
 const setDutyLimitsVisible = ref(false);
 
@@ -74,6 +86,8 @@ onMounted(() => {
     duration: 1000,
   });
 });
+
+const domesticOrInternationalComponent = computed(() => options.value.isInternational ? InternationalForm : DomesticForm);
 
 async function handleViewDutyLimits () {
   setDutyLimitsVisible.value = !setDutyLimitsVisible.value;

@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     preference: 'light',
   },
 
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: [
     // Simple usage
     '@nuxtjs/eslint-module',
