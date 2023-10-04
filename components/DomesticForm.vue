@@ -9,7 +9,7 @@
 
           <div class="col-span-full">
             <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
-            <USelect :model-value="domicile" :options="domicileOptions" @update:model-value="handleDomicileUpdate" />
+            <USelect :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
           </div>
 
           <div class="col-span-full">
@@ -42,10 +42,7 @@ const props = defineProps({
     type: Date,
     default: null,
   },
-  domicile: {
-    type: String,
-    default: 'MEM',
-  },
+
   options: {
     type: Object as PropType<DutyLimitOptions>,
     default: () => ({
@@ -65,10 +62,6 @@ const dateInput = ref<string>(todaysDateInDateStringFormat);
 const timeInput = ref<string>(timeRightNowInTimeStringFormat);
 
 const domicileOptions : Domicile[] = ['MEM', 'IND', 'OAK', 'LAX', 'ANC', 'CGN'];
-
-function handleDomicileUpdate (newDomicile: Domicile) {
-  emit('update:domicile', newDomicile);
-}
 
 function handleOptionsUpdate (newOptions: DutyLimitOptions) {
   emit('update:options', {

@@ -1,3 +1,5 @@
+export type Domicile = 'MEM' | 'IND' | 'OAK' | 'LAX' | 'ANC' | 'CGN';
+
 export interface DutyLimitOptions {
   isDayRoomScheduledAndReserved?: boolean
   is2Trips?: boolean
@@ -6,7 +8,8 @@ export interface DutyLimitOptions {
   isGrid?: boolean // "grid" means the trip starts more than 96 hours from now
   isInboundFlightSegmentGreaterThan5HoursTZD?: boolean
   crewNumberOfPilots?: number
-  layoverLength?: number
+  layoverLength?: number,
+  domicile?: Domicile
 }
 
 export interface DomesticDutyLimit {
@@ -32,5 +35,3 @@ export interface DutyLimits {
   dutyStartTimeLBT: Ref<number>;
 
 };
-
-export type Domicile = 'MEM' | 'IND' | 'OAK' | 'LAX' | 'ANC' | 'CGN';

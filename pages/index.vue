@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { Domicile, DutyLimitOptions } from '~/sched-committee-types';
+import { DutyLimitOptions } from '~/sched-committee-types';
 
 const dutyStartTimeZulu = ref<Date>(new Date());
-const domicile = ref<Domicile>('MEM');
 const options = ref<DutyLimitOptions>({
   is2TripsWithOneOptional: false,
   isDayRoomScheduledAndReserved: false,
@@ -11,9 +10,10 @@ const options = ref<DutyLimitOptions>({
   isInboundFlightSegmentGreaterThan5HoursTZD: false,
   crewNumberOfPilots: 2,
   layoverLength: 36,
+  domicile: 'MEM',
 });
 
-const dutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options);
+const dutyLimits = useDutyLimits(dutyStartTimeZulu, options);
 
 </script>
 
@@ -38,7 +38,7 @@ const dutyLimits = useDutyLimits(dutyStartTimeZulu, domicile, options);
 
       <DomesticInternationalTabs v-model:is-international="options.isInternational" />
       <UCard v-if="options.isInternational == false">
-        <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:domicile="domicile" v-model:options="options" />
+        <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:options="options" />
         <domestic-duty-limit-results
           :based-on-time="dutyStartTimeZulu"
           :duty-limits="dutyLimits"

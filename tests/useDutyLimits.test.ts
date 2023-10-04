@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { setup } from '@nuxt/test-utils';
 
 import { useDutyLimits } from '../composables/useDutyLimits';
+import { DutyLimitOptions } from '~/sched-committee-types';
 
 // npm run test
 
@@ -16,10 +17,10 @@ describe('test duty limit logic', async () => {
 
   it('day flight 1800Z MEM showtime', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T18:00:00Z');
-    const domicile = 'MEM';
+    const options: DutyLimitOptions = { domicile: 'MEM' };
     const expectedLBT = 1300;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 13 * 60,
@@ -37,10 +38,10 @@ describe('test duty limit logic', async () => {
   it('day flight 1315 ANC showtime (should be 0515 LBT I think)', () => {
     // blended duty limit
     const dutyStartTimeZulu = new Date('2021-09-01T13:15:00Z');
-    const domicile = 'ANC';
+    const options: DutyLimitOptions = { domicile: 'ANC' };
     const expectedLBT = 515;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 12 * 60,
@@ -58,10 +59,10 @@ describe('test duty limit logic', async () => {
 
   it('day flight 1045Z MEM showtime (should be 0545 LBT I think)', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T10:45:00Z');
-    const domicile = 'MEM';
+    const options: DutyLimitOptions = { domicile: 'MEM' };
     const expectedLBT = 545;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 13 * 60,
@@ -78,11 +79,10 @@ describe('test duty limit logic', async () => {
 
   it('day flight 1045Z MEM showtime with one optional (should be 0545 LBT I think)', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T10:45:00Z');
-    const domicile = 'MEM';
-    const options = { is2TripsWithOneOptional: true };
+    const options: DutyLimitOptions = { is2TripsWithOneOptional: true, domicile: 'MEM' };
     const expectedLBT = 545;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 13.5 * 60,
@@ -100,11 +100,11 @@ describe('test duty limit logic', async () => {
 
   it('day flight 1800Z MEM showtime with 2 trips and one optional', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T18:00:00Z');
-    const domicile = 'MEM';
-    const options = { is2TripsWithOneOptional: true };
+
+    const options: DutyLimitOptions = { is2TripsWithOneOptional: true, domicile: 'MEM' };
     const expectedLBT = 1300;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 13.5 * 60,
@@ -122,10 +122,10 @@ describe('test duty limit logic', async () => {
 
   it('night flight 0500Z IND showtime (should be 0000LBT I think)', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T05:00:00Z');
-    const domicile = 'IND';
+    const options: DutyLimitOptions = { domicile: 'IND' };
     const expectedLBT = 0;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 10 * 60,
@@ -144,11 +144,10 @@ describe('test duty limit logic', async () => {
   it('night flight 0500Z IND showtime with 2 trips and one optional (should be 0000LBT I think)', () => {
     // blended duty limit TODO: Verify scheduledDutyLimit is 11.5
     const dutyStartTimeZulu = new Date('2021-09-01T05:00:00Z');
-    const domicile = 'IND';
-    const options = { is2TripsWithOneOptional: true };
+    const options: DutyLimitOptions = { is2TripsWithOneOptional: true, domicile: 'IND' };
     const expectedLBT = 0;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 11.5 * 60,
@@ -166,10 +165,10 @@ describe('test duty limit logic', async () => {
 
   it('critical flight 1000Z OAK showtime (should be 0300LBT I think)', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T10:00:00Z');
-    const domicile = 'OAK';
+    const options: DutyLimitOptions = { domicile: 'OAK' };
     const expectedLBT = 300;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 9 * 60,
@@ -187,11 +186,11 @@ describe('test duty limit logic', async () => {
 
   it('critical flight 1000Z OAK showtime with 2 trips and one optional (should be 0300LBT I think)', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T10:00:00Z');
-    const domicile = 'OAK';
-    const options = { is2TripsWithOneOptional: true };
+
+    const options: DutyLimitOptions = { is2TripsWithOneOptional: true, domicile: 'OAK' };
     const expectedLBT = 300;
 
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, domicile, options);
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 
     const expectedDutyLimits = {
       scheduled: 9 * 60,
