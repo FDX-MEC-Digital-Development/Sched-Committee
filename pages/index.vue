@@ -22,13 +22,41 @@ const isDutyLimitsVisible = computed(() => {
   return setDutyLimitsVisible.value && isValid(dutyStartTimeZulu.value);
 });
 
+const { $anime } = useNuxtApp();
+
+onMounted(() => {
+  $anime({
+    targets: '.title',
+    translateX: [50, 0],
+    opacity: [0, 1],
+    easing: 'easeInQuad',
+    duration: 1000,
+  });
+});
+
+async function handleViewDutyLimits () {
+  setDutyLimitsVisible.value = !setDutyLimitsVisible.value;
+  await nextTick();
+
+  const resultElement = document.querySelector('.result');
+  resultElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+/*   $anime({
+    targets: '.result',
+    translateX: [50, 0],
+    opacity: [0, 1],
+    easing: 'easeInQuad',
+    duration: 1000,
+  }); */
+}
+
 </script>
 
 <template>
   <div class="min-h-full">
     <header class="bg-white shadow">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 title">
           FedEx ALPA Scheduling Committee
         </h1>
       </div>
@@ -51,15 +79,15 @@ const isDutyLimitsVisible = computed(() => {
         <template #header>
           <component :is="options.isInternational ? InternationalForm : DomesticForm" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
         </template>
-        <UButton label="View Duty Limits" @click="setDutyLimitsVisible = true" />
+        <UButton label="View Duty Limits" class="execute" @click="handleViewDutyLimits" />
         <template #footer>
-          <transition>
-            <domestic-duty-limit-results
-              v-if="isDutyLimitsVisible"
-              :based-on-time="dutyStartTimeZulu"
-              :duty-limits="dutyLimits"
-            />
-          </transition>
+          <domestic-duty-limit-results
+            v-if="isDutyLimitsVisible"
+            ref="resultElement"
+            class="result"
+            :based-on-time="dutyStartTimeZulu"
+            :duty-limits="dutyLimits"
+          />
         </template>
       </UCard>
     </main>

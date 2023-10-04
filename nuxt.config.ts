@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     // '@nuxtjs/ionic',
     '@vueuse/nuxt',
-    '@nuxt/ui',
+    '@nuxt/ui', '@hypernym/nuxt-anime',
   ],
   eslint: {
     /* module options */

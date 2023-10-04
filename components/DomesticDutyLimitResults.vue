@@ -1,15 +1,38 @@
 <template>
   <div>
-    <div class="px-4 sm:px-0">
-      <h3 class="text-base font-semibold leading-7 text-gray-900">
-        Duty limits
-      </h3>
-      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-        Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyLimits.dutyStartTimeLBT.value.toString().padStart(4,"0") }} LBT), you have {{ dutyLimitType }} duty limits.
-      </p>
-    </div>
+    <Transition name="fade" appear>
+      <div class="px-4 sm:px-0">
+        <h3 class="text-base font-semibold leading-7 text-gray-900">
+          Duty limits
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyLimits.dutyStartTimeLBT.value.toString().padStart(4,"0") }} LBT), you have {{ dutyLimitType }} duty limits.
+        </p>
+      </div>
+    </Transition>
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
+        <transition-group
+          ref="dutyLimitList"
+          :css="false"
+          tag="div"
+
+          @enter="(event)=>animateOnEnter(event)"
+        >
+          <div
+            v-for="(dutyLimit, key, index) in dutyLimitsDisplay"
+            :key="key"
+            class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+            :data-index="index"
+          >
+            <dt class="text-sm font-medium leading-6 text-gray-900">
+              {{ dutyLimit.label }}
+            </dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
+            </dd>
+          </div>
+        </transition-group>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
           <dt class="text-sm font-medium leading-6 text-gray-900">
             Scheduled duty limit
@@ -101,8 +124,49 @@ const dutyLimitType = computed(() =>
     : 'non-blended',
 );
 
+const dutyLimitsDisplay = computed(() => ({
+  scheduled: {
+    label: 'Scheduled duty limit',
+    minutes: props.dutyLimits.domestic.value.scheduled,
+    endTimeZulu: props.dutyLimits.domestic.value.endOfScheduledDutyDate,
+  },
+  operational: {
+    label: 'Operational duty limit',
+    minutes: props.dutyLimits.domestic.value.operational,
+    endTimeZulu: props.dutyLimits.domestic.value.endOfOperationalDutyDate,
+  },
+  far: {
+    label: 'FAR duty limit',
+    minutes: props.dutyLimits.domestic.value.far,
+    endTimeZulu: props.dutyLimits.domestic.value.endOfFARDutyDate,
+  },
+}));
+
+const dutyLimitList = ref();
+const { $anime } = useNuxtApp();
+function animateOnEnter (event: any) {
+  console.log(event);
+  $anime({
+    targets: dutyLimitList.value,
+    translateX: [50, 0],
+    opacity: [0, 1],
+    easing: 'easeInQuad',
+    duration: 1000,
+  });
+}
+
 </script>
 
 <style>
+.fade-enter-active{
+  transition: all 1s ease;
+}
+
+.fade-enter-from
+{
+  transform: translateY(50px) scale(1.2);
+
+  opacity: 0;
+}
 
 </style>
