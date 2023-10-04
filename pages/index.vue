@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { isValid } from 'date-fns';
 import { DutyLimitOptions } from '~/sched-committee-types';
+import { InternationalForm, DomesticForm } from '#components';
 
 const dutyStartTimeZulu = ref<Date>(new Date());
 const options = ref<DutyLimitOptions>({
@@ -14,6 +16,11 @@ const options = ref<DutyLimitOptions>({
 });
 
 const dutyLimits = useDutyLimits(dutyStartTimeZulu, options);
+const setDutyLimitsVisible = ref(false);
+
+const isDutyLimitsVisible = computed(() => {
+  return setDutyLimitsVisible.value && isValid(dutyStartTimeZulu.value);
+});
 
 </script>
 
@@ -40,17 +47,21 @@ const dutyLimits = useDutyLimits(dutyStartTimeZulu, options);
       </UCard>
 
       <DomesticInternationalTabs v-model:is-international="options.isInternational" />
-      <UCard v-if="options.isInternational == false">
-        <domestic-form v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:options="options" />
-        <domestic-duty-limit-results
-          :based-on-time="dutyStartTimeZulu"
-          :duty-limits="dutyLimits"
-        />
+      <UCard>
+        <template #header>
+          <component :is="options.isInternational ? InternationalForm : DomesticForm" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
+        </template>
+        <UButton label="View Duty Limits" @click="setDutyLimitsVisible = true" />
+        <template #footer>
+          <transition>
+            <domestic-duty-limit-results
+              v-if="isDutyLimitsVisible"
+              :based-on-time="dutyStartTimeZulu"
+              :duty-limits="dutyLimits"
+            />
+          </transition>
+        </template>
       </UCard>
-      <UCard v-else>
-        <InternationalForm v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
-        <UCard />
-      </ucard>
     </main>
   </div>
 </template>
