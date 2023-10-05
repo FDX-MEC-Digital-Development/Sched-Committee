@@ -2,7 +2,7 @@ import { addMinutes, isValid } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { computed, toRef, toValue } from 'vue';
 // import { DomesticDutyLimit } from '../sched-committee-types';
-import { DomesticDutyLimit } from '../sched-committee-types';
+import { DomesticDutyLimit, InternationalDuty } from '../sched-committee-types';
 import type { Domicile, DutyLimitOptions, InternationalDutyLimit } from '~/sched-committee-types';
 
 // Domestic duty limits in format [scheduled, operational, far]
@@ -215,13 +215,12 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
   //
   const domestic = computed<DomesticDutyLimit>(() => {
     const [scheduled, operational, far] = calculateDomesticDutyLimit(dutyStartTimeZuluRef.value, domicile.value, optionsRef.value);
-    const endOfScheduledDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, scheduled);
-    const endOfOperationalDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, operational);
-    const endOfFARDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, far);
+    const [endOfScheduledDutyDate, endOfOperationalDutyDate, endOfFARDutyDate] = [scheduled, operational, far].map(dutyLimit => calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit));
+
     return { scheduled, operational, far, endOfScheduledDutyDate, endOfOperationalDutyDate, endOfFARDutyDate };
   });
 
-  const international = computed(() => {
+  const international = computed<InternationalDuty[]>(() => {
     const defaultOptions = {
       isInboundFlightSegmentGreaterThan5HoursTZD: false,
       crewNumberOfPilots: 2,
@@ -233,7 +232,7 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
 
     const results = dutyLimits.map((dutyLimit) => {
       const endOfScheduledDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit.scheduled);
-      const endOfOperationalDutyDate = dutyLimit.operational ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit.operational) : undefined;
+      const endOfOperationalDutyDate = dutyLimit.operational !== undefined ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit.operational) : undefined;
       return { scheduled: dutyLimit.scheduled, operational: dutyLimit?.operational, landings: dutyLimit.landings, blockHours: dutyLimit.blockHours, endOfScheduledDutyDate, endOfOperationalDutyDate };
     },
     );

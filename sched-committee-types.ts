@@ -42,7 +42,7 @@ export interface InternationalDutyLimitTimes {
   endOfOperationalDutyDate?: Date;
 }
 
-export type GenericDutyLimit = DomesticDutyLimit | InternationalDutyLimit | InternationalDutyLimitTimes;
+export type InternationalDuty = InternationalDutyLimit | InternationalDutyLimitTimes;
 
 export interface DutyLimitsDeprecated {
   scheduledDutyLimit: number,
@@ -52,6 +52,7 @@ export interface DutyLimitsDeprecated {
 
 export interface DutyLimits {
   domestic: Ref<DomesticDutyLimit>,
+
   dutyStartTimeLBT: Ref<number>;
 
 };

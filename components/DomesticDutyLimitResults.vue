@@ -10,38 +10,33 @@
         </p>
       </div>
     </Transition>
-    <Transition
-      ref="dutyLimitList"
 
-      name="fade"
-      appear
-      @enter="onEnter"
-    >
-      <div class="mt-6 border-t border-gray-100">
-        <dl class="divide-y divide-gray-100">
-          <div
-            v-for="(dutyLimit, index) in dutyLimitsDisplay"
-            :key="`dutyLimit${index}`"
-            class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
-          >
-            <div :data-index="index" class="stagger-list">
-              <dt class="text-sm font-medium leading-6 text-gray-900">
-                {{ dutyLimit.label }}
-              </dt>
-              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div
+          v-for="(dutyLimit, index) in dutyLimitsDisplay"
+          :key="`dutyLimit${index}`"
+          class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+        >
+          <div :data-index="index" class="stagger-list">
+            <dt class="text-sm font-medium leading-6 text-gray-900">
+              {{ dutyLimit.label }}
+            </dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <StaggerList>
                 <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
-              </dd>
-              <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900">
-                {{ dutyLimit.bottomNotes }}
-              </dl>
-            </div>
+              </StaggerList>
+            </dd>
+            <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900">
+              {{ dutyLimit.bottomNotes }}
+            </dl>
           </div>
+        </div>
 
-          <DutyLimitDisclaimer />
-          <CBAReference />
-        </dl>
-      </div>
-    </Transition>
+        <DutyLimitDisclaimer />
+        <CBAReference />
+      </dl>
+    </div>
   </div>
 </template>
 
@@ -107,7 +102,7 @@ const dutyLimitsDisplay = computed(() => ([
   },
 ]));
 
-const dutyLimitList = ref();
+/* const dutyLimitList = ref();
 const { $anime } = useNuxtApp();
 // const onEnter = (event: any) => console.log(`here${event}`);
 function onEnter () {
@@ -119,7 +114,7 @@ function onEnter () {
     delay: event.dataset.index * 500 + 500,
     easing: 'easeInQuad',
     duration: 500,
-  }); */
+  });
   $anime({
     targets: '.stagger-list',
     translateX: [50, 0],
@@ -129,7 +124,7 @@ function onEnter () {
     easing: 'easeInQuad',
     duration: 500,
   });
-}
+} */
 
 </script>
 
