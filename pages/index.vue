@@ -39,6 +39,7 @@
         </template>
       </UCard>
     </main>
+    <PageFooter />
   </div>
 </template>
 <script lang="ts" setup>
