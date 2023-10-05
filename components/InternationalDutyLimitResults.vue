@@ -24,7 +24,13 @@
             </dt>
             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
               <StaggerList>
-                <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
+                <div>
+                  <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
+                  <p v-if="dutyLimit.landings">
+                    {{ dutyLimit.landings }} landings
+                  </p>
+                  <p>{{ dutyLimit.blockHours }}</p>
+                </div>
               </StaggerList>
             </dd>
             <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900">
@@ -63,21 +69,29 @@ const formattedBasedOnDate = computed(() =>
 
 );
 
-const dutyLimitsDisplay = computed(() => (props.dutyLimits.map(dutyLimit =>
-  ({
-    label: 'Scheduled duty limit',
-    bottomNotes: dutyLimit?.scheduledNotes,
-    minutes: dutyLimit.scheduled,
-    endTimeZulu: dutyLimit.endOfScheduledDutyDate,
-  }
-  /* {
-    label: 'Operational duty limit',
-    bottomNotes: props.dutyLimits.operationalNotes,
+const dutyLimitsDisplay = computed(() => {
+  const scheduledDutyLimits = props.dutyLimits.map(dutyLimit =>
+    ({
+      label: 'Scheduled duty limit',
+      bottomNotes: dutyLimit?.scheduledNotes,
+      landings: dutyLimit?.landings ? `${dutyLimit?.landings} landings` : undefined,
+      blockHours: dutyLimit?.blockHours.scheduled ? `${dutyLimit?.blockHours.scheduled}: block hours` : undefined,
+      minutes: dutyLimit.scheduled,
+      endTimeZulu: dutyLimit.endOfScheduledDutyDate,
+    }));
 
-    minutes: props.dutyLimits?.operational,
-    endTimeZulu: props.dutyLimits?.endOfOperationalDutyDate,
-  }, */
-  ))));
+  const operationalDutyLimits = props.dutyLimits.filter(dutyLimit => dutyLimit.operational !== undefined && dutyLimit.endOfOperationalDutyDate !== undefined).map(dutyLimit =>
+    ({
+      label: 'Operational duty limit',
+      bottomNotes: dutyLimit?.operationalNotes,
+      landings: dutyLimit?.landings ? `${dutyLimit?.landings} landings` : undefined,
+      blockHours: typeof dutyLimit?.blockHours.operational === 'number' ? `${dutyLimit?.blockHours.operational} block hours` : typeof dutyLimit?.blockHours.operational === 'string' ? dutyLimit?.blockHours.operational : undefined,
+      minutes: dutyLimit.operational!,
+      endTimeZulu: dutyLimit.endOfOperationalDutyDate!,
+    }));
+
+  return [...scheduledDutyLimits, ...operationalDutyLimits];
+});
 
 /* const dutyLimitList = ref();
 const { $anime } = useNuxtApp();
