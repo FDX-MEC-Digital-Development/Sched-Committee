@@ -58,7 +58,7 @@ export const INTERNATIONAL_GRID_DUTY_LIMITS = {
       reset: [{
         scheduledDuty: 18 * 60,
         landings: 2,
-        note: 'This international grid landing limit may be increased by 1 for the accommodation of a scheduled \'tech stop\' or where otherwise authorized by VP, SCP, or Dir Ops.',
+        notes: 'This international grid landing limit may be increased by 1 for the accommodation of a scheduled \'tech stop\' or where otherwise authorized by VP, SCP, or Dir Ops.',
       }],
       adjusted: [{
         scheduledDuty: 16 * 60,
@@ -136,38 +136,36 @@ export const INTERNATIONAL_GRID_DUTY_LIMITS = {
 
 };
 
-export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_2_PILOTS = {
-  scheduled: 13.5 * 60,
-  scheduledNotes: '16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop',
-  scheduledBlockHours: 'Not to exceed 8 scheduled block hours in 24 hours (except 12.D.3.a and 12.D.4.a references to 12.C.2.a-c)',
-  operational: 15 * 60,
-  operaitonalNotes: '16 hours for extenuating circumstances, or 17:30 for deadhead only',
-  operationalBlockHours: 'May exceed 8-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
-};
-
-export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_3_PILOTS = {
-
-  scheduled: 13.5 * 60,
-  scheduledNotes: '16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop',
-  scheuldedBlockHours: 'Not to exceed 12 scheduled block hours in 24 hours; or, 12:30 scheduled block hours with 1 intermediate landing; or, 10 scheduled block hours in 24 hours with 2 or more intermediate landings',
-  operational: 15 * 60,
-  operaionalNotes: '16:30 hours for extenuating circumstances, or 17:30 for deadhead only',
-  operationalBlockHours: 'May exceed 12-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
-};
-
-export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_4_PILOTS = {
-  scheduled: 18 * 60,
-  scheduledNotes: '22 hours for deadhead only if non-stop',
-  scheduledBlockHours: 'Not to exceed 16 scheduled block hours in 24 hours',
-  operational: 19.5 * 60,
-  operationalNotes: 'May not exceed 16-in-24',
-};
-
-export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_ULR = {
-  scheduled: 20 * 60,
-  scheduledBlockHours: 'Not to exceed 18 scheduled block hours in 24 hours',
-  operational: 21.5 * 60,
-  operationalNotes: 'May not exceed 18-in-24',
+const INTERNATIONAL_NON_GRID_DUTY_LIMITS = {
+  twoPilots: [{
+    scheduledDuty: 13.5 * 60,
+    scheduledNotes: '16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop',
+    scheduledBlockHours: 'Not to exceed 8 scheduled block hours in 24 hours (except 12.D.3.a and 12.D.4.a references to 12.C.2.a-c)',
+    operationalDuty: 15 * 60,
+    operaitonalNotes: '16 hours for extenuating circumstances, or 17:30 for deadhead only',
+    operationalBlockHours: 'May exceed 8-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
+  }],
+  threePilots: [{
+    scheduledDuty: 13.5 * 60,
+    scheduledNotes: '16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop',
+    scheuldedBlockHours: 'Not to exceed 12 scheduled block hours in 24 hours; or, 12:30 scheduled block hours with 1 intermediate landing; or, 10 scheduled block hours in 24 hours with 2 or more intermediate landings',
+    operationalDuty: 15 * 60,
+    operaionalNotes: '16:30 hours for extenuating circumstances, or 17:30 for deadhead only',
+    operationalBlockHours: 'May exceed 12-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
+  }],
+  fourPilots: [{
+    scheduledDuty: 18 * 60,
+    scheduledNotes: '22 hours for deadhead only if non-stop',
+    scheduledBlockHours: 'Not to exceed 16 scheduled block hours in 24 hours',
+    operationalDuty: 19.5 * 60,
+    operationalNotes: 'May not exceed 16-in-24',
+  }],
+  ulr: [{
+    scheduledDuty: 20 * 60,
+    scheduledBlockHours: 'Not to exceed 18 scheduled block hours in 24 hours',
+    operationalDuty: 21.5 * 60,
+    operationalNotes: 'May not exceed 18-in-24',
+  }],
 };
 
 const timeZonesLBT = {
@@ -216,6 +214,28 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
     const endOfFARDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, far);
     return { scheduled, operational, far, endOfScheduledDutyDate, endOfOperationalDutyDate, endOfFARDutyDate };
   });
+
+  const international = computed(() => {
+    const defaultOptions = {
+      isInboundFlightSegmentGreaterThan5HoursTZD: false,
+      crewNumberOfPilots: 2,
+      layoverLength: 8,
+    };
+    const internationalOptions = optionsRef.value ? { ...defaultOptions, ...optionsRef.value } : defaultOptions;
+
+    const { dutyLimits, blockHours } = calculateInternationalDutyLimit(internationalOptions);
+
+    const results = dutyLimits.map((dutyLimit) => {
+      const { scheduledDuty, operationalDuty = undefined, landings } = dutyLimit;
+
+      const endOfScheduledDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, scheduledDuty);
+      const endOfOperationalDutyDate = operationalDuty ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, operationalDuty) : undefined;
+      return { scheduledDuty, operationalDuty, endOfScheduledDutyDate, endOfOperationalDutyDate, blockHours, landings };
+    },
+    );
+
+    return results;
+  });
   /**
    *
    * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit]: [number, number, number] - in minutes
@@ -237,6 +257,26 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
     }
     if (localDutyStartTime > 1600 || localDutyStartTime < 100) { return !options?.is2TripsWithOneOptional ? DOMESTIC_NIGHT_DUTY_LIMITS : DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL; }
     return !options?.is2TripsWithOneOptional ? DOMESTIC_CRITICAL_DUTY_LIMITS : DOMESTIC_CRITICAL_DUTY_LIMITS_WITH_OPTIONAL;
+  }
+
+  function calculateInternationalDutyLimit (options: DutyLimitOptions) {
+    const gridDutyLimits = options.isInboundFlightSegmentGreaterThan5HoursTZD ? INTERNATIONAL_GRID_DUTY_LIMITS.TZDof5OrMore : INTERNATIONAL_GRID_DUTY_LIMITS.TZDof5OrLess;
+    const { crewNumberOfPilots, layoverLength } = options;
+    const { twoPilots, threePilots, fourPilots } = gridDutyLimits;
+    const { reset, adjusted, notAdjusted, blockHours } = crewNumberOfPilots === 2 ? twoPilots : crewNumberOfPilots === 3 ? threePilots : fourPilots;
+    const sleepState = getSleepState(layoverLength || 8); // defaults to 8 hours (non-adjusted) if layoverLength is not provided
+    const gridDutyLimitsResults = sleepState === 'reset' ? reset : sleepState === 'adjusted' ? adjusted : notAdjusted;
+
+    const nonGridDutyLimits = options.crewNumberOfPilots === 2 ? INTERNATIONAL_NON_GRID_DUTY_LIMITS.twoPilots : options.crewNumberOfPilots === 3 ? INTERNATIONAL_NON_GRID_DUTY_LIMITS.threePilots : options.crewNumberOfPilots === 4 ? INTERNATIONAL_NON_GRID_DUTY_LIMITS.fourPilots : INTERNATIONAL_NON_GRID_DUTY_LIMITS.ulr;
+
+    if (options.isGrid) { return { dutyLimits: gridDutyLimitsResults, blockHours }; } else { return { dutyLimits: nonGridDutyLimits, blockHours }; }
+  }
+
+  // TODO: Does not account for reset: 30 hours for EUR SIBA only following DH to theater
+  function getSleepState (layoverLength: number) {
+    if (layoverLength >= 32) { return 'reset'; }
+    if (layoverLength >= 18) { return 'adjusted'; }
+    return 'notAdjusted';
   }
 
   function calculateBlendedDutyLimit (localDutyStartTime: number, options?: DutyLimitOptions) {
@@ -292,5 +332,5 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
 
   const dutyStartTimeLBT = computed(() => getLBTInHHMM(dutyStartTimeZuluRef.value, domicile.value));
 
-  return { domestic, dutyStartTimeLBT };
+  return { domestic, international, dutyStartTimeLBT };
 }
