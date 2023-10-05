@@ -72,8 +72,6 @@ const updatedDutyStartTimeZulu = computed(() => {
 });
 
 watchEffect(() => {
-  console.log(`Updating dutyStartTimeZulu to ${updatedDutyStartTimeZulu.value}`);
-
   if (isValid(updatedDutyStartTimeZulu.value)) {
     emit('update:dutyStartTimeZulu', updatedDutyStartTimeZulu.value);
   }

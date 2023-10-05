@@ -20,8 +20,6 @@ const selectedTabIndex = computed(() => {
 });
 
 function handleChange (event: number) {
-  console.log(event);
-  console.log(items[event].isInternational);
   emit('update:isInternational', items[event].isInternational);
 }
 </script>

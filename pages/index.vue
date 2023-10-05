@@ -68,8 +68,6 @@ const options = ref<DutyLimitOptions>({
   domicile: 'MEM',
 });
 
-watchEffect(() => console.log(options.value));
-
 watchEffect(() => {
   if (isValid(dutyStartTimeZulu.value)) {
     const hoursUntilUpdatedDutyStartTimeZulu = ((dutyStartTimeZulu.value.getTime() - (new Date()).getTime()) / 1000 / 60 / 60);
