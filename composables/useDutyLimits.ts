@@ -16,7 +16,7 @@ const DOMESTIC_CRITICAL_DUTY_LIMITS = [9 * 60, 10.5 * 60, 16 * 60];
 const DOMESTIC_CRITICAL_DUTY_LIMITS_WITH_OPTIONAL = [9 * 60, 10.5 * 60, 16 * 60];
 
 export const INTERNATIONAL_GRID_DUTY_LIMITS = {
-  TZZof5OrMore: {
+  TZDof5OrMore: {
     twoPilots: {
       reset: [{
         scheduledDuty: 13.5 * 60,
@@ -73,6 +73,101 @@ export const INTERNATIONAL_GRID_DUTY_LIMITS = {
     },
 
   },
+  TZDof5OrLess: {
+    twoPilots: {
+      reset: [{
+        scheduledDuty: 13.5 * 60,
+        landings: 3,
+      }, {
+        scheduledDuty: 12 * 60,
+        landings: 4,
+      }],
+      adjusted: [{
+        scheduledDuty: 13.5 * 60,
+        landings: 3,
+      },
+      {
+        scheduledDuty: 12 * 60,
+        landings: 4,
+      }],
+      notAdjusted: [{
+        scheduledDuty: 12 * 60,
+        landings: 4,
+      }],
+      blockHours: 8,
+
+    },
+
+    threePilots: {
+      reset: [{
+        scheduledDuty: 13.5 * 60,
+        landings: 2,
+      }],
+      adjusted: [{
+        scheduledDuty: 13.5 * 60,
+        landings: 2,
+      }],
+      notAdjusted: [{
+        scheduledDuty: 10 * 60,
+        landings: 2,
+      }],
+      blockHours: 12,
+
+    },
+    fourPilots: {
+      reset: [{
+        scheduledDuty: 18 * 60,
+        landings: 1,
+        note: 'This international grid landing limit may be increased by 1 for the accommodation of a scheduled \'tech stop\' or where otherwise authorized by VP, SCP, or Dir Ops.',
+      }],
+      adjusted: [{
+        scheduledDuty: 18 * 60,
+        landings: 2,
+      }],
+      notAdjusted: [{
+        scheduledDuty: 16 * 60,
+        landings: 1,
+      }],
+      blockHours: 16,
+
+    },
+
+  },
+
+};
+
+export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_2_PILOTS = {
+  scheduled: 13.5 * 60,
+  scheduledNotes: '16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop',
+  scheduledBlockHours: 'Not to exceed 8 scheduled block hours in 24 hours (except 12.D.3.a and 12.D.4.a references to 12.C.2.a-c)',
+  operational: 15 * 60,
+  operaitonalNotes: '16 hours for extenuating circumstances, or 17:30 for deadhead only',
+  operationalBlockHours: 'May exceed 8-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
+};
+
+export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_3_PILOTS = {
+
+  scheduled: 13.5 * 60,
+  scheduledNotes: '16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop',
+  scheuldedBlockHours: 'Not to exceed 12 scheduled block hours in 24 hours; or, 12:30 scheduled block hours with 1 intermediate landing; or, 10 scheduled block hours in 24 hours with 2 or more intermediate landings',
+  operational: 15 * 60,
+  operaionalNotes: '16:30 hours for extenuating circumstances, or 17:30 for deadhead only',
+  operationalBlockHours: 'May exceed 12-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
+};
+
+export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_4_PILOTS = {
+  scheduled: 18 * 60,
+  scheduledNotes: '22 hours for deadhead only if non-stop',
+  scheduledBlockHours: 'Not to exceed 16 scheduled block hours in 24 hours',
+  operational: 19.5 * 60,
+  operationalNotes: 'May not exceed 16-in-24',
+};
+
+export const INTERNATIONAL_NON_GRID_DUTY_LIMITS_ULR = {
+  scheduled: 20 * 60,
+  scheduledBlockHours: 'Not to exceed 18 scheduled block hours in 24 hours',
+  operational: 21.5 * 60,
+  operationalNotes: 'May not exceed 18-in-24',
 };
 
 const timeZonesLBT = {
