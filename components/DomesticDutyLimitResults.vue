@@ -31,6 +31,9 @@
               <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                 <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
               </dd>
+              <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900">
+                {{ dutyLimit.bottomNotes }}
+              </dl>
             </div>
           </div>
 
@@ -86,11 +89,14 @@ const dutyLimitType = computed(() =>
 const dutyLimitsDisplay = computed(() => ([
   {
     label: 'Scheduled duty limit',
+    bottomNotes: 'Bid pack pairing fatigue risk is based on no delays. Please assess your fatigue risk before exceeding scheduled limits.',
     minutes: props.dutyLimits.domestic.value.scheduled,
     endTimeZulu: props.dutyLimits.domestic.value.endOfScheduledDutyDate,
   },
   {
     label: 'Operational duty limit',
+    bottomNotes: 'You must have prior approval (DO) to exceed operational duty limits. You must assess your fatigue risk.',
+
     minutes: props.dutyLimits.domestic.value.operational,
     endTimeZulu: props.dutyLimits.domestic.value.endOfOperationalDutyDate,
   },
