@@ -42,7 +42,7 @@ export interface InternationalDutyLimitTimes {
   endOfOperationalDutyDate?: Date;
 }
 
-export type InternationalDuty = InternationalDutyLimit | InternationalDutyLimitTimes;
+export interface InternationalDuty extends InternationalDutyLimit, InternationalDutyLimitTimes {};
 
 export interface DutyLimitsDeprecated {
   scheduledDutyLimit: number,

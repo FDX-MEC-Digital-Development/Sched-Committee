@@ -29,13 +29,21 @@
         </template>
         <UButton label="View Duty Limits" class="execute" @click="handleViewDutyLimits" />
         <template #footer>
-          <domestic-duty-limit-results
-            v-if="isDutyLimitsVisible"
-            ref="resultElement"
-            class="result"
-            :based-on-time="dutyStartTimeZulu"
-            :duty-limits="dutyLimits"
-          />
+          <div v-if="isDutyLimitsVisible">
+            <domestic-duty-limit-results
+              v-if="!options.isInternational"
+              ref="resultElement"
+              class="result"
+              :based-on-time="dutyStartTimeZulu"
+              :duty-limits="dutyLimits"
+            /><InternationalDutyLimitResults
+              v-else
+              ref="resultsElement"
+              class="result"
+              :based-on-time="dutyStartTimeZulu"
+              :duty-limits="dutyLimits.international.value"
+            />
+          </div>
         </template>
       </UCard>
     </main>
