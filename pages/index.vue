@@ -35,13 +35,14 @@
               ref="resultElement"
               class="result"
               :based-on-time="dutyStartTimeZulu"
-              :duty-limits="dutyLimits"
+              :duty-limits="domesticDutyLimit"
+              :duty-start-time-l-b-t="dutyStartTimeLBT"
             /><InternationalDutyLimitResults
               v-else
               ref="resultsElement"
               class="result"
               :based-on-time="dutyStartTimeZulu"
-              :duty-limits="dutyLimits.international.value"
+              :duty-limits="internationalDutyLimits"
             />
           </div>
         </template>
@@ -79,7 +80,7 @@ watchEffect(() => {
 })
 ;
 
-const dutyLimits = useDutyLimits(dutyStartTimeZulu, options);
+const { domestic: domesticDutyLimit, international: internationalDutyLimits, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
 const setDutyLimitsVisible = ref(false);
 
 const isDutyLimitsVisible = computed(() => {

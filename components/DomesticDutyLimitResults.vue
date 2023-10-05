@@ -6,7 +6,7 @@
           Duty limits
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyLimits.dutyStartTimeLBT.value.toString().padStart(4,"0") }} LBT), you have {{ dayNightOrCritical }} {{ dutyLimitType }} duty limits.
+          Based on a duty start time of {{ formattedBasedOnDate }}Z ({{ dutyStartTimeLBT.toString().padStart(4,"0") }} LBT), you have {{ dayNightOrCritical }} {{ dutyLimitType }} duty limits.
         </p>
       </div>
     </Transition>
@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { format } from 'date-fns';
 import { PropType } from 'vue';
-import { DutyLimits } from '~/sched-committee-types';
+import { DomesticDutyLimit } from '~/sched-committee-types';
 
 const props = defineProps({
   basedOnTime: {
@@ -51,7 +51,11 @@ const props = defineProps({
     required: true,
   },
   dutyLimits: {
-    type: Object as PropType<DutyLimits>,
+    type: Object as PropType<DomesticDutyLimit>,
+    required: true,
+  },
+  dutyStartTimeLBT: {
+    type: Number,
     required: true,
   },
 
@@ -65,18 +69,18 @@ const formattedBasedOnDate = computed(() =>
 
 // output 'day', 'night', or 'critical' based on the duty start time (0500-1559 LBT), (1600-0059 LBT), else
 const dayNightOrCritical = computed(() =>
-  props.dutyLimits.dutyStartTimeLBT.value >= 500 && props.dutyLimits.dutyStartTimeLBT.value <= 1559
+  props.dutyStartTimeLBT >= 500 && props.dutyStartTimeLBT <= 1559
     ? 'day'
-    : (props.dutyLimits.dutyStartTimeLBT.value >= 1600 && props.dutyLimits.dutyStartTimeLBT.value <= 2359) || props.dutyLimits.dutyStartTimeLBT.value < 100
+    : (props.dutyStartTimeLBT >= 1600 && props.dutyStartTimeLBT <= 2359) || props.dutyStartTimeLBT < 100
         ? 'night'
         : 'critical',
 );
 
 const dutyLimitType = computed(() =>
-  (props.dutyLimits.dutyStartTimeLBT.value >= 0 && props.dutyLimits.dutyStartTimeLBT.value <= 100) ||
-(props.dutyLimits.dutyStartTimeLBT.value >= 1515 && props.dutyLimits.dutyStartTimeLBT.value <= 1645) ||
-(props.dutyLimits.dutyStartTimeLBT.value >= 2230 && props.dutyLimits.dutyStartTimeLBT.value <= 2400) ||
-(props.dutyLimits.dutyStartTimeLBT.value >= 500 && props.dutyLimits.dutyStartTimeLBT.value <= 530)
+  (props.dutyStartTimeLBT >= 0 && props.dutyStartTimeLBT <= 100) ||
+(props.dutyStartTimeLBT >= 1515 && props.dutyStartTimeLBT <= 1645) ||
+(props.dutyStartTimeLBT >= 2230 && props.dutyStartTimeLBT <= 2400) ||
+(props.dutyStartTimeLBT >= 500 && props.dutyStartTimeLBT <= 530)
     ? 'blended'
     : 'non-blended',
 );
@@ -85,20 +89,20 @@ const dutyLimitsDisplay = computed(() => ([
   {
     label: 'Scheduled duty limit',
     bottomNotes: 'Bid pack pairing fatigue risk is based on no delays. Please assess your fatigue risk before exceeding scheduled limits.',
-    minutes: props.dutyLimits.domestic.value.scheduled,
-    endTimeZulu: props.dutyLimits.domestic.value.endOfScheduledDutyDate,
+    minutes: props.dutyLimits.scheduled,
+    endTimeZulu: props.dutyLimits.endOfScheduledDutyDate,
   },
   {
     label: 'Operational duty limit',
     bottomNotes: 'You must have prior approval (DO) to exceed operational duty limits. You must assess your fatigue risk.',
 
-    minutes: props.dutyLimits.domestic.value.operational,
-    endTimeZulu: props.dutyLimits.domestic.value.endOfOperationalDutyDate,
+    minutes: props.dutyLimits.operational,
+    endTimeZulu: props.dutyLimits.endOfOperationalDutyDate,
   },
   {
     label: 'FAR duty limit',
-    minutes: props.dutyLimits.domestic.value.far,
-    endTimeZulu: props.dutyLimits.domestic.value.endOfFARDutyDate,
+    minutes: props.dutyLimits.far,
+    endTimeZulu: props.dutyLimits.endOfFARDutyDate,
   },
 ]));
 
