@@ -57,16 +57,16 @@ export const INTERNATIONAL_GRID_DUTY_LIMITS = {
     fourPilots: {
       reset: [{
         scheduledDuty: 18 * 60,
-        landings: 2,
+        landings: 1,
         notes: 'This international grid landing limit may be increased by 1 for the accommodation of a scheduled \'tech stop\' or where otherwise authorized by VP, SCP, or Dir Ops.',
       }],
       adjusted: [{
         scheduledDuty: 16 * 60,
-        landings: 2,
+        landings: 1,
       }],
       notAdjusted: [{
         scheduledDuty: 16 * 60,
-        landings: 2,
+        landings: 1,
       }],
       blockHours: { scheduled: 16 },
 
