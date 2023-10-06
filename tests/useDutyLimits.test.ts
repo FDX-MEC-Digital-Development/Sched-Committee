@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { setup } from '@nuxt/test-utils';
 
 import { useDutyLimits } from '../composables/useDutyLimits';
-import { DutyLimitOptions } from '~/sched-committee-types';
+import { DutyLimitOptions, InternationalDuty } from '~/sched-committee-types';
 
 // npm run test
 
 // tests written during daylight savings time, and may need to be adjusted for standard time
 
-describe('test duty limit logic', async () => {
+describe('test domestic duty limits', async () => {
   await setup({
     server: false, // ssr: false
 
@@ -204,5 +204,30 @@ describe('test duty limit logic', async () => {
 
     expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
     expect(domestic.value).toEqual(expectedDutyLimits);
+  });
+});
+
+describe('test grid international duty limits', async () => {
+  it('TZD of 5 or more, 2 pilots, reset', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: true, crewNumberOfPilots: 2, layoverLength: 40, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits: InternationalDuty[] = [{
+      scheduled: 13.5 * 60,
+      landings: 3,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+    },
+
+    {
+      scheduled: 12 * 60,
+      landings: 4,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T13:00:00Z'),
+    }];
+
+    expect(expectedDutyLimits).toEqual(international.value);
   });
 });
