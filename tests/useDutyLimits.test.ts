@@ -207,7 +207,7 @@ describe('test domestic duty limits', async () => {
   });
 });
 
-describe('test grid international duty limits', () => {
+describe('test grid international duty limits, TZD of 5 or more', () => {
   it('TZD of 5 or more, 2 pilots, reset', () => {
     const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
     const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: true, crewNumberOfPilots: 2, layoverLength: 40, isGrid: true };
@@ -372,6 +372,179 @@ describe('test grid international duty limits', () => {
 
     ];
 
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+});
+
+describe('test grid international duty limits, TZD of less than 5', () => {
+  it('TZD of less than 5, 2 pilots, reset', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 2, layoverLength: 40, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits: InternationalDuty[] = [{
+      scheduled: 13.5 * 60,
+      landings: 3,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+    },
+
+    {
+      scheduled: 12 * 60,
+      landings: 4,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T13:00:00Z'),
+    }];
+
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 2 pilots, adjusted', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 2, layoverLength: 20, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits: InternationalDuty[] = [{
+      scheduled: 13.5 * 60,
+      landings: 3,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+    },
+
+    {
+      scheduled: 12 * 60,
+      landings: 4,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T13:00:00Z'),
+    }];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 2 pilots, not adjusted', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 2, layoverLength: 10, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits: InternationalDuty[] = [{
+      scheduled: 12 * 60,
+      landings: 4,
+      blockHours: { scheduled: 8 },
+      endOfScheduledDutyDate: new Date('2035-09-01T13:00:00Z'),
+    },
+
+    ];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 3 pilots, reset', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 3, layoverLength: 40, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = [{
+      scheduled: 13.5 * 60,
+      landings: 2,
+      blockHours: { scheduled: 12 },
+      endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+    },
+
+    ];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 3 pilots, adjusted', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 3, layoverLength: 20, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = [{
+      scheduled: 13.5 * 60,
+      landings: 2,
+      blockHours: { scheduled: 12 },
+      endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+    },
+
+    ];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 3 pilots, not adjusted', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 3, layoverLength: 10, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = [{
+      scheduled: 10 * 60,
+      landings: 2,
+      blockHours: { scheduled: 12 },
+      endOfScheduledDutyDate: new Date('2035-09-01T11:00:00Z'),
+    },
+
+    ];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 4 pilots, reset', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 4, layoverLength: 40, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = [{
+      scheduled: 18 * 60,
+      landings: 1,
+      blockHours: { scheduled: 16 },
+      endOfScheduledDutyDate: new Date('2035-09-01T19:00:00Z'),
+    },
+
+    ];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 4 pilots, adjusted', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 4, layoverLength: 20, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = [{
+      scheduled: 18 * 60,
+      landings: 1,
+      blockHours: { scheduled: 16 },
+      endOfScheduledDutyDate: new Date('2035-09-01T19:00:00Z'),
+    },
+
+    ];
+    expect(international.value).toEqual(expectedDutyLimits);
+  });
+
+  it('TZD of less than 5, 4 pilots, not adjusted', () => {
+    const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+
+    const options: DutyLimitOptions = { isInboundFlightSegmentGreaterThan5HoursTZD: false, crewNumberOfPilots: 4, layoverLength: 10, isGrid: true };
+
+    const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = [{
+      scheduled: 16 * 60,
+      landings: 1,
+      blockHours: { scheduled: 16 },
+      endOfScheduledDutyDate: new Date('2035-09-01T17:00:00Z'),
+    },
+
+    ];
     expect(international.value).toEqual(expectedDutyLimits);
   });
 });

@@ -122,7 +122,9 @@ export const INTERNATIONAL_GRID_DUTY_LIMITS = {
       }],
       adjusted: [{
         scheduledDuty: 18 * 60,
-        landings: 2,
+        landings: 1,
+        note: 'This international grid landing limit may be increased by 1 for the accommodation of a scheduled \'tech stop\' or where otherwise authorized by VP, SCP, or Dir Ops.',
+
       }],
       notAdjusted: [{
         scheduledDuty: 16 * 60,
