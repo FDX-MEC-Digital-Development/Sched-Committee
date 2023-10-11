@@ -281,7 +281,6 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
       });
     } else {
       const { scheduledDuty, operationalDuty, ...notes } = nonGridDutyLimits;
-      console.log({ notes });
       return [{ scheduled: scheduledDuty, operational: operationalDuty, ...notes }];
     }
   }
