@@ -43,6 +43,7 @@
               class="result"
               :based-on-time="dutyStartTimeZulu"
               :duty-limits="internationalDutyLimits"
+              :options="options"
             />
           </div>
         </template>

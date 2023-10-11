@@ -6,9 +6,8 @@
           Duty limits
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Based on a duty start time of {{ formattedBasedOnDate }}Z.
+          Based on a duty start time of {{ formattedBasedOnDate }}Z, you have {{ props?.options?.isGrid ? 'grid' : 'non-grid' }} duty limits..
         </p>
-        <p>{{ dutyLimits }}</p>
       </div>
     </Transition>
 
@@ -28,7 +27,7 @@
                 <div>
                   <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
                   <p v-if="dutyLimit.landings">
-                    {{ dutyLimit.landings }} landings
+                    {{ dutyLimit.landings }}
                   </p>
                 </div>
               </StaggerList>
@@ -55,7 +54,7 @@
 <script lang="ts" setup>
 import { format } from 'date-fns';
 import { PropType } from 'vue';
-import { InternationalDuty } from '~/sched-committee-types';
+import { DutyLimitOptions, InternationalDuty } from '~/sched-committee-types';
 
 const props = defineProps({
   basedOnTime: {
@@ -64,6 +63,10 @@ const props = defineProps({
   },
   dutyLimits: {
     type: Object as PropType<InternationalDuty[]>,
+    required: true,
+  },
+  options: {
+    type: Object as PropType<DutyLimitOptions>,
     required: true,
   },
 
@@ -81,7 +84,7 @@ const dutyLimitsDisplay = computed(() => {
       label: 'Scheduled duty limit',
       bottomNotes: dutyLimit?.scheduledNotes,
       landings: dutyLimit?.landings ? `${dutyLimit?.landings} landings` : undefined,
-      blockHours: dutyLimit?.blockHours.scheduled ? `${dutyLimit?.blockHours.scheduled}: block hours` : undefined,
+      blockHours: dutyLimit?.blockHours.scheduled ? `${dutyLimit?.blockHours.scheduled}` : undefined,
       minutes: dutyLimit.scheduled,
       endTimeZulu: dutyLimit.endOfScheduledDutyDate,
     }));
