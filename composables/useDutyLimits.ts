@@ -164,9 +164,8 @@ const INTERNATIONAL_NON_GRID_DUTY_LIMITS = {
   fourPilots: {
     scheduledDuty: 18 * 60,
     scheduledNotes: '22 hours for deadhead only if non-stop',
-    blockHours: { scheduled: 'Not to exceed 16 scheduled block hours in 24 hours' },
+    blockHours: { scheduled: 'Not to exceed 16 scheduled block hours in 24 hours', operational: 'May NOT exceed 16-in-24' },
     operationalDuty: 19.5 * 60,
-    operationalNotes: 'May not exceed 16-in-24',
   },
   ulr: {
     scheduledDuty: 20 * 60,
