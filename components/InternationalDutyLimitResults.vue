@@ -8,6 +8,7 @@
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Based on a duty start time of {{ formattedBasedOnDate }}Z.
         </p>
+        <p>{{ dutyLimits }}</p>
       </div>
     </Transition>
 
@@ -29,12 +30,17 @@
                   <p v-if="dutyLimit.landings">
                     {{ dutyLimit.landings }} landings
                   </p>
-                  <p>{{ dutyLimit.blockHours }}</p>
                 </div>
               </StaggerList>
             </dd>
             <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900">
               {{ dutyLimit.bottomNotes }}
+            </dl>
+            <dt class="text-sm font-medium leading-6 text-gray-900 mt-4">
+              Block hours
+            </dt>
+            <dl>
+              <p>{{ dutyLimit.blockHours }}</p>
             </dl>
           </div>
         </div>

@@ -235,7 +235,7 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
     const results = dutyLimits.map((dutyLimit) => {
       const endOfScheduledDutyDate = calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit.scheduled);
       const endOfOperationalDutyDate = dutyLimit.operational !== undefined ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit.operational) : undefined;
-      return { scheduled: dutyLimit.scheduled, operational: dutyLimit?.operational, landings: dutyLimit.landings, blockHours: dutyLimit.blockHours, endOfScheduledDutyDate, endOfOperationalDutyDate };
+      return { endOfScheduledDutyDate, endOfOperationalDutyDate, ...dutyLimit };
     },
     );
 
@@ -281,6 +281,7 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
       });
     } else {
       const { scheduledDuty, operationalDuty, ...notes } = nonGridDutyLimits;
+      console.log({ notes });
       return [{ scheduled: scheduledDuty, operational: operationalDuty, ...notes }];
     }
   }

@@ -547,4 +547,42 @@ describe('test grid international duty limits, TZD of less than 5', () => {
     ];
     expect(international.value).toEqual(expectedDutyLimits);
   });
+
+  describe('test grid international duty limits', () => {
+    it('2 pilots', () => {
+      const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+      const options: DutyLimitOptions = { crewNumberOfPilots: 2, isGrid: false };
+
+      const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+      const expectedDutyLimits: InternationalDuty[] = [{
+        scheduled: 13.5 * 60,
+        operational: 15 * 60,
+        endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+        endOfOperationalDutyDate: new Date('2035-09-01T16:00:00Z'),
+      },
+
+      ];
+
+      expect(international.value).toMatchObject(expectedDutyLimits);
+    });
+
+    it('3 pilots', () => {
+      const dutyStartTimeZulu = new Date('2035-09-01T01:00:00Z');
+      const options: DutyLimitOptions = { crewNumberOfPilots: 3, isGrid: false };
+
+      const { international } = useDutyLimits(dutyStartTimeZulu, options);
+
+      const expectedDutyLimits: InternationalDuty[] = [{
+        scheduled: 13.5 * 60,
+        operational: 15 * 60,
+        endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
+        endOfOperationalDutyDate: new Date('2035-09-01T16:00:00Z'),
+      },
+
+      ];
+
+      expect(international.value).toMatchObject(expectedDutyLimits);
+    });
+  });
 });
