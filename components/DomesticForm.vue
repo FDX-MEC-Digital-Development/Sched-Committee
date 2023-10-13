@@ -4,7 +4,7 @@
       <div class="border-b border-gray-900/10 pb-12">
         <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="col-span-full">
-            <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
+            <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Domicile</label>
             <USelect :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
           </div>
 
