@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import { PropType } from 'vue';
 import { DomesticDutyLimit } from '~/sched-committee-types';
 
@@ -63,7 +63,7 @@ const props = defineProps({
 );
 
 const formattedBasedOnDate = computed(() =>
-  format(props.basedOnTime, 'MM-dd-yy HH:mm'),
+  formatInTimeZone(props.basedOnTime, 'UTC', 'MM-dd-yy HH:mm'),
 
 );
 
