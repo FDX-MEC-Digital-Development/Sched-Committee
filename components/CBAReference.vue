@@ -8,7 +8,7 @@
         <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
           <div class="flex w-0 flex-1 items-center">
             <UIcon name="i-heroicons-document-text" class="flex-shrink-0 h-5 w-5 text-gray-400" />
-            <div class="ml-4 flex min-w-0 flex-1 gap-2">
+            <div class="ml-4 flex min-w-0 flex-1 gap-2 dark:text-white">
               <span class=" font-medium">CBA 12.C</span>
               <span class="flex-shrink-0 text-gray-400">External site</span>
             </div>

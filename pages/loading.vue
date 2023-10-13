@@ -78,6 +78,8 @@ onMounted(() => {
     strokeDashoffset: [$anime.setDashoffset, 0],
     easing: 'easeInOutSine',
     duration: 2000,
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     delay: function (el, i) {
       return i * 100; // Delay each path animation
     },

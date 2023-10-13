@@ -555,7 +555,7 @@ describe('test grid international duty limits, TZD of less than 5', () => {
 
       const { international } = useDutyLimits(dutyStartTimeZulu, options);
 
-      const expectedDutyLimits: InternationalDuty[] = [{
+      const expectedDutyLimits: Partial<InternationalDuty>[] = [{
         scheduled: 13.5 * 60,
         operational: 15 * 60,
         endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
@@ -573,7 +573,7 @@ describe('test grid international duty limits, TZD of less than 5', () => {
 
       const { international } = useDutyLimits(dutyStartTimeZulu, options);
 
-      const expectedDutyLimits: InternationalDuty[] = [{
+      const expectedDutyLimits: Partial<InternationalDuty>[] = [{
         scheduled: 13.5 * 60,
         operational: 15 * 60,
         endOfScheduledDutyDate: new Date('2035-09-01T14:30:00Z'),
@@ -591,7 +591,7 @@ describe('test grid international duty limits, TZD of less than 5', () => {
 
       const { international } = useDutyLimits(dutyStartTimeZulu, options);
 
-      const expectedDutyLimits: InternationalDuty[] = [{
+      const expectedDutyLimits: Partial<InternationalDuty>[] = [{
         scheduled: 18 * 60,
         operational: 19.5 * 60,
         endOfScheduledDutyDate: new Date('2035-09-01T19:00:00Z'),
@@ -609,7 +609,7 @@ describe('test grid international duty limits, TZD of less than 5', () => {
 
       const { international } = useDutyLimits(dutyStartTimeZulu, options);
 
-      const expectedDutyLimits: InternationalDuty[] = [{
+      const expectedDutyLimits: Partial<InternationalDuty>[] = [{
         scheduled: 20 * 60,
         operational: 21.5 * 60,
         endOfScheduledDutyDate: new Date('2035-09-01T21:00:00Z'),

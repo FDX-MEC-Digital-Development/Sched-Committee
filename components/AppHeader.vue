@@ -129,48 +129,6 @@
               {{ item.name }}
             </HeadlessDisclosureButton>
           </div>
-          <div class="border-t border-gray-700 pb-3 pt-4">
-            <div class="flex items-center px-5">
-              <div class="flex-shrink-0">
-                <img
-                  class="h-10 w-10 rounded-full"
-                  :src="user.imageUrl"
-                  alt=""
-                >
-              </div>
-              <div class="ml-3">
-                <div class="text-base font-medium leading-none text-white">
-                  {{ user.name }}
-                </div>
-                <div class="text-sm font-medium leading-none text-gray-400">
-                  {{ user.email }}
-                </div>
-              </div>
-              <button
-                type="button"
-                class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-              >
-                <span class="absolute -inset-1.5" />
-                <span class="sr-only">View notifications</span>
-                <Icon
-                  name="material-symbols:notifications-outline-rounded"
-                  class="h-6 w-6"
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-            <div class="mt-3 space-y-1 px-2">
-              <HeadlessDisclosureButton
-                v-for="item in userNavigation"
-                :key="item.name"
-                as="a"
-                :href="item.href"
-                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-              >
-                {{ item.name }}
-              </HeadlessDisclosureButton>
-            </div>
-          </div>
         </HeadlessDisclosurePanel>
       </HeadlessDisclosure>
     </ion-toolbar>

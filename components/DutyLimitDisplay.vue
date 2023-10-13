@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dark:text-white">
     {{ formattedDutyLimitHHMM }} hours @ {{ formattedEndTime }}Z ({{ timeUntilScheduledDutyLimit }})
   </div>
 </template>
