@@ -2,7 +2,7 @@
   <div>
     <Transition name="fade-slide-down" appear>
       <div class="px-4 sm:px-0">
-        <h3 class="text-base font-semibold leading-7 text-gray-900">
+        <h3 class="text-base font-semibold leading-7 text-gray-900  dark:text-white">
           Duty limits
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
@@ -19,23 +19,23 @@
           class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
         >
           <div :data-index="index" class="stagger-list">
-            <dt class="text-sm font-medium leading-6 text-gray-900">
+            <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
               {{ dutyLimit.label }}
             </dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-white">
               <StaggerList>
                 <div>
                   <DutyLimitDisplay :duty-limit-in-minutes="dutyLimit.minutes" :duty-end-time-zulu="dutyLimit.endTimeZulu" />
-                  <p v-if="dutyLimit.landings">
+                  <p v-if="dutyLimit.landings" class=" dark:text-white">
                     {{ dutyLimit.landings }}
                   </p>
                 </div>
               </StaggerList>
             </dd>
-            <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900">
+            <dl v-if="dutyLimit.bottomNotes" class="text-sm mt-5 font-medium leading-6 text-gray-900 dark:text-white">
               {{ dutyLimit.bottomNotes }}
             </dl>
-            <dt class="text-sm font-medium leading-6 text-gray-900 mt-4">
+            <dt class="text-sm font-medium leading-6 text-gray-900 mt-4  dark:text-white">
               Block hours
             </dt>
             <dl>

@@ -1,6 +1,6 @@
 <template>
   <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-    <dt class="text-sm font-medium leading-6 text-gray-900">
+    <dt class="text-sm font-medium leading-6 text-gray-900  dark:text-white">
       CBA reference
     </dt>
     <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
