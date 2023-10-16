@@ -67,7 +67,7 @@ The mobile app may be rejected from the Apple App Store or Google Play Store. Ap
 
 ## Open-Source Licensing:
 
-The mobile app developed as part of this project will be released under the terms of the GNU General Public License (GPL) version 3. The GPL license terms will apply to the distribution, modification, and use of the app's source code.
+The mobile app developed as part of this project will be released under the terms of the GNU Affero General Public License (AGPL). The AGPL license terms will apply to the distribution, modification, and use of the app's source code.
 
 ## Project Completion
 
