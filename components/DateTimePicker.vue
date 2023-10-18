@@ -26,9 +26,6 @@ const emit = defineEmits(['update:date']);
 function handleDateUpdate ({ newDateInput, newTimeInput }: {newDateInput?: string, newTimeInput?: string}) {
   const dateInput = newDateInput || todaysDateInDateStringFormat.value;
   const timeInput = newTimeInput || timeRightNowInTimeStringFormat.value;
-  console.log(dateIOSString.value);
-  console.log(`todaysDateInDateStringFormat: ${todaysDateInDateStringFormat.value}, timeRightNowInTimeStringFormat: ${timeRightNowInTimeStringFormat.value}`);
-  console.log(`newDateInput: ${newDateInput}, newTimeInput: ${newTimeInput}`);
   const newDate = new Date(`${dateInput}T${timeInput}Z`);
   if (isValid(newDate)) {
     console.log(`Updating dutyStartTimeZulu to ${newDate}`);

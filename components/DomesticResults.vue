@@ -9,6 +9,7 @@
             :duty-end-time="slotProps.endTime"
             :notes="card.notes"
             :time-remaining="slotProps.timeUntilScheduledDutyLimit"
+            :minutes-remaining="card.minutesRemaining"
           />
         </StaggerList>
       </DutyLimitDisplayHeadless>
@@ -17,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { minutesToHours, format } from 'date-fns';
+import { minutesToHours, format, differenceInMinutes } from 'date-fns';
 import { DomesticDutyLimit } from '~/sched-committee-types';
 
 const props = defineProps({
@@ -37,8 +38,10 @@ const dutyLimitCards = computed(() => {
     notes: 'Bid pack pairing fatigue risk is based on no delays. Please assess your fatigue risk before exceeding scheduled limits.',
     duration: minutesToHours(props.domesticDutyLimits.scheduled).toString(),
     minutes: props.domesticDutyLimits.scheduled,
+
     dutyEndTime: format(props.domesticDutyLimits.endOfScheduledDutyDate, 'dd-MM HH:MM'),
     dutyEndTimeZulu: props.domesticDutyLimits.endOfScheduledDutyDate,
+    minutesRemaining: differenceInMinutes(props.domesticDutyLimits.endOfScheduledDutyDate, new Date()),
   };
   const domesticOperationalCard = {
     title: 'Operational duty limit',
@@ -47,6 +50,7 @@ const dutyLimitCards = computed(() => {
     minutes: props.domesticDutyLimits.operational,
     dutyEndTime: format(props.domesticDutyLimits.endOfOperationalDutyDate, 'dd-MM HH:MM'),
     dutyEndTimeZulu: props.domesticDutyLimits.endOfOperationalDutyDate,
+    minutesRemaining: differenceInMinutes(props.domesticDutyLimits.endOfOperationalDutyDate, new Date()),
   };
   const domesticFARCard = {
     title: 'Scheduled duty limit',
@@ -55,6 +59,7 @@ const dutyLimitCards = computed(() => {
     minutes: props.domesticDutyLimits.far,
     dutyEndTime: format(props.domesticDutyLimits.endOfFARDutyDate, 'dd-MM HH:MM'),
     dutyEndTimeZulu: props.domesticDutyLimits.endOfFARDutyDate,
+    minutesRemaining: differenceInMinutes(props.domesticDutyLimits.endOfFARDutyDate, new Date()),
   };
 
   return [domesticScheduledCard, domesticOperationalCard, domesticFARCard];

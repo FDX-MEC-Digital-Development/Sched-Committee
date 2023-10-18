@@ -71,7 +71,6 @@ async function handleViewDutyLimits () {
 }
 
 const { domestic: domesticDutyLimit, international: internationalDutyLimits, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
-watchEffect(() => console.log({ domesticDutyLimit, internationalDutyLimits, dutyStartTimeLBT }));
 watchEffect(() => console.log(domesticDutyLimit.value));
 
 </script>

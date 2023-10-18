@@ -23,7 +23,7 @@ const divColor = computed(() => {
   } else if (props.minutesRemaining < 0) {
     return 'bg-red-100 text-red-800';
   } else {
-    return 'bg-ywllow-100 text-yellow-800';
+    return 'bg-orange-100 text-orange-800';
   }
 });
 
