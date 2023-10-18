@@ -18,7 +18,6 @@
     "date-fns-tz": "^2.0.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.0.0-beta.19",
     "@hypernym/nuxt-anime": "^2.1.1",
     "@nuxt/devtools": "^1.0.0-beta.0",
     "@nuxt/eslint-config": "^0.2.0",
