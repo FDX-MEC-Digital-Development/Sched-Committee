@@ -1,51 +1,53 @@
 <template>
-  <div class="lg:col-start-3 lg:row-end-1">
+  <div class="lg:col-start-3 lg:row-end-1  flex flex-1  h-full">
     <h2 class="sr-only">
-      Summary
+      Title
     </h2>
     <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 card-background">
       <dl class="flex flex-wrap">
         <div class="flex-auto pl-6 pt-6">
           <dt class="text-sm font-semibold leading-6 text-gray-900">
-            Scheduled duty limit
+            {{ title }}
           </dt>
           <dd class="mt-1 text-base font-semibold leading-6 text-gray-900">
-            13 hours
+            {{ duration }}
           </dd>
         </div>
         <div class="flex-none self-end px-6 pt-4">
           <dt class="sr-only">
-            Status
+            Time remaining
           </dt>
-          <dd class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-            (in 1 hour)
-          </dd>
+          <TimeRemainingBadge :label="timeRemaining" :minutes-remaining="360" />
         </div>
         <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
           <dt class="flex-none">
             <span class="sr-only">Duty end time</span>
-            <Icon name="heroicons-solid:user-circle" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            <Icon name="heroicons-solid:clock" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
           <dd class="text-sm font-medium leading-6 text-gray-900">
-            @ 10-19-23 03:56Z
+            @ {{ dutyEndTime }}
           </dd>
         </div>
         <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
           <dt class="flex-none">
-            <span class="sr-only">Due date</span>
-            <Icon name="heroicons-solid:calendar-days" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            <span class="sr-only">Notes</span>
+            <Icon name="heroicons-solid:shield-exclamation" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
           <dd class="text-sm leading-6 text-gray-500">
-            16 hours if duty period is deadhead only, or 22 hours for deadhead only if non-stop
+            {{ notes }}
           </dd>
         </div>
         <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
           <dt class="flex-none">
             <span class="sr-only">Block hours</span>
-            <Icon name="heroicons-solid:credit-card" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            <Icon
+              name="heroicons-solid:globe-americas"
+              class="h-6 w-5 text-gray-400"
+              aria-hidden="true"
+            />
           </dt>
           <dd class="text-sm leading-6 text-gray-500">
-            Not to exceed 8 scheduled block hours in 24 hours (except 12.D.3.a and 12.D.4.a references to 12.C.2.a-c)
+            {{ blockHours }}
           </dd>
         </div>
       </dl>
@@ -57,6 +59,17 @@
 </template>
 
 <script setup>
+
+defineProps({
+  title: { type: String, required: true },
+  duration: { type: String, required: true },
+  timeRemaining: { type: String, required: false, default: '' },
+  minutesRemaining: { type: Number, required: false, default: 780 },
+  dutyEndTime: { type: String, required: true },
+  notes: { type: String, required: false, default: '' },
+  blockHours: { type: String, required: false, default: '' },
+});
+
 </script>
 
 <style>
