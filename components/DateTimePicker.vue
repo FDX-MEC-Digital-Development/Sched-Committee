@@ -1,5 +1,5 @@
 <template>
-  <UFormGroup label="Duty start time" name="dutyStart">
+  <UFormGroup name="dutyStart">
     <UInput type="date" trailing :model-value="todaysDateInDateStringFormat" @update:model-value="(event)=>handleDateUpdate({newDateInput: event})" />
     <UInput type="time" trailing :model-value="timeRightNowInTimeStringFormat" @update:model-value="(event)=>handleDateUpdate({newTimeInput: event})" />
   </UFormGroup>

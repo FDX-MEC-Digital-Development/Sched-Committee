@@ -1,30 +1,36 @@
 <template>
   <form>
-    <div class="space-y-12">
-      <div class="border-b border-gray-900/10 pb-12">
-        <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="col-span-full">
-            <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Domicile</label>
-            <USelect :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
+    <div class="max-w-2xl space-y-10 md:col-span-2">
+      <fieldset>
+        <div class="mt-6 space-y-6">
+          <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Domicile</label>
+          <USelect :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
+        </div>
+        <div class="mt-6 space-y-6">
+          <div class="relative flex gap-x-3">
+            <div class="flex h-6 items-center">
+              <UCheckbox :model-value="options.is2TripsWithOneOptional" name="Optional assignment" @update:model-value="(event) => handleOptionsUpdate({is2TripsWithOneOptional: event})" />
+            </div>
+            <div class="text-sm leading-6">
+              <label for="comments" class="font-medium text-gray-900">Optional assignment</label>
+              <p class="text-gray-500">
+                2 trips with one as an optional assignment (eg. SON, SWP, PDO, VLT, DRF)
+              </p>
+            </div>
           </div>
-
-          <div class="col-span-full">
-            <UAccordion
-              :items="[{
-                label: 'Options',
-                icon: 'i-heroicons-chevron-down',
-                defaultOpen: false,
-
-              }]"
-            >
-              <template #item="{ }">
-                <UCheckbox :model-value="options.is2TripsWithOneOptional" name="Optional assignment" label="Optional assignment" help="2 trips with one as an optional assignment (eg. SON, SWP, PDO, VLT, DRF)" @update:model-value="(event) => handleOptionsUpdate({is2TripsWithOneOptional: event})" />
-                <UCheckbox :model-value="options.isDayRoomScheduledAndReserved" name="Day room" label="Day room" help="Duty period contains flight segments with at least 4 hours between block-in and block-out and a day room is scheduled and reserved during that time" @update:model-value="(event) => handleOptionsUpdate({isDayRoomScheduledAndReserved: event})" />
-              </template>
-            </UAccordion>
+          <div class="relative flex gap-x-3">
+            <div class="flex h-6 items-center">
+              <UCheckbox :model-value="options.isDayRoomScheduledAndReserved" name="Day room" @update:model-value="(event) => handleOptionsUpdate({isDayRoomScheduledAndReserved: event})" />
+            </div>
+            <div class="text-sm leading-6">
+              <label for="candidates" class="font-medium text-gray-900">Day room</label>
+              <p class="text-gray-500">
+                Duty period contains flight segments with at least 4 hours between block-in and block-out and a day room is scheduled and reserved during that time
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </fieldset>
     </div>
   </form>
 </template>
