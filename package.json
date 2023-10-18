@@ -13,6 +13,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@ionic/vue": "^7.5.1",
     "@nuxt/ui": "^2.9.0",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0"

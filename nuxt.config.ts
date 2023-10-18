@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     // '@nuxtjs/tailwindcss',
     'nuxt-icon',
     'nuxt-headlessui',
-    // '@nuxtjs/ionic',
+    '@nuxtjs/ionic',
     '@vueuse/nuxt',
     '@nuxt/ui', '@hypernym/nuxt-anime',
   ],
@@ -20,6 +20,24 @@ export default defineNuxtConfig({
   },
   headlessui: {
     prefix: 'Headless',
+  },
+  ionic: {
+    integrations: {
+      meta: false,
+      pwa: false,
+      router: true,
+      icons: false,
+      //
+    },
+    css: {
+      core: true,
+      basic: false,
+      utilities: false,
+      //
+    },
+    config: {
+      //
+    },
   },
   ssr: false,
 

@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <AppHeader />
-    <NuxtPage />
-  </div>
+  <IonApp>
+    <IonHeader><AppHeader /></IonHeader>
+
+    <ion-router-outlet />
+  </IonApp>
 </template>
 
 <script setup lang="ts">
