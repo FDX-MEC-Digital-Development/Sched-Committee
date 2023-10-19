@@ -1,7 +1,9 @@
 <template>
   <div>
     <Transition name="fade-slide-down" appear>
-      <SectionHeader title="Duty limits" :subtitle="subtitle" />
+      <SectionHeader title="Duty limits">
+        Based on a duty start time of <UBadge>{{ formattedBasedOnDate }}Z</UBadge> <UBadge>({{ props.dutyStartTimeLBT.toString().padStart(4, '0') }} LBT)</UBadge>, you have <UBadge>{{ dayNightOrCritical }} {{ dutyLimitType }}</UBadge> duty limits.
+      </SectionHeader>
     </Transition>
   </div>
 </template>

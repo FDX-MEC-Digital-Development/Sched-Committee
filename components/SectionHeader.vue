@@ -1,10 +1,10 @@
 <template>
-  <div class="border-b border-gray-200 pb-5">
+  <div class=" border-gray-200 pb-5">
     <h3 class="text-base font-semibold leading-6 text-gray-900">
       {{ title }}
     </h3>
-    <p v-if="subtitle" class="mt-2 max-w-4xl text-sm text-gray-500">
-      {{ subtitle }}
+    <p v-if="subtitle || $slots" class="mt-2 max-w-4xl text-sm text-gray-500">
+      {{ subtitle }}<slot />
     </p>
   </div>
 </template>
