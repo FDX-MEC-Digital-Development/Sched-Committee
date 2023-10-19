@@ -3,7 +3,7 @@
     <h2 class="sr-only">
       Title
     </h2>
-    <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 card-background">
+    <div class="rounded-lg bg-gray-50  shadow-sm ring-1 ring-gray-900/5 card-background">
       <dl class="flex flex-wrap">
         <div class="flex-auto pl-6 pt-6">
           <dt class="text-sm font-semibold leading-6 text-gray-900">

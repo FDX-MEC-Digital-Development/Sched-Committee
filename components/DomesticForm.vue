@@ -14,7 +14,7 @@
               <UCheckbox :model-value="options.is2TripsWithOneOptional" name="Optional assignment" @update:model-value="(event) => handleOptionsUpdate({is2TripsWithOneOptional: event})" />
             </div>
             <div class="text-sm leading-6">
-              <label for="comments" class="font-medium text-gray-900">Optional assignment</label>
+              <label for="comments" class="font-medium text-gray-900 dark:text-white">Optional assignment</label>
               <p class="text-gray-500">
                 2 trips with one as an optional assignment (eg. SON, SWP, PDO, VLT, DRF)
               </p>
@@ -25,7 +25,7 @@
               <UCheckbox :model-value="options.isDayRoomScheduledAndReserved" name="Day room" @update:model-value="(event) => handleOptionsUpdate({isDayRoomScheduledAndReserved: event})" />
             </div>
             <div class="text-sm leading-6">
-              <label for="candidates" class="font-medium text-gray-900">Day room</label>
+              <label for="candidates" class="font-medium text-gray-900 dark:text-white">Day room</label>
               <p class="text-gray-500">
                 Duty period contains flight segments with at least 4 hours between block-in and block-out and a day room is scheduled and reserved during that time
               </p>

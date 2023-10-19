@@ -3,10 +3,10 @@
     <div class="space-y-6">
       <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
-          <h2 class="text-base font-semibold leading-7 text-gray-900">
+          <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
             Duty start time (Zulu)
           </h2>
-          <p class="mt-1 text-sm leading-6 text-gray-600">
+          <p class="mt-1 text-sm leading-6 text-gray-600  dark:text-gray-200">
             This often begins 1 hour before scheduled takeoff time.
           </p>
         </div>
@@ -21,10 +21,10 @@
       </div>
       <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-b border-gray-900/10 pb-6 md:grid-cols-3">
         <div>
-          <h2 class="text-base font-semibold leading-7 text-gray-900">
+          <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
             Leg type
           </h2>
-          <p class="mt-1 text-sm leading-6 text-gray-600" />
+          <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-200" />
         </div>
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div class="sm:col-span-full">
@@ -36,10 +36,10 @@
       </div>
       <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
-          <h2 class="text-base font-semibold leading-7 text-gray-900">
+          <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
             Options
           </h2>
-          <p class="mt-1 text-sm leading-6 text-gray-600">
+          <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-200">
             Select options which apply.
           </p>
         </div>

@@ -67,7 +67,7 @@
       <AppLayoutHeader :navigation="navigation" @sidebar-open="sidebarOpen = true" />
     </div>
 
-    <main class="py-10 lg:pl-72">
+    <main class="py-10 lg:pl-72 dark:bg-gray-900">
       <div>
         <slot />
       </div>
