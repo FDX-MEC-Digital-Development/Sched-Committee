@@ -1,25 +1,12 @@
 <template>
   <CardGrid>
-    <CardGridItem v-for="(card, index) in dutyLimitCards" :key="`${card.title}${index}`" class="stagger-list ">
-      <DutyLimitDisplayHeadless v-slot="slotProps" :duty-limit-in-minutes="card.minutes" :duty-end-time-zulu="card.dutyEndTimeZulu">
-        <StaggerList>
-          <DutyLimitCard
-            :title="card.title"
-            :duration="slotProps.dutyLimitHHMM"
-            :duty-end-time="slotProps.endTime"
-            :notes="card.notes"
-            :time-remaining="slotProps.timeUntilScheduledDutyLimit"
-            :minutes-remaining="card.minutesRemaining"
-          />
-        </StaggerList>
-      </DutyLimitDisplayHeadless>
-    </CardGridItem>
+    <CardGridItems :duty-limit-cards="dutyLimitCards" />
   </CardGrid>
 </template>
 
 <script lang="ts" setup>
 import { minutesToHours, format, differenceInMinutes } from 'date-fns';
-import { DomesticDutyLimit } from '~/sched-committee-types';
+import { DomesticDutyLimit, DutyLimitCard } from '~/sched-committee-types';
 
 const props = defineProps({
   domesticDutyLimits: {
@@ -32,13 +19,12 @@ const props = defineProps({
   },
 });
 
-const dutyLimitCards = computed(() => {
+const dutyLimitCards = computed<DutyLimitCard[]>(() => {
   const domesticScheduledCard = {
     title: 'Scheduled duty limit',
     notes: 'Bid pack pairing fatigue risk is based on no delays. Please assess your fatigue risk before exceeding scheduled limits.',
     duration: minutesToHours(props.domesticDutyLimits.scheduled).toString(),
     minutes: props.domesticDutyLimits.scheduled,
-
     dutyEndTime: format(props.domesticDutyLimits.endOfScheduledDutyDate, 'dd-MM HH:MM'),
     dutyEndTimeZulu: props.domesticDutyLimits.endOfScheduledDutyDate,
     minutesRemaining: differenceInMinutes(props.domesticDutyLimits.endOfScheduledDutyDate, new Date()),

@@ -13,8 +13,9 @@
       </div>
 
       <div v-if="setDutyLimitsVisible" class="rounded-lg bg-grey px-5 py-6  sm:px-6 result">
-        <DomesticDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :duty-limits="domesticDutyLimit" :duty-start-time-l-b-t="dutyStartTimeLBT" />
-        <DomesticResults :domestic-duty-limits="domesticDutyLimit" :duty-start-time-l-b-t="dutyStartTimeLBT" />
+        <DomesticDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :duty-limits="domesticDutyLimits" :duty-start-time-l-b-t="dutyStartTimeLBT" />
+        <DomesticResults v-if="!options.isInternational" :domestic-duty-limits="domesticDutyLimits" :duty-start-time-l-b-t="dutyStartTimeLBT" />
+        <InternationalResults v-else :international-duty-limits="internationalDutyLimits" />
         <CBAReference />
         <DutyLimitDisclaimer />
       </div>
@@ -70,7 +71,7 @@ async function handleViewDutyLimits () {
   }); */
 }
 
-const { domestic: domesticDutyLimit, international: internationalDutyLimits, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
-watchEffect(() => console.log(domesticDutyLimit.value));
+const { domestic: domesticDutyLimits, international: internationalDutyLimits, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
+watchEffect(() => console.log(domesticDutyLimits.value));
 
 </script>

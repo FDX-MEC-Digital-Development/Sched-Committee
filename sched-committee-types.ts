@@ -59,7 +59,15 @@ export interface DutyLimitsDeprecated {
 
 export interface DutyLimits {
   domestic: Ref<DomesticDutyLimit>,
-
   dutyStartTimeLBT: Ref<number>;
+}
 
-};
+export interface DutyLimitCard {
+  title: string,
+  notes: string,
+  duration: string,
+  minutes: number,
+  dutyEndTime: string, // 'dd-MM HH:MM'
+  dutyEndTimeZulu: Date,
+  minutesRemaining: number,
+}
