@@ -53,10 +53,6 @@ const dutyLimitType = computed(() =>
     : 'non-blended',
 );
 
-const subtitle = computed(() =>
-  `Based on a duty start time of ${formattedBasedOnDate.value}Z (${props.dutyStartTimeLBT.toString().padStart(4, '0')} LBT), you have ${dayNightOrCritical.value} ${dutyLimitType.value} duty limits.`,
-);
-
 </script>
 
 <style>

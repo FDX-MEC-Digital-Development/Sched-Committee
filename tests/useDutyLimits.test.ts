@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { setup } from '@nuxt/test-utils';
 
 import { useDutyLimits } from '../composables/useDutyLimits';
-import { DutyLimitOptions, InternationalDuty } from '~/sched-committee-types';
+import type { DutyLimitOptions, InternationalDuty } from '~/sched-committee-types';
 
 // npm run test
 

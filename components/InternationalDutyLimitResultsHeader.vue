@@ -32,10 +32,6 @@ const formattedBasedOnDate = computed(() =>
 
 );
 
-const subtitle = computed(() =>
-  `Based on a duty start time of ${formattedBasedOnDate.value}Z you have ${props?.options?.isGrid ? 'grid' : 'non-grid'} duty limits.`,
-);
-
 </script>
 
 <style>

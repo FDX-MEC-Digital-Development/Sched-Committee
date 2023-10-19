@@ -2,8 +2,7 @@ import { addMinutes, isValid } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { computed, toRef, toValue } from 'vue';
 // import { DomesticDutyLimit } from '../sched-committee-types';
-import { DomesticDutyLimit, InternationalDuty } from '../sched-committee-types';
-import type { Domicile, DutyLimitOptions, InternationalDutyLimit } from '~/sched-committee-types';
+import type { Domicile, DomesticDutyLimit, DutyLimitOptions, InternationalDuty, InternationalDutyLimit } from '~/sched-committee-types';
 
 // Domestic duty limits in format [scheduled, operational, far]
 const DOMESTIC_DAY_DUTY_LIMITS = [13 * 60, 14.5 * 60, 16 * 60];
