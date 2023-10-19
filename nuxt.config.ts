@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   modules: [
     // Simple usage
     '@nuxtjs/eslint-module',
-    // '@nuxtjs/tailwindcss',
+    // '@nuxtjs/tailwindcss', // nuxtUI already has tailwind and color mode
     'nuxt-icon',
     'nuxt-headlessui',
     // '@nuxtjs/ionic',
