@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { NavigationLink } from '~/sched-committee-types';
+import type { NavigationLink } from '~/sched-committee-types';
 
 defineProps({
   navigation: {

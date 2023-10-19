@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 
-import { DutyLimitOptions } from '~/sched-committee-types';
+import type { DutyLimitOptions } from '~/sched-committee-types';
 
 const props = defineProps({
   dutyStartTimeZulu: {

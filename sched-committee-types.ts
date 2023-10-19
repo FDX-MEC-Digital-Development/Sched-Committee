@@ -8,15 +8,15 @@ export interface NavigationLink {
 }
 
 export interface DutyLimitOptions {
-  isDayRoomScheduledAndReserved?: boolean
-  is2Trips?: boolean
-  is2TripsWithOneOptional?: boolean // TODO: list examples here
-  isInternational?: boolean
-  isGrid?: boolean // "grid" means the trip starts more than 96 hours from now
-  isInboundFlightSegmentGreaterThan5HoursTZD?: boolean
-  crewNumberOfPilots?: number
-  layoverLength?: number,
-  domicile?: Domicile
+  isDayRoomScheduledAndReserved?: boolean;
+  is2Trips?: boolean;
+  is2TripsWithOneOptional?: boolean; // TODO: list examples here
+  isInternational?: boolean;
+  isGrid?: boolean; // "grid" means the trip starts more than 96 hours from now
+  isInboundFlightSegmentGreaterThan5HoursTZD?: boolean;
+  crewNumberOfPilots?: number;
+  layoverLength?: number;
+  domicile?: Domicile;
 }
 
 export interface DomesticDutyLimit {
@@ -25,7 +25,6 @@ export interface DomesticDutyLimit {
     scheduled: number;
     operational: number;
     far: number;
-
     endOfScheduledDutyDate: Date;
     endOfOperationalDutyDate: Date;
     endOfFARDutyDate: Date;

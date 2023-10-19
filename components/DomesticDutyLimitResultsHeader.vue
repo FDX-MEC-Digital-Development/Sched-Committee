@@ -8,8 +8,8 @@
 
 <script lang="ts" setup>
 import { formatInTimeZone } from 'date-fns-tz';
-import { PropType } from 'vue';
-import { DomesticDutyLimit } from '~/sched-committee-types';
+import type { PropType } from 'vue';
+import type { DomesticDutyLimit } from '~/sched-committee-types';
 
 const props = defineProps({
   basedOnTime: {

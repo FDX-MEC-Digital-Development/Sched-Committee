@@ -1,10 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+
   colorMode: {
     preference: 'light',
   },
 
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: [
     // Simple usage
     '@nuxtjs/eslint-module',
@@ -21,6 +22,7 @@ export default defineNuxtConfig({
   headlessui: {
     prefix: 'Headless',
   },
+
   ssr: false,
 
 });

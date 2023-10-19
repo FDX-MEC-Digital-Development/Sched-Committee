@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { isValid } from 'date-fns';
-import { DutyLimitOptions, Domicile } from '~/sched-committee-types';
+import type { DutyLimitOptions, Domicile } from '~/sched-committee-types';
 
 const props = defineProps({
   dutyStartTimeZulu: {

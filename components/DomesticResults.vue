@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { minutesToHours, format, differenceInMinutes } from 'date-fns';
-import { DomesticDutyLimit, DutyLimitCard } from '~/sched-committee-types';
+import type { DomesticDutyLimit, DutyLimitCard } from '~/sched-committee-types';
 
 const props = defineProps({
   domesticDutyLimits: {

@@ -53,8 +53,8 @@
 
 <script lang="ts" setup>
 import { format } from 'date-fns';
-import { PropType } from 'vue';
-import { DutyLimitOptions, InternationalDuty } from '~/sched-committee-types';
+import type { PropType } from 'vue';
+import type { DutyLimitOptions, InternationalDuty } from '~/sched-committee-types';
 
 const props = defineProps({
   basedOnTime: {

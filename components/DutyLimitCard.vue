@@ -17,7 +17,7 @@
           <dt class="sr-only">
             Time remaining
           </dt>
-          <TimeRemainingBadge :label="timeRemaining" :minutes-remaining="minutesRemaining" />
+          <TimeRemainingBadge v-if="Math.abs(minutesRemaining) < (60 * 24 * 2)" :label="timeRemaining" :minutes-remaining="minutesRemaining" />
         </div>
         <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
           <dt class="flex-none">
