@@ -10,6 +10,7 @@
           :time-remaining="slotProps.timeUntilScheduledDutyLimit"
           :minutes-remaining="card.minutesRemaining"
           :block-hours="card.blockHours"
+          :landings="card.landings"
         />
       </StaggerList>
     </DutyLimitDisplayHeadless>

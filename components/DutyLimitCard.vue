@@ -28,7 +28,7 @@
             @ {{ dutyEndTime }}
           </dd>
         </div>
-        <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+        <div v-if="notes" class="mt-4 flex w-full flex-none gap-x-4 px-6">
           <dt class="flex-none">
             <span class="sr-only">Notes</span>
             <Icon name="heroicons-solid:shield-exclamation" class="h-6 w-5 text-gray-400" aria-hidden="true" />
@@ -37,17 +37,30 @@
             {{ notes }}
           </dd>
         </div>
-        <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+        <div v-if="blockHours" class="mt-4 flex w-full flex-none gap-x-4 px-6">
           <dt class="flex-none">
             <span class="sr-only">Block hours</span>
             <Icon
-              name="heroicons-solid:globe-americas"
+              name="mdi:airplane-clock"
               class="h-6 w-5 text-gray-400"
               aria-hidden="true"
             />
           </dt>
           <dd class="text-sm leading-6 text-gray-500">
             {{ blockHours }}
+          </dd>
+        </div>
+        <div v-if="landings" class="mt-4 flex w-full flex-none gap-x-4 px-6">
+          <dt class="flex-none">
+            <span class="sr-only">Landings</span>
+            <Icon
+              name="mdi:airplane-landing"
+              class="h-6 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </dt>
+          <dd class="text-sm leading-6 text-gray-500">
+            {{ landings }}
           </dd>
         </div>
       </dl>
@@ -68,6 +81,7 @@ defineProps({
   dutyEndTime: { type: String, required: true },
   notes: { type: String, required: false, default: '' },
   blockHours: { type: String, required: false, default: '' },
+  landings: { type: String, required: false, default: '' },
 });
 
 </script>

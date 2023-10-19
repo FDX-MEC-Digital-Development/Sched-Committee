@@ -26,7 +26,8 @@ const dutyLimitCards = computed(() => {
       dutyEndTime: format(dutyLimit.endOfScheduledDutyDate, 'dd-MM HH:MM'),
       dutyEndTimeZulu: dutyLimit.endOfScheduledDutyDate,
       minutesRemaining: differenceInMinutes(dutyLimit.endOfScheduledDutyDate, new Date()),
-      blockHours: dutyLimit.blockHours.scheduled ? `${dutyLimit.blockHours.scheduled} block hours` : undefined,
+      blockHours: dutyLimit.blockHours.scheduled ? `Block hours: ${dutyLimit.blockHours.scheduled}` : undefined,
+      landings: dutyLimit.landings ? `Landings: ${dutyLimit.landings}` : undefined,
     }));
 
   const internationalOperationalCards = props.internationalDutyLimits.filter(dutyLimit => dutyLimit.operational !== undefined && dutyLimit.endOfOperationalDutyDate !== undefined).map(dutyLimit =>
@@ -39,6 +40,7 @@ const dutyLimitCards = computed(() => {
       dutyEndTimeZulu: dutyLimit.endOfOperationalDutyDate,
       minutesRemaining: dutyLimit.endOfOperationalDutyDate && differenceInMinutes(dutyLimit.endOfOperationalDutyDate, new Date()),
       blockHours: typeof dutyLimit?.blockHours.operational === 'number' ? `${dutyLimit?.blockHours.operational} block hours` : typeof dutyLimit?.blockHours.operational === 'string' ? dutyLimit?.blockHours.operational : undefined,
+      landings: dutyLimit.landings ? `Landings: ${dutyLimit.landings}` : undefined,
     }));
 
   return [...internationalScheduledCards, ...internationalOperationalCards];
