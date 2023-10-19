@@ -63,15 +63,8 @@
       <AppLayoutSidebar :navigation="navigation" />
     </div>
 
-    <div class="sticky top-0 z-40 flex items-center gap-x-6 bg-red-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
-      <button type="button" class="-m-2.5 p-2.5 text-red-200 lg:hidden" @click="sidebarOpen = true">
-        <span class="sr-only">Open sidebar</span>
-        <Icon name="heroicons:bars-3" class="h-6 w-6" aria-hidden="true" />
-      </button>
-      <div class="flex-1 text-sm font-semibold leading-6 text-white">
-        {{ navigation.find((item) => item.current)?.name }}
-      </div>
-      <Icon name="heroicons:moon" />
+    <div class=" sticky top-0 z-40 flex items-center gap-x-6 bg-red-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+      <AppLayoutHeader :navigation="navigation" @sidebar-open="sidebarOpen = true" />
     </div>
 
     <main class="py-10 lg:pl-72">
@@ -96,3 +89,7 @@ const navigation = ref([
 
 const sidebarOpen = ref(false);
 </script>
+
+<style>
+
+</style>

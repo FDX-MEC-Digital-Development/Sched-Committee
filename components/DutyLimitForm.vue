@@ -10,12 +10,11 @@
             This often begins 1 hour before scheduled takeoff time.
           </p>
         </div>
+
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div class="sm:col-span-4">
             <div class="mt-2">
-              <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <DateTimePicker :model-value:date="dutyStartTimeZulu" @update:date="(event) => $emit('update:dutyStartTimeZulu', event)" />
-              </div>
+              <DateTimePicker :model-value:date="dutyStartTimeZulu" @update:date="(event) => $emit('update:dutyStartTimeZulu', event)" />
             </div>
           </div>
         </div>
