@@ -47,7 +47,7 @@
 </template>
 <script lang="ts" setup>
 import { isValid } from 'date-fns';
-import { DutyLimitOptions } from '~/sched-committee-types';
+import type { DutyLimitOptions } from '~/sched-committee-types';
 import { InternationalForm, DomesticForm } from '#components';
 
 const dutyStartTimeZulu = ref<Date>(new Date());
