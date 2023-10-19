@@ -28,7 +28,7 @@
         </div>
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div class="sm:col-span-full">
-            <div class="mt-2">
+            <div class="xs:mt-2">
               <DomesticInternationalTabs :is-international="options.isInternational" @update:is-international="(event) => handleOptionsUpdate( {isInternational: event})" />
             </div>
           </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div class="sm:col-span-full">
-            <div class="mt-2">
+            <div class="xs:mt-2">
               <transition :name="options.isInternational ? 'slide-left' : 'slide-right'">
                 <component :is="domesticOrInternationalComponent" :options="options" :duty-start-time-zulu="dutyStartTimeZulu" @update:options="(event)=>handleOptionsUpdate(event)" />
               </transition>

@@ -9,6 +9,7 @@
           :notes="card.notes"
           :time-remaining="slotProps.timeUntilScheduledDutyLimit"
           :minutes-remaining="card.minutesRemaining"
+          :block-hours="card.blockHours"
         />
       </StaggerList>
     </DutyLimitDisplayHeadless>

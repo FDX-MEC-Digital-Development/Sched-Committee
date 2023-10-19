@@ -2,9 +2,11 @@
   <form>
     <div class="max-w-2xl space-y-10 md:col-span-2">
       <fieldset>
-        <div class="mt-6 space-y-6">
-          <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Domicile</label>
-          <USelect :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
+        <div class="xs:mt-2 space-y-6">
+          <!--           <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Domicile</label> -->
+          <UFormGroup label="Domicile">
+            <USelectMenu :model-value="options.domicile" :options="domicileOptions" @update:model-value="(event) => handleOptionsUpdate({domicile: event})" />
+          </UFormGroup>
         </div>
         <div class="mt-6 space-y-6">
           <div class="relative flex gap-x-3">
