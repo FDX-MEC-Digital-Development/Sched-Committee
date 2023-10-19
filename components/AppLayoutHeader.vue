@@ -6,7 +6,7 @@
   <div class="flex-1 text-sm font-semibold leading-6 text-white">
     {{ navigation.find((item) => item.current)?.name }}
   </div>
-  <Icon name="heroicons:sun" class="text-white" />
+  <ColorModeButton />
 </template>
 
 <script lang="ts" setup>

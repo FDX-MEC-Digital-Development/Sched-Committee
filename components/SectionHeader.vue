@@ -3,7 +3,7 @@
     <h3 class="text-base font-semibold leading-6 text-gray-900">
       {{ title }}
     </h3>
-    <p v-if="subtitle || $slots" class="mt-2 max-w-4xl text-sm text-gray-500">
+    <p v-if="subtitle || $slots" class="mt-2 max-w-4xl text-sm text-gray-500 leading-7">
       {{ subtitle }}<slot />
     </p>
   </div>
