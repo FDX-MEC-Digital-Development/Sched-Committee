@@ -53,7 +53,7 @@ const dutyLimitCards = computed(() => {
     minutesRemaining: differenceInMinutes(props.domesticDutyLimits.endOfOperationalDutyDate, new Date()),
   };
   const domesticFARCard = {
-    title: 'Scheduled duty limit',
+    title: 'FAR duty limit',
     notes: '',
     duration: minutesToHours(props.domesticDutyLimits.far).toString(),
     minutes: props.domesticDutyLimits.far,

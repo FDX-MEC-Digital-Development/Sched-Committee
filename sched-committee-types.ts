@@ -1,5 +1,12 @@
 export type Domicile = 'MEM' | 'IND' | 'OAK' | 'LAX' | 'ANC' | 'CGN';
 
+export interface NavigationLink {
+  name: string;
+  href: string;
+  icon: string;
+  current: boolean;
+}
+
 export interface DutyLimitOptions {
   isDayRoomScheduledAndReserved?: boolean
   is2Trips?: boolean

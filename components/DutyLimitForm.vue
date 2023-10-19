@@ -1,7 +1,7 @@
 <template>
   <form>
-    <div class="space-y-12">
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+    <div class="space-y-6">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900">
             Duty start time (Zulu)
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-b border-gray-900/10 pb-6 md:grid-cols-3">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900">
             Leg type
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-gray-900/10 pb-12 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900">
             Options
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="mt-6 flex items-center justify-end gap-x-6">
+    <div class="flex items-center justify-end gap-x-6">
       <slot name="button" />
     </div>
   </form>
