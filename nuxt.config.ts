@@ -23,7 +23,9 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     // '@nuxtjs/ionic',
     '@vueuse/nuxt',
-    '@nuxt/ui', '@hypernym/nuxt-anime',
+    '@nuxt/ui',
+    '@hypernym/nuxt-anime',
+    '@formkit/auto-animate/nuxt',
   ],
   eslint: {
     /* module options */
