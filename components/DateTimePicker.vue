@@ -21,7 +21,7 @@ const dateISOString = computed(() => format(props.date, 'yyyy-MM-dd') + 'T' + fo
 const emit = defineEmits(['update:date']);
 
 function handleDatetimeUpdate ({ newDatetimeInput }: { newDatetimeInput: string }) {
-  const newDate = new Date(newDatetimeInput);
+  const newDate = new Date(newDatetimeInput + 'Z');
   if (isValid(newDate)) {
     console.log(`Updating dutyStartTimeZulu to ${newDate}`);
     emit('update:date', newDate);
