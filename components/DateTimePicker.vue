@@ -21,7 +21,11 @@ const dateISOString = computed(() => format(props.date, 'yyyy-MM-dd') + 'T' + fo
 const emit = defineEmits(['update:date']);
 
 function handleDatetimeUpdate ({ newDatetimeInput }: { newDatetimeInput: string }) {
-  const newDate = new Date(newDatetimeInput + 'Z');
+  console.log(newDatetimeInput);
+
+  // given the format 2023-10-21T21:55, construct a new date using date-fns-utc
+  const [year, month, day, hour, minute] = newDatetimeInput.split(/[-T:]/).map(x => parseInt(x, 10));
+  const newDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
   if (isValid(newDate)) {
     console.log(`Updating dutyStartTimeZulu to ${newDate}`);
     emit('update:date', newDate);

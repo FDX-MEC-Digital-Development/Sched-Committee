@@ -46,7 +46,7 @@
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div class="sm:col-span-full">
             <div v-auto-animate class="xs:mt-2">
-              <component :is="domesticOrInternationalComponent" :key="domesticOrInternationalComponent" :options="options" :duty-start-time-zulu="dutyStartTimeZulu" @update:options="(event)=>handleOptionsUpdate(event)" />
+              <component :is="domesticOrInternationalComponent" :key="`internationalComponent${props.options.isInternational}`" :options="options" :duty-start-time-zulu="dutyStartTimeZulu" @update:options="(event)=>handleOptionsUpdate(event)" />
             </div>
           </div>
         </div>
