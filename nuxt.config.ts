@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    baseURL: '/Sched-Committee/', // this is for github pages
+  },
+  nitro: {
+    preset: 'github-pages',
+  },
 
   css: [
     '~/assets/css/main.css',
