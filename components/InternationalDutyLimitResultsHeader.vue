@@ -2,7 +2,7 @@
   <div>
     <Transition name="fade-slide-down" appear>
       <SectionHeader title="Duty limits">
-        Based on a duty start time of <UBadge>{{ formattedBasedOnDate }}Z</UBadge>, you have <UBadge>{{ props?.options?.isGrid ? 'grid' : 'non-grid' }}</UBadge> duty limits.
+        Based on a duty start time of <UBadge>{{ formattedBasedOnDate }}Z</UBadge> you have <UBadge>{{ props?.options?.isGrid ? 'grid' : 'non-grid' }}</UBadge> duty limits.
       </SectionHeader>
     </Transition>
   </div>

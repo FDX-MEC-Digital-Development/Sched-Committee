@@ -29,13 +29,15 @@
 
 <script setup lang="ts">
 import { isValid } from 'date-fns';
+import { UTCDateMini } from '@date-fns/utc';
+
 import type { DutyLimitOptions } from '~/sched-committee-types';
 
 definePageMeta({
   title: 'Duty Limits',
 });
 
-const dutyStartTimeZulu = ref<Date>(new Date());
+const dutyStartTimeZulu = ref<Date>(new UTCDateMini());
 const options = ref<DutyLimitOptions>({
   is2TripsWithOneOptional: false,
   isDayRoomScheduledAndReserved: false,
