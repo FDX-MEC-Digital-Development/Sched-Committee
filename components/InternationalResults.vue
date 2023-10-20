@@ -5,7 +5,8 @@
 </template>
 
 <script lang="ts" setup>
-import { minutesToHours, format, differenceInMinutes } from 'date-fns';
+import { minutesToHours, differenceInMinutes } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import type { InternationalDuty } from '~/sched-committee-types';
 
 const props = defineProps({
@@ -23,7 +24,7 @@ const dutyLimitCards = computed(() => {
       notes: dutyLimit.scheduledNotes,
       duration: minutesToHours(dutyLimit.scheduled).toString(),
       minutes: dutyLimit.scheduled,
-      dutyEndTime: format(dutyLimit.endOfScheduledDutyDate, 'dd-MM HH:MM'),
+      dutyEndTime: formatInTimeZone(dutyLimit.endOfScheduledDutyDate, 'UTC', 'dd-MM HH:MM'),
       dutyEndTimeZulu: dutyLimit.endOfScheduledDutyDate,
       minutesRemaining: differenceInMinutes(dutyLimit.endOfScheduledDutyDate, new Date()),
       blockHours: dutyLimit.blockHours.scheduled ? `Block hours: ${dutyLimit.blockHours.scheduled}` : undefined,
@@ -36,7 +37,7 @@ const dutyLimitCards = computed(() => {
       notes: dutyLimit.operationalNotes,
       duration: dutyLimit.operational && minutesToHours(dutyLimit.operational).toString(),
       minutes: dutyLimit.operational,
-      dutyEndTime: dutyLimit.endOfOperationalDutyDate && format(dutyLimit.endOfOperationalDutyDate, 'dd-MM HH:MM'),
+      dutyEndTime: dutyLimit.endOfOperationalDutyDate && formatInTimeZone(dutyLimit.endOfOperationalDutyDate, 'UTC', 'dd-MM HH:MM'),
       dutyEndTimeZulu: dutyLimit.endOfOperationalDutyDate,
       minutesRemaining: dutyLimit.endOfOperationalDutyDate && differenceInMinutes(dutyLimit.endOfOperationalDutyDate, new Date()),
       blockHours: typeof dutyLimit?.blockHours.operational === 'number' ? `${dutyLimit?.blockHours.operational} block hours` : typeof dutyLimit?.blockHours.operational === 'string' ? dutyLimit?.blockHours.operational : undefined,

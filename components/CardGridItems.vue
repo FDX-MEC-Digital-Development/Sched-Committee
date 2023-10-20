@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { format } from 'date-fns';
 import { UseTimeAgo } from '@vueuse/components';
 
+import { formatInTimeZone } from 'date-fns-tz';
 import type { DutyLimitCard } from '../sched-committee-types';
 
 defineProps({
@@ -35,7 +35,7 @@ const formattedDutyLimitHHMM = (dutyLimitInMinutes: number) => {
   const minutes = dutyLimitInMinutes % 60 !== 0 ? (dutyLimitInMinutes % 60).toFixed(0).padStart(2, '0') : '';
   return `${hours}${minutes !== '' ? ':' : ''}${minutes}`;
 };
-const formattedEndTime = (dutyEndTimeZulu: Date) => format(dutyEndTimeZulu, 'MM-dd-yy HH:mm');
+const formattedEndTime = (dutyEndTimeZulu: Date) => formatInTimeZone(dutyEndTimeZulu, 'UTC', 'MM-dd-yy HH:mm');
 
 </script>
 

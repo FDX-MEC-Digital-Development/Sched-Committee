@@ -25,7 +25,7 @@
             <Icon name="heroicons-solid:clock" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
           <dd class="text-sm font-medium leading-6 text-gray-900">
-            @ {{ dutyEndTime }}
+            <UBadge>{{ dutyEndTime }}Z</UBadge>
           </dd>
         </div>
         <div v-if="notes" class="mt-4 flex w-full flex-none gap-x-4 px-6">
