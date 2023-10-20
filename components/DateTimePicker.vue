@@ -1,6 +1,7 @@
 <template>
   <UFormGroup name="dutyStart">
     <UInput type="datetime-local" trailing :model-value="dateISOString" @update:model-value="(event)=>handleDatetimeUpdate({newDatetimeInput: event})" />
+    {{ debug }}
   </UFormGroup>
 </template>
 
@@ -19,8 +20,10 @@ const props = defineProps({
 const dateISOString = computed(() => format(props.date, 'yyyy-MM-dd') + 'T' + format(props.date, 'HH:mm'));
 
 const emit = defineEmits(['update:date']);
+const debug = ref();
 
 function handleDatetimeUpdate ({ newDatetimeInput }: { newDatetimeInput: string }) {
+  debug.value = newDatetimeInput;
   console.log(newDatetimeInput);
 
   // given the format 2023-10-21T21:55, construct a new date using date-fns-utc
