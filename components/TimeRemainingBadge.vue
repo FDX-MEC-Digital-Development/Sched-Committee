@@ -17,10 +17,13 @@ const props = defineProps({
   },
 });
 
+const MINUTES_REMAINING_RED_THRESHOLD = 0;
+const MINUTES_REMAINING_GREEN_THRESHOLD = 120;
+
 const divColor = computed(() => {
-  if (props.minutesRemaining > 120) {
+  if (props.minutesRemaining > MINUTES_REMAINING_GREEN_THRESHOLD) {
     return 'bg-green-100 text-green-800';
-  } else if (props.minutesRemaining < 0) {
+  } else if (props.minutesRemaining < MINUTES_REMAINING_RED_THRESHOLD) {
     return 'bg-red-100 text-red-800';
   } else {
     return 'bg-orange-100 text-orange-800';

@@ -69,4 +69,6 @@ export interface DutyLimitCard {
   dutyEndTime: string, // 'dd-MM HH:MM'
   dutyEndTimeZulu: Date,
   minutesRemaining: number,
+  blockHours?: string,
+  landings?: string,
 }

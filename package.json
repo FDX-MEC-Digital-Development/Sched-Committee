@@ -26,6 +26,7 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/ionic": "^0.12.1",
     "@nuxtjs/tailwindcss": "^6.8.0",
+    "@vueuse/components": "^10.5.0",
     "@vueuse/core": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
     "eslint": "^8.51.0",
