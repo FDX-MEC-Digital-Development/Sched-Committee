@@ -1,12 +1,11 @@
 <template>
   <UFormGroup name="dutyStart">
-    <UInput type="date" trailing :model-value="todaysDateInDateStringFormat" @update:model-value="(event)=>handleDateUpdate({newDateInput: event})" />
-    <UInput type="time" trailing :model-value="timeRightNowInTimeStringFormat" @update:model-value="(event)=>handleDateUpdate({newTimeInput: event})" />
+    <UInput type="datetime-local" trailing :model-value="dateISOString" @update:model-value="(event)=>handleDatetimeUpdate({newDatetimeInput: event})" />
   </UFormGroup>
 </template>
 
 <script lang="ts" setup>
-import { isValid } from 'date-fns';
+import { isValid, format } from 'date-fns';
 const props = defineProps({
   date: {
     type: Date,
@@ -16,17 +15,13 @@ const props = defineProps({
 
 );
 
-const dateIOSString = computed(() => props.date.toISOString());
-
-const todaysDateInDateStringFormat = computed(() => dateIOSString.value.split('T')[0]);
-const timeRightNowInTimeStringFormat = computed(() => dateIOSString.value.split('T')[1].split('.')[0]);
+// this concatination is required because "T" is milliseconds
+const dateISOString = computed(() => format(props.date, 'yyyy-MM-dd') + 'T' + format(props.date, 'HH:mm'));
 
 const emit = defineEmits(['update:date']);
 
-function handleDateUpdate ({ newDateInput, newTimeInput }: {newDateInput?: string, newTimeInput?: string}) {
-  const dateInput = newDateInput || todaysDateInDateStringFormat.value;
-  const timeInput = newTimeInput || timeRightNowInTimeStringFormat.value;
-  const newDate = new Date(`${dateInput}T${timeInput}Z`);
+function handleDatetimeUpdate ({ newDatetimeInput }: { newDatetimeInput: string }) {
+  const newDate = new Date(newDatetimeInput);
   if (isValid(newDate)) {
     console.log(`Updating dutyStartTimeZulu to ${newDate}`);
     emit('update:date', newDate);
