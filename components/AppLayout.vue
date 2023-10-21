@@ -92,10 +92,10 @@ const navigation = ref([
 const sidebarOpen = ref(false);
 
 onMounted(() => {
-  const path = document.querySelectorAll('path'); // Select all path elements
+  // const path = document.querySelectorAll('path'); // Select all path elements
 
   // Start the staggered animation when the component is mounted
-  drawPath(path);
+  // drawPath(path);
 });
 </script>
 
