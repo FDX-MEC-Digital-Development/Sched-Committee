@@ -1983,6 +1983,7 @@
       </g>
       <path
         fill="#ffffff"
+        opacity="0"
         d="
   M 0.00 0.00
   L 442.00 0.00
@@ -4829,16 +4830,18 @@ const { $anime } = useNuxtApp();
 
 onMounted(() => {
   const path = document.querySelectorAll('.svg-animation path'); // Select all path elements
+  const rect = document.querySelectorAll('.svg-animation rect'); // Select all rect elements
+  const ellipse = document.querySelectorAll('.svg-animation ellipse'); // Select all ellipse elements
   // target path elemnts in the thumbnail_scheduling_logo svg
 
   // Start the staggered animation when the component is mounted
   const timeline = $anime.timeline({
     duration: 2000,
+    targets: [path, rect, ellipse],
 
   });
 
   timeline.add({
-    targets: path,
     strokeDashoffset: [$anime.setDashoffset, 0],
     easing: 'easeInOutSine',
 
@@ -4849,12 +4852,19 @@ onMounted(() => {
 
   timeline.add(
     {
-      targets: path,
       fillOpacity: [0, 1],
       easing: 'easeInOutSine',
-      duration: 500,
+      delay: $anime.stagger(200, { grid: [14, 5], from: 'center' }),
 
     }, '-=2000');
+
+  timeline.add({
+
+    opacity: [
+      { value: 0, easing: 'easeInOutQuad', duration: 1000 },
+    ],
+    delay: $anime.stagger(200, { grid: [14, 5], from: 'center' }),
+  });
 
   timeline.play();
 });
