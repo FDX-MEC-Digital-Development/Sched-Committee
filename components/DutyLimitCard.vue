@@ -4,7 +4,7 @@
       Title
     </h2>
     <div class="rounded-lg bg-gray-50 flex flex-wrap flex-col shadow-sm ring-1 ring-gray-900/5 card-background">
-      <dl class="flex flex-wrap">
+      <dl class="flex flex-wrap mb-6">
         <div class="flex-none pl-6 pt-6">
           <dt class="text-sm font-semibold leading-6 text-gray-900">
             {{ title }}
@@ -22,7 +22,7 @@
         <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
           <dt class="flex-none">
             <span class="sr-only">Duty end time</span>
-            <Icon name="heroicons-solid:clock" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            <Icon name="heroicons-solid:at-symbol" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
           <dd class="text-sm font-medium leading-6 text-gray-900">
             <UBadge>{{ dutyEndTime }}Z</UBadge>
