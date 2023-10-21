@@ -20,7 +20,7 @@
         <div v-else>
           <InternationalDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :options="options" />
           <InternationalResults :international-duty-limits="internationalDutyLimits" />
-        </div><CBAReference />
+        </div><CBAReference :is-international="options.isInternational" />
         <DutyLimitDisclaimer />
       </div>
     </div>
