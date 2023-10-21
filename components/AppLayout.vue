@@ -78,6 +78,7 @@
 
 <script setup>
 import { ref } from 'vue';
+
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 const navigation = ref([
@@ -89,6 +90,13 @@ const navigation = ref([
 ]);
 
 const sidebarOpen = ref(false);
+
+onMounted(() => {
+  const path = document.querySelectorAll('path'); // Select all path elements
+
+  // Start the staggered animation when the component is mounted
+  drawPath(path);
+});
 </script>
 
 <style>
