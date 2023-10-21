@@ -63,7 +63,7 @@ export interface DutyLimits {
 
 export interface DutyLimitCard {
   title: string,
-  notes: string,
+  notes?: string,
   duration: string,
   minutes: number,
   dutyEndTime: string, // 'dd-MM HH:MM'

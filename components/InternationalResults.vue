@@ -35,11 +35,11 @@ const dutyLimitCards = computed(() => {
     ({
       title: 'Operational duty limit',
       notes: dutyLimit.operationalNotes,
-      duration: dutyLimit.operational && minutesToHours(dutyLimit.operational).toString(),
-      minutes: dutyLimit.operational,
-      dutyEndTime: dutyLimit.endOfOperationalDutyDate && formatInTimeZone(dutyLimit.endOfOperationalDutyDate, 'UTC', 'dd-MM HH:MM'),
-      dutyEndTimeZulu: dutyLimit.endOfOperationalDutyDate,
-      minutesRemaining: dutyLimit.endOfOperationalDutyDate && differenceInMinutes(dutyLimit.endOfOperationalDutyDate, new Date()),
+      duration: minutesToHours(dutyLimit.operational!).toString(),
+      minutes: dutyLimit.operational!,
+      dutyEndTime: dutyLimit.endOfOperationalDutyDate! && formatInTimeZone(dutyLimit.endOfOperationalDutyDate!, 'UTC', 'dd-MM HH:MM'),
+      dutyEndTimeZulu: dutyLimit.endOfOperationalDutyDate!,
+      minutesRemaining: dutyLimit.endOfOperationalDutyDate! && differenceInMinutes(dutyLimit.endOfOperationalDutyDate!, new Date()),
       blockHours: typeof dutyLimit?.blockHours.operational === 'number' ? `${dutyLimit?.blockHours.operational} block hours` : typeof dutyLimit?.blockHours.operational === 'string' ? dutyLimit?.blockHours.operational : undefined,
       landings: dutyLimit.landings ? `Landings: ${dutyLimit.landings}` : undefined,
     }));

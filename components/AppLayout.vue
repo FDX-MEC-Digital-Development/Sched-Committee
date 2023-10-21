@@ -71,6 +71,7 @@
       <div>
         <slot />
       </div>
+      <PageFooter />
     </main>
   </div>
 </template>
