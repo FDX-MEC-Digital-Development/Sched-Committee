@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { isValid } from 'date-fns';
-import { DutyLimitOptions } from '~/sched-committee-types';
+import type { DutyLimitOptions } from '~/sched-committee-types';
 
 definePageMeta({
   title: 'Duty Limits',

@@ -1,7 +1,7 @@
 <template>
   <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
-    <div class="flex h-16 shrink-0 items-center" :class="{'logo-thumbnail-hidden': !hideAnimation}">
-      <img class="h-10 w-auto" src="./../assets/thumbnail_scheduling logo crop2.0 filled.svg" alt="Scheduling committee logo">
+    <div v-auto-animate class="flex h-16 shrink-0 items-center">
+      <img v-if="!animationLogoVisible" class="h-10 w-auto" src="./../assets/thumbnail_scheduling logo crop2.0 filled.svg" alt="Scheduling committee logo">
     </div>
     <nav class="flex flex-1 flex-col">
       <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -48,7 +48,7 @@ const props = defineProps({
 const animationLogoVisible = ref(!props.hideAnimation);
 
 function fadeInLogo () {
-  const logo = document.querySelector('.logo-thumbnail-hidden');
+  // const logo = document.querySelector('.logo-thumbnail-hidden');
   const svgAnimation = document.querySelector('.svg-animation path');
 
   const { $anime } = useNuxtApp();
@@ -65,13 +65,13 @@ function fadeInLogo () {
 
   });
 
-  $anime({
+  /*  $anime({
     targets: logo,
     opacity: [0, 1],
     duration: 500,
     delay: 500,
     easing: 'linear',
-  });
+  }); */
 }
 
 </script>
