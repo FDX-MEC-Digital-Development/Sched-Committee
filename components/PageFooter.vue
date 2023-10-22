@@ -19,10 +19,10 @@
         </div>
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
-      <div class="sm:flex sm:items-center sm:justify-between flex-wrap gap-6">
+      <div class="sm:flex sm:items-center sm:justify-between flex-wrap gap-6 flex">
         <p class="text-sm text-gray-500 sm:text-left dark:text-gray-400">
           This project is free software: you can redistribute it and/or modify
-          it under the terms of the GNU General Public License as published by
+          it under the terms of the GNU Affero General Public License as published by
           the Free Software Foundation, either version 3 of the License, or
           (at your option) any later version.
         </p>
@@ -30,7 +30,7 @@
           This program is distributed in the hope that it will be useful,
           but WITHOUT ANY WARRANTY; without even the implied warranty of
           MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-          GNU General Public License for more details.
+          GNU Affero General Public License for more details.
         </p>
         <p class="text-sm text-gray-500 sm:text-left dark:text-gray-400">
           Copyright 2023 Joshua Carter (Acrobid.com).
