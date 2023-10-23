@@ -9,7 +9,7 @@
   -->
   <div>
     <TransitionRoot as="template" :show="sidebarOpen">
-      <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
+      <Dialog as="div" class="relative z-50 lg:hidden" @close="closeSidebar()">
         <TransitionChild
           as="template"
           enter="transition-opacity ease-linear duration-300"
@@ -43,14 +43,14 @@
                 leave-to="opacity-0"
               >
                 <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-                  <button type="button" class="-m-2.5 p-2.5" @click="sidebarOpen = false">
+                  <button type="button" class="-m-2.5 p-2.5" @click="closeSidebar()">
                     <span class="sr-only">Close sidebar</span>
-                    <UIcon name="heroicons-x-mark" class="h-6 w-6 text-white" aria-hidden="true" />
+                    <Icon name="heroicons:x-mark" class="h-6 w-6 text-white" aria-hidden="true" />
                   </button>
                 </div>
               </TransitionChild>
               <!-- Sidebar component, swap this element with another sidebar if you like -->
-              <AppLayoutSidebar :navigation="navigation" :hide-animation="true" />
+              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" />
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -90,6 +90,7 @@ const navigation = ref([
 ]);
 
 const sidebarOpen = ref(false);
+const hideAnimation = ref(false);
 
 onMounted(() => {
   // const path = document.querySelectorAll('path'); // Select all path elements
@@ -97,6 +98,11 @@ onMounted(() => {
   // Start the staggered animation when the component is mounted
   // drawPath(path);
 });
+
+function closeSidebar () {
+  sidebarOpen.value = false;
+  hideAnimation.value = true;
+}
 </script>
 
 <style>
