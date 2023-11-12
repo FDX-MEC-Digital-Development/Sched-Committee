@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     // '@nuxtjs/tailwindcss', // nuxtUI already has tailwind and color mode
     'nuxt-icon',
     'nuxt-headlessui',
-    // '@nuxtjs/ionic',
+    '@nuxtjs/ionic',
     '@vueuse/nuxt',
     '@nuxt/ui',
     '@hypernym/nuxt-anime',
@@ -32,6 +32,19 @@ export default defineNuxtConfig({
   },
   headlessui: {
     prefix: 'Headless',
+  },
+  ionic: {
+    integrations: {
+      meta: false,
+      pwa: false,
+      router: false,
+      icons: false,
+    },
+    css: {
+      core: false,
+      basic: false,
+      utilities: false,
+    },
   },
 
   ssr: false,

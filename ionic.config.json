@@ -1,5 +1,7 @@
 {
   "name": "scheduling-committee-app",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue"
 }
