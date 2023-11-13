@@ -28,9 +28,10 @@ function onEnter () {
     targets: '.stagger-list',
     translateX: [50, 0],
     opacity: [0, 1],
-    scale: [0.6, 1],
+    // scale: [0.6, 1],
+    // translateY: [50, 0],
     delay: $anime.stagger(300, { start: 500 }),
-    easing: 'easeInQuad',
+    easing: 'spring(1, 80, 10, 0)',
     duration: 500,
   });
 }

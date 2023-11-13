@@ -2,6 +2,8 @@
 export default defineNuxtConfig({
   app: {
     baseURL: '/Sched-Committee/', // this is for github pages
+    pageTransition: { name: 'page', mode: 'out-in' },
+
   },
   build: {
     transpile: ['@vuepic/vue-datepicker'],
@@ -15,7 +17,7 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
   ],
   colorMode: {
-    preference: 'light',
+    preference: 'dark',
   },
 
   devtools: { enabled: false },
