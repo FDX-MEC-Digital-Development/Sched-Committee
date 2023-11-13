@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   /*  nitro: {
     preset: 'github-pages',
   }, */
+  head: [{ name: 'viewport', content: 'initial-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover' }],
 
   css: [
     '~/assets/css/main.css',
