@@ -3,7 +3,7 @@ import { type CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'org.alpa.fdx',
   appName: 'FDX ALPA Scheduling Committee',
-  webDir: '.output/public',
+  webDir: 'dist',
   server: {
     androidScheme: 'https',
   },
