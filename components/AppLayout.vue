@@ -50,7 +50,7 @@
                 </div>
               </TransitionChild>
               <!-- Sidebar component, swap this element with another sidebar if you like -->
-              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" @route-change="sidebarOpen = false" />
+              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" @route-change="closeSidebar()" />
             </DialogPanel>
           </TransitionChild>
         </div>
