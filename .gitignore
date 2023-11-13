@@ -6,6 +6,10 @@
 .cache
 dist
 
+# capacitor build outputs
+android
+ios
+
 # Node dependencies
 node_modules
 
