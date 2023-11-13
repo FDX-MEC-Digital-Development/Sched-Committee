@@ -1,15 +1,30 @@
 <template>
   <UFormGroup name="dutyStart">
-    <UInput type="datetime-local" trailing :model-value="dateISOString" @update:model-value="(event)=>handleDatetimeUpdate({newDatetimeInput: event})" />
-  </UFormGroup>
+    <!--UInput type="datetime-local" trailing :model-value="dateISOString" @update:model-value="(event)=>handleDatetimeUpdate({newDatetimeInput: event})" /-->
+    <VueDatePicker
+      :model-value="date"
+      utc="preserve"
+      date-picker
+      timezone="utc"
+      :dark="isDark"
+      time-picker-inline
+      :clearable="false"
+      :month-change-on-scroll="false"
+      @update:model-value="(event) => handleDatePickerUpdate(event)"
+    />
+
+    <UFormGroup />
+  </uformgroup>
 </template>
 
 <script lang="ts" setup>
 import { isValid } from 'date-fns';
 import { UTCDateMini } from '@date-fns/utc';
-import { formatInTimeZone } from 'date-fns-tz';
+// import { formatInTimeZone } from 'date-fns-tz';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
-const props = defineProps({
+defineProps({
   date: {
     type: Date,
     default: (new UTCDateMini()),
@@ -18,14 +33,26 @@ const props = defineProps({
 
 );
 
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === 'dark');
 // this concatination is required because "T" is milliseconds
-const dateISOString = computed(() => formatInTimeZone(props.date, 'UTC', 'yyyy-MM-dd') + 'T' + formatInTimeZone(props.date, 'UTC', 'HH:mm'));
+// const dateISOString = computed(() => formatInTimeZone(props.date, 'UTC', 'yyyy-MM-dd') + 'T' + formatInTimeZone(props.date, 'UTC', 'HH:mm'));
 
 const emit = defineEmits(['update:date']);
 
-function handleDatetimeUpdate ({ newDatetimeInput }: { newDatetimeInput: string }) {
+/* function handleDatetimeUpdate ({ newDatetimeInput }: { newDatetimeInput: string }) {
   // given the format 2023-10-21T21:55, construct a new date using date-fns-utc
   const [year, month, day, hour, minute] = newDatetimeInput.split(/[-T:]/).map(x => parseInt(x, 10));
+  const newDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
+  if (isValid(newDate)) {
+    console.log(`Updating dutyStartTimeZulu to ${newDate}`);
+    emit('update:date', newDate);
+  }
+} */
+
+function handleDatePickerUpdate (dateTimeString:string) {
+  console.log({ dateTimeString });
+  const [year, month, day, hour, minute] = dateTimeString.split(/[-T:]/).map(x => parseInt(x, 10));
   const newDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
   if (isValid(newDate)) {
     console.log(`Updating dutyStartTimeZulu to ${newDate}`);

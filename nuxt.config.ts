@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/Sched-Committee/', // this is for github pages
   },
+  build: {
+    transpile: ['@vuepic/vue-datepicker'],
+  },
   nitro: {
     preset: 'github-pages',
   },
