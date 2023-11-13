@@ -2,6 +2,9 @@
 	"appId": "org.alpa.fdx",
 	"appName": "FDX ALPA Scheduling Committee",
 	"webDir": "dist",
+	"ios": {
+		"contentInset": "always"
+	},
 	"server": {
 		"androidScheme": "https"
 	}
