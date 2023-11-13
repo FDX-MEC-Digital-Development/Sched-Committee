@@ -1,12 +1,12 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { type CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'scheduling-committee-app',
   webDir: 'dist',
   server: {
-    androidScheme: 'https'
-  }
+    androidScheme: 'https',
+  },
 };
 
 export default config;
