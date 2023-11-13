@@ -8,9 +8,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@vuepic/vue-datepicker'],
   },
-  /*  nitro: {
-    preset: 'github-pages',
-  }, */
+  nitro: {
+    preset: process.env.NITRO_PRESET || undefined,
+  },
   head: [{ name: 'viewport', content: 'initial-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover' }],
 
   css: [
