@@ -50,7 +50,7 @@
                 </div>
               </TransitionChild>
               <!-- Sidebar component, swap this element with another sidebar if you like -->
-              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" />
+              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" @route-change="sidebarOpen = false" />
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -99,7 +99,6 @@ onMounted(() => {
 
   // Start the staggered animation when the component is mounted
   // drawPath(path);
-  console.log('mounted');
 });
 
 function closeSidebar () {
