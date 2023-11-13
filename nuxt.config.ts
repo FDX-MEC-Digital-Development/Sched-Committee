@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
-    baseURL: '/Sched-Committee/', // this is for github pages
+    baseURL: process.env.NITRO_PRESET ? '/Sched-Committee/' : undefined, // this is for github pages
     pageTransition: { name: 'page', mode: 'out-in' },
 
   },
