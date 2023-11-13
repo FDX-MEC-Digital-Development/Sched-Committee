@@ -82,7 +82,7 @@ import { ref } from 'vue';
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 const navigation = ref([
-  { name: 'Home', href: '#', icon: 'heroicons:home', current: false },
+  { name: 'Home', href: '/', icon: 'heroicons:home', current: false },
   { name: 'Duty Limits', href: 'dutyLimits', icon: 'heroicons:clock', current: true },
   { name: 'Fatigue', href: '#', icon: 'heroicons:bell-alert', current: false },
   { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
@@ -97,6 +97,7 @@ onMounted(() => {
 
   // Start the staggered animation when the component is mounted
   // drawPath(path);
+  console.log('mounted');
 });
 
 function closeSidebar () {
