@@ -7,8 +7,8 @@
 <script lang="ts" setup>
 
 const copy = {
-  title: 'CARMA Checklist',
-  caption: 'Calling in Fatigued',
+  title: 'Calling in Fatigued',
+  caption: 'CARMA Checklist',
   content: ['Any questions or concerns please email: FedEx-FRMC@alpa.org'],
 };
 

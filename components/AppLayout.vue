@@ -9,7 +9,7 @@
   -->
   <div>
     <TransitionRoot as="template" :show="sidebarOpen">
-      <Dialog as="div" class="relative z-50 lg:hidden" @close="closeSidebar()">
+      <Dialog as="div" class="relative z-40 lg:hidden" @close="closeSidebar()">
         <TransitionChild
           as="template"
           enter="transition-opacity ease-linear duration-300"
@@ -58,7 +58,7 @@
     </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+    <div class="hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:w-72 lg:flex-col">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <AppLayoutSidebar :navigation="navigation" />
     </div>

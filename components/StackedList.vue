@@ -6,14 +6,14 @@
           <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
             {{ question.text }}
           </p>
-          <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-            <p>
+          <div v-if="question.note || question.caption" class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+            <p v-if="question.caption">
               {{ question.caption }}
             </p>
-            <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+            <svg v-if="question.note && question.caption" viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current ">
               <circle cx="1" cy="1" r="1" />
             </svg>
-            <p>
+            <p v-if="question.note">
               {{ question.note }}
             </p>
           </div>
@@ -48,7 +48,7 @@
 <script setup lang="ts">
 
 // define an interface for this list based on the question object in the template
-interface Question {
+export interface Question {
   text: string;
   caption?: string;
   note?: string;
