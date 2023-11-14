@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 5  # This job will be cancelled if it runs for more than 15 minutes
     steps:
       - uses: actions/checkout@v3
       - run: corepack enable
