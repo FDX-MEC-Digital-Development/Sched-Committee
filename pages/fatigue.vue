@@ -30,19 +30,10 @@
         </div>
         <div>
           <FatigueAssessmentDescription />
-          <FatigueCarmaChecklist />
-          <FatigueTripRemovalExplanation />
-          <dl class="mt-10 grid grid-cols-2 gap-8 border-t border-gray-900/10 pt-10 sm:grid-cols-4">
-            <div v-for="(stat, statIdx) in stats" :key="statIdx">
-              <dt class="text-sm font-semibold leading-6 text-gray-600">
-                {{ stat.label }}
-              </dt>
-              <dd class="mt-2 text-3xl font-bold leading-10 tracking-tight text-gray-900">
-                {{ stat.value }}
-              </dd>
-            </div>
-          </dl>
-          <div class="mt-10 flex">
+          <FatigueCarmaChecklist class="mt-16" />
+          <FatigueTripRemovalExplanation class="mt-16" />
+
+          <div class="mt-10 flex hidden">
             <a href="#" class="text-base font-semibold leading-7 text-indigo-600">Learn more about our company <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
@@ -52,12 +43,6 @@
 </template>
 
 <script lang="ts" setup>
-const stats = [
-  { label: 'Founded', value: '2021' },
-  { label: 'Employees', value: '37' },
-  { label: 'Countries', value: '12' },
-  { label: 'Raised', value: '$25M' },
-];
 
 const testimonialRef = ref(null);
 
