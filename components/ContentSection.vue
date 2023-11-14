@@ -1,12 +1,12 @@
 <template>
-  <div class="text-base leading-7 text-gray-700 lg:max-w-lg">
+  <div class="text-base leading-7 text-gray-700 dark:text-gray-300 lg:max-w-lg">
     <p class="text-base font-semibold leading-7 text-indigo-600">
       {{ caption }}
     </p>
-    <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
       {{ title }}
     </h1>
-    <div class="max-w-xl">
+    <div class="max-w-xl text-black dark:text-white">
       <p v-if="$slots" class="mt-6">
         <slot />
       </p>

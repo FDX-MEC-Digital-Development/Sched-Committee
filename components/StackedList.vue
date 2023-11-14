@@ -3,7 +3,7 @@
     <li v-for="(question, index) in questions" :key="`question${index}`" class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 sm:flex-nowrap">
       <UPopover>
         <div>
-          <p class="text-sm font-semibold leading-6 text-gray-900">
+          <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
             {{ question.text }}
           </p>
           <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
