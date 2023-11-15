@@ -132,3 +132,14 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Mobile app
+
+# build static elements
+npm run generate
+
+# create native build
+npx cap sync
+
+# run ios emulator
+npx cap run ios
