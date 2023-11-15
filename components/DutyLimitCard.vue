@@ -24,8 +24,11 @@
             <span class="sr-only">Duty end time</span>
             <Icon name="heroicons-solid:at-symbol" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
-          <dd class="text-sm font-medium leading-6 text-gray-900">
+          <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full">
             <UBadge>{{ dutyEndTime }}Z</UBadge>
+          </dd>
+          <dd v-if="false">
+            <UButton icon="i-heroicons-bell" color="gray" variant="solid" class="self-end" />
           </dd>
         </div>
         <div v-if="notes" class="mt-4 flex w-full flex-none gap-x-4 px-6">

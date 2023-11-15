@@ -9,7 +9,7 @@
   -->
   <div>
     <TransitionRoot as="template" :show="sidebarOpen">
-      <Dialog as="div" class="relative z-50 lg:hidden" @close="closeSidebar()">
+      <Dialog as="div" class="relative z-40 lg:hidden" @close="closeSidebar()">
         <TransitionChild
           as="template"
           enter="transition-opacity ease-linear duration-300"
@@ -50,7 +50,7 @@
                 </div>
               </TransitionChild>
               <!-- Sidebar component, swap this element with another sidebar if you like -->
-              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" />
+              <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" @route-change="closeSidebar()" />
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -58,7 +58,7 @@
     </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+    <div class="hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:w-72 lg:flex-col">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <AppLayoutSidebar :navigation="navigation" />
     </div>
@@ -81,13 +81,15 @@ import { ref } from 'vue';
 
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
-const navigation = ref([
-  { name: 'Home', href: '#', icon: 'heroicons:home', current: false },
-  { name: 'Duty Limits', href: '#', icon: 'heroicons:clock', current: true },
-  { name: 'Fatigue', href: '#', icon: 'heroicons:bell-alert', current: false },
+const route = useRoute();
+
+const navigation = computed(() => ([
+  { name: 'Home', href: '/', icon: 'heroicons:home', current: route.name === 'index' },
+  { name: 'Duty Limits', href: '/dutyLimits', icon: 'heroicons:clock', current: route.name === 'dutyLimits' },
+  { name: 'Fatigue', href: '/fatigue', icon: 'heroicons:bell-alert', current: route.name === 'fatigue' },
   { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
 
-]);
+]));
 
 const sidebarOpen = ref(false);
 const hideAnimation = ref(false);

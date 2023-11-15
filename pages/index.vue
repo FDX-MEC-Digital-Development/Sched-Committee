@@ -1,113 +1,31 @@
 <template>
-  <div class="min-h-full">
-    <main class="dark:text-white">
-      <UCard class="dark:text-white">
-        <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-          Duty Limits
-        </h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
-          Use this tool to calulate scheduled, operational, and FAR duty limits.
-        </p>
-      </UCard>
-      <UCard>
-        <DateTimePicker v-model:date="dutyStartTimeZulu" />
-      </UCard>
+  <div class="relative isolate pt-14">
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+      <div v-if="colorMode.value == 'dark'" class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
+      <div v-else class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#8084ff] to-[#555555] opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
+    </div>
+    <div class="py-24 sm:py-32 lg:pb-40">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h1 class="text-4xl font-bold tracking-tight dark:text-white text-black sm:text-6xl">
+            ALPA Scheduling Committee
+          </h1>
+          <p class="mt-6 text-lg leading-8 dark:text-gray-300 text-gray-700">
+            Working tirelessly for you.
+          </p>
 
-      <DomesticInternationalTabs v-model:is-international="options.isInternational" />
-      <UCard>
-        <template #header>
-          <transition :name="options.isInternational ? 'slide-left' : 'slide-right'">
-            <component :is="domesticOrInternationalComponent" v-model:duty-start-time-zulu="dutyStartTimeZulu" v-model:options="options" />
-          </transition>
-        </template>
-        <UButton label="View Duty Limits" class="execute" @click="handleViewDutyLimits" />
-        <template #footer>
-          <div v-if="isDutyLimitsVisible">
-            <domestic-duty-limit-results
-              v-if="!options.isInternational"
-              ref="resultElement"
-              class="result"
-              :based-on-time="dutyStartTimeZulu"
-              :duty-limits="domesticDutyLimit"
-              :duty-start-time-l-b-t="dutyStartTimeLBT"
-            /><InternationalDutyLimitResults
-              v-else
-              ref="resultsElement"
-              class="result"
-              :based-on-time="dutyStartTimeZulu"
-              :duty-limits="internationalDutyLimits"
-              :options="options"
-            />
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</a>
+            <a href="#" class="text-sm font-semibold leading-6 dark:text-white text-black">Learn more <span aria-hidden="true">→</span></a>
           </div>
-        </template>
-      </UCard>
-    </main>
-    <PageFooter />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-<script lang="ts" setup>
-import { isValid } from 'date-fns';
-import type { DutyLimitOptions } from '~/sched-committee-types';
-import { InternationalForm, DomesticForm } from '#components';
+<script setup lang="ts">
 
-const dutyStartTimeZulu = ref<Date>(new Date());
-const options = ref<DutyLimitOptions>({
-  is2TripsWithOneOptional: false,
-  isDayRoomScheduledAndReserved: false,
-  isInternational: false,
-  isGrid: false, // true means the trip starts more than 96 hours from now
-  isInboundFlightSegmentGreaterThan5HoursTZD: false,
-  crewNumberOfPilots: 2,
-  layoverLength: 36,
-  domicile: 'MEM',
-});
-
-watchEffect(() => {
-  if (isValid(dutyStartTimeZulu.value)) {
-    const hoursUntilUpdatedDutyStartTimeZulu = ((dutyStartTimeZulu.value.getTime() - (new Date()).getTime()) / 1000 / 60 / 60);
-
-    const isGrid = (hoursUntilUpdatedDutyStartTimeZulu > 96);
-    options.value.isGrid = isGrid;
-  }
-})
-;
-
-const { domestic: domesticDutyLimit, international: internationalDutyLimits, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
-const setDutyLimitsVisible = ref(false);
-
-const isDutyLimitsVisible = computed(() => {
-  return setDutyLimitsVisible.value && isValid(dutyStartTimeZulu.value);
-});
-
-const { $anime } = useNuxtApp();
-
-onMounted(() => {
-  $anime({
-    targets: '.title',
-    translateX: [50, 0],
-    opacity: [0, 1],
-    easing: 'easeInQuad',
-    duration: 1000,
-  });
-});
-
-const domesticOrInternationalComponent = computed(() => options.value.isInternational ? InternationalForm : DomesticForm);
-
-async function handleViewDutyLimits () {
-  setDutyLimitsVisible.value = !setDutyLimitsVisible.value;
-  await nextTick();
-
-  const resultElement = document.querySelector('.result');
-  resultElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-/*   $anime({
-    targets: '.result',
-    translateX: [50, 0],
-    opacity: [0, 1],
-    easing: 'easeInQuad',
-    duration: 1000,
-  }); */
-}
+const colorMode = useColorMode();
 
 </script>
 <style>
