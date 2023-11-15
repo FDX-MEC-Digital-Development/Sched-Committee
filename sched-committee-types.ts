@@ -2,7 +2,7 @@ export type Domicile = 'MEM' | 'IND' | 'OAK' | 'LAX' | 'ANC' | 'CGN';
 
 export interface NavigationLink {
   name: string;
-  href: string;
+  href: string | {hash: string};
   icon: string;
   current: boolean;
 }
