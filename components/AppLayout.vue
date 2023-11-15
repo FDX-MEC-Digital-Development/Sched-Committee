@@ -63,16 +63,16 @@
       <AppLayoutSidebar :navigation="navigation" />
     </div>
 
-    <div class=" sticky top-0 z-40 flex items-center gap-x-6 bg-red-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
-      <AppLayoutHeader :navigation="navigation" @sidebar-open="sidebarOpen = true" />
-    </div>
-
-    <main class="py-10 lg:pl-72 dark:bg-gray-900">
-      <div>
-        <slot />
-      </div>
-      <PageFooter />
-    </main>
+    <!--div class="sticky top-0 z-40 flex items-center gap-x-6 bg-red-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden"-->
+    <AppLayoutHeader :navigation="navigation" @sidebar-open="sidebarOpen = true" />
+    <ion-content :fullscreen="true" class="ion-padding">
+      <main class="py-10 lg:pl-72 dark:bg-gray-900">
+        <div>
+          <slot />
+        </div>
+        <PageFooter />
+      </main>
+    </ion-content>
   </div>
 </template>
 
@@ -105,8 +105,15 @@ function closeSidebar () {
   sidebarOpen.value = false;
   hideAnimation.value = true;
 }
+
+const colorMode = useColorMode();
+const backgroundColor = computed(() => (colorMode.value === 'dark' ? 'rgb(17 24 39)' : '#ffffff'));
+watchEffect(() => {
+  document.documentElement.style.setProperty('--ion-background-color', backgroundColor.value);
+});
+
 </script>
 
-<style>
+<style scoped>
 
 </style>

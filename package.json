@@ -23,6 +23,7 @@
     "@date-fns/utc": "^1.1.0",
     "@formkit/auto-animate": "^0.8.1",
     "@nuxt/ui": "^2.10.0",
+    "@nuxtjs/ionic": "^0.12.1",
     "@vuepic/vue-datepicker": "^7.2.2",
     "@vueuse/components": "^10.6.1",
     "date-fns": "^2.30.0",

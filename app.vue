@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <ion-app>
     <AppLayout class="safe-area-inset-bottom safe-area-inset-top safe-area-inset-left safe-area-inset-right">
       <NuxtPage />
     </AppLayout>
-  </div>
+  </ion-app>
 </template>
 
 <script setup lang="ts">

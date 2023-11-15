@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: process.env.NITRO_PRESET || undefined, // this is for github pages
   },
-  // head: [{ name: 'viewport', content: 'initial-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover' }],
+  head: [{ name: 'viewport', content: 'initial-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover' }],
 
   css: [
     '~/assets/css/main.css',
@@ -53,9 +53,9 @@ export default defineNuxtConfig({
       icons: false,
     },
     css: {
-      core: false,
-      basic: false,
-      utilities: false,
+      core: true,
+      basic: true,
+      utilities: true,
     },
   },
 
