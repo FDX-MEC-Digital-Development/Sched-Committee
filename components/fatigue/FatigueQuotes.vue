@@ -14,10 +14,12 @@
         <figcaption class="mt-6 text-sm leading-6 text-gray-300">
           <strong class="font-semibold text-white">Do not fly fatigued</strong>
         </figcaption>
-        <blockquote v-auto-animate class="mt-6 text-xl font-semibold leading-8 text-white">
-          <p :key="activeTestimonial" ref="testimonialRef">
-            {{ activeTestimonial }}
-          </p>
+        <blockquote class="mt-6 text-xl font-semibold leading-8 text-white">
+          <RandomTextOnTimer v-slot="{activeContent}" v-auto-animate :content="fatigueTestimonials">
+            <p :key="activeContent">
+              {{ activeContent }}
+            </p>
+          </RandomTextOnTimer>
         </blockquote>
         <figcaption class="mt-6 text-sm leading-6 text-gray-300">
           <strong class="font-semibold text-white">Do not fly fatigued</strong>

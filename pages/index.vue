@@ -15,8 +15,11 @@
           </p>
 
           <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</a>
-            <a href="#" class="text-sm font-semibold leading-6 dark:text-white text-black">Learn more <span aria-hidden="true">→</span></a>
+            <UButton label="Duty Limits" class="result execute rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" to="/dutyLimits" />
+            <UButton label="Fatigue" class="result execute rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" to="/fatigue" />
+
+            <!-- <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</a> -->
+            <!-- <a href="#" class="text-sm font-semibold leading-6 dark:text-white text-black">Learn more <span aria-hidden="true">→</span></a> -->
           </div>
         </div>
       </div>
@@ -26,6 +29,7 @@
 <script setup lang="ts">
 
 const colorMode = useColorMode();
+const schedulingCommitteeFunctions = ['Scheduling Improvement Group (SIG)', 'Pilot Scheduling Improvement Team', 'Trip Services Committee', 'Secondary Line Replacement Working Group', 'Fatigue Risk Management', 'Monthly Pairing Reviews', 'Monthly Line Building'];
 
 </script>
 <style>
