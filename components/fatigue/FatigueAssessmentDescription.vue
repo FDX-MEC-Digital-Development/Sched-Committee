@@ -8,7 +8,8 @@
 const copy = {
   title: 'Fatigue Self-Assessment',
   caption: 'Fatigue',
-  content: ['How much sleep will you have had within the previous 24 hours? Everyone has different limits. But typically, if that number is less than 4 consider yourself susceptible to fatigue.'],
+  content: ['How much sleep will you have had within the previous 24 hours? Everyone has different limits. But typically, if that number is less than 4 consider yourself susceptible to fatigue.',
+    'Remember. You do not have to call in fatigued to file a fatigue report. If you are reading this consider filing a fatigue report to help your fellow pilots.'],
 };
 </script>
 
