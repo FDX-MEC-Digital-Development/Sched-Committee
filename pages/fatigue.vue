@@ -24,19 +24,23 @@
           <FatigueTripRemovalExplanation class="mt-16" />
         </div>
       </div>
+      <div id="extension" class="mx-auto pt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        <FatigueExtensionConsiderations />
+        <div />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { NavigationLink } from '~/sched-committee-types';
+// import type { NavigationLink } from '~/sched-committee-types';
 
-const fatigueNavigation: NavigationLink[] = [
+/* const fatigueNavigation: NavigationLink[] = [
   { name: 'Personal Assessment', href: { hash: '#personal-assessment' }, icon: 'heroicons:home', current: false },
   { name: 'Signs of Fatigue', href: { hash: '#signs-of-fatigue' }, icon: 'heroicons:home', current: false },
   { name: 'Calling in Fatigued', href: { hash: '#carma-checklist' }, icon: 'heroicons:home', current: false },
   { name: 'Trip Removal', href: { hash: '#trip-removal' }, icon: 'heroicons:home', current: false }];
-
+ */
 </script>
 
 <style>

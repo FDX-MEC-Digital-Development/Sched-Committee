@@ -7,7 +7,7 @@
       <div class="rounded-lg bg-grey dark:bg-gray-900 px-6    py-6  sm:px-6">
         <DutyLimitForm v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:options="options">
           <template #button>
-            <UButton label="View Duty Limits" class="result execute rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" @click="handleViewDutyLimits" />
+            <UButton label="View Duty Limits" class="result execute rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" @click="handleViewDutyLimits" />
           </template>
         </DutyLimitForm>
       </div>
