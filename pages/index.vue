@@ -9,10 +9,11 @@
         <div class="mx-auto max-w-2xl text-center">
           <h1 class="text-4xl font-bold tracking-tight dark:text-white text-black sm:text-6xl">
             ALPA Scheduling Committee
-          </h1>
-          <p class="mt-6 text-lg leading-8 dark:text-gray-300 text-gray-700">
-            Working tirelessly for you.
-          </p>
+          </h1><RandomTextOnTimer v-slot="{activeContent}" v-auto-animate :content="schedulingCommitteeFunctions">
+            <p :key="activeContent" class="mt-6 text-lg leading-8 dark:text-gray-300 text-gray-700">
+              {{ activeContent }}
+            </p>
+          </RandomTextOnTimer>
 
           <div class="mt-10 flex items-center justify-center gap-x-6">
             <UButton label="Duty Limits" class="result execute rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" to="/dutyLimits" />
