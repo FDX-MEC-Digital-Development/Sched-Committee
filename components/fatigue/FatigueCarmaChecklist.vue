@@ -5,7 +5,7 @@
         Crew Resource Scheduling - 1-844-495-1049
       </p>
       <UAccordion :items="accordionItems" variant="outline" />
-      <StackedList :questions="listSteps" />
+      <!--StackedList :questions="listSteps" /-->
     </ContentSection>
   </div>
 </template>
