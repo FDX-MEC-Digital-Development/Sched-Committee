@@ -9,8 +9,8 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl text-center">
             <div class="w-full justify-center flex mb-8">
-              <div class="items-center max-w">
-                <LogoAnimation :skip-animation="false" />
+              <div>
+                <LogoAnimation :skip-animation="false" class="object-scale-down w-full h-full" />
               </div>
             </div>
             <h1 class="text-4xl font-bold tracking-tight dark:text-white text-black sm:text-6xl">
