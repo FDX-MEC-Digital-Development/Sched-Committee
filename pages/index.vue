@@ -9,7 +9,7 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl text-center">
             <div class="w-full justify-center flex mb-8">
-              <div class="items-center max-w-xs">
+              <div class="items-center max-w">
                 <LogoAnimation :skip-animation="false" />
               </div>
             </div>
