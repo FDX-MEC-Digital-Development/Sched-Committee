@@ -1,12 +1,9 @@
 <template>
   <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
     <div v-auto-animate class="flex h-16 shrink-0 items-center">
-      <img v-if="!animationLogoVisible" class="h-10 w-auto" src="./../assets/thumbnail_scheduling logo crop2.0 filled.svg" alt="Scheduling committee logo">
+      <img class="h-10 w-auto" src="./../assets/thumbnail_scheduling logo crop2.0 filled.svg" alt="Scheduling committee logo">
     </div>
     <NavigationVertical :navigation="navigation" @route-change="$emit('routeChange')">
-      <li v-auto-animate>
-        <LogoAnimation v-if="animationLogoVisible" @complete="fadeInLogo()" />
-      </li>
       <li class="mt-auto">
         <ColorModeButton />
       </li><li v-if="false" class="mt-auto">
@@ -22,22 +19,17 @@
 <script lang="ts" setup>
 import type { NavigationLink } from '~/sched-committee-types';
 
-const props = defineProps({
+defineProps({
   navigation: {
     type: Array<NavigationLink>,
     required: true,
   },
-  hideAnimation: {
-    type: Boolean,
-    default: false,
-  },
+
 });
 
 defineEmits(['routeChange']);
 
-const animationLogoVisible = ref(!props.hideAnimation);
-
-function fadeInLogo () {
+/* function fadeInLogo () {
   // const logo = document.querySelector('.logo-thumbnail-hidden');
   const svgAnimation = document.querySelector('.svg-animation path');
 
@@ -55,14 +47,7 @@ function fadeInLogo () {
 
   });
 
-  /*  $anime({
-    targets: logo,
-    opacity: [0, 1],
-    duration: 500,
-    delay: 500,
-    easing: 'linear',
-  }); */
-}
+} */
 
 </script>
 
