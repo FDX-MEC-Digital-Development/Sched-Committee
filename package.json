@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "sync": "npm run generate && npx cap sync",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest"
