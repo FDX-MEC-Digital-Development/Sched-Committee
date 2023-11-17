@@ -4826,6 +4826,13 @@
 <script setup>
 const { $anime } = useNuxtApp();
 
+const props = defineProps({
+  skipAnimation: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const emit = defineEmits(['complete']);
 
 onMounted(() => {
@@ -4834,6 +4841,17 @@ onMounted(() => {
   const rect = document.querySelectorAll('.svg-animation rect'); // Select all rect elements
   const ellipse = document.querySelectorAll('.svg-animation ellipse'); // Select all ellipse elements
   // target path elemnts in the thumbnail_scheduling_logo svg
+  if (props.skipAnimation) {
+    // set svg as visible
+
+    path.forEach((el) => {
+      el.style.strokeDashoffset = 0;
+      el.style.fillOpacity = 1;
+    });
+
+    emit('complete');
+    return;
+  }
 
   if (!svg || svg.getBoundingClientRect().width === 0) {
     emit('complete');
