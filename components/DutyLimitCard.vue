@@ -68,7 +68,9 @@
         </div>
       </dl>
       <div class="mt-auto border-t border-gray-900/5 px-6 py-6 w-full">
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Fatigue assessment <span aria-hidden="true">&rarr;</span></a>
+        <NuxtLink href="/fatigue" class="text-sm font-semibold leading-6 text-gray-900">
+          Fatigue assessment <span aria-hidden="true">&rarr;</span>
+        </NuxtLink>
       </div>
     </div>
   </div>
