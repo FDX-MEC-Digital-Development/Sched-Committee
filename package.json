@@ -29,6 +29,8 @@
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.9.4",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.9.4",
     "@vueuse/core": "^10.6.1",
     "@vueuse/nuxt": "^10.6.1",
     "eslint": "^8.53.0",
