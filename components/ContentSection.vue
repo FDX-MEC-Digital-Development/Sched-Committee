@@ -3,7 +3,7 @@
     <p class="text-base font-semibold leading-7 text-indigo-600">
       {{ caption }}
     </p>
-    <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl" :aria-label="`content-${title}`">
       {{ title }}
     </h1>
     <div class="max-w-xl text-black dark:text-white">

@@ -1,7 +1,7 @@
 <template>
   <main class="-mt-8">
     <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div class="rounded-lg bg-grey dark:bg-gray-900 px-5 py-6  sm:px-6">
+      <div class="rounded-lg bg-grey dark:bg-gray-900 px-5 py-6 sm:px-6" aria-label="title-section">
         <CardHeading title="Duty Limits" description="Use this tool to calulate scheduled, operational, and FAR duty limits." />
       </div>
       <div class="rounded-lg bg-grey dark:bg-gray-900 px-6    py-6  sm:px-6">

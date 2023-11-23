@@ -1,8 +1,16 @@
 <template>
   <div>
     <Transition name="fade-slide-down" appear>
-      <SectionHeader title="Duty limits">
-        Based on a duty start time of <UBadge>{{ formattedBasedOnDate }}Z</UBadge> <UBadge>{{ props.dutyStartTimeLBT.toString().padStart(4, '0') }} LBT</UBadge> you have <UBadge>{{ dayNightOrCritical }}</UBadge> <UBadge>{{ dutyLimitType }}</UBadge> duty limits.
+      <SectionHeader title="Duty limits" :aria-label="`based on`">
+        Based on a duty start time of <UBadge aria-label="based on date">
+          {{ formattedBasedOnDate }}Z
+        </UBadge> <UBadge aria-label="based on lbt">
+          {{ props.dutyStartTimeLBT.toString().padStart(4, '0') }} LBT
+        </UBadge> you have <UBadge aria-label="day night or critical">
+          {{ dayNightOrCritical }}
+        </UBadge> <UBadge aria-label="duty limit type">
+          {{ dutyLimitType }}
+        </UBadge> duty limits.
       </SectionHeader>
     </Transition>
   </div>
