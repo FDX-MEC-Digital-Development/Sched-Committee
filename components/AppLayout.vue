@@ -63,7 +63,7 @@
       <AppLayoutSidebar :navigation="navigation" />
     </div>
 
-    <div class=" sticky top-0 z-40 flex items-center gap-x-6 bg-red-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+    <div class=" sticky pt-32 -mt-32  -top-28 z-40 flex items-center gap-x-6 bg-red-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
       <AppLayoutHeader :navigation="navigation" @sidebar-open="sidebarOpen = true" />
     </div>
 

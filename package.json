@@ -8,11 +8,15 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "sync": "npm run generate && npx cap sync",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest"
   },
   "dependencies": {
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/core": "^5.5.1",
+    "@capacitor/ios": "^5.5.1",
     "@date-fns/utc": "^1.1.0",
     "@formkit/auto-animate": "^0.8.1",
     "@nuxt/ui": "^2.11.0",
@@ -22,6 +26,7 @@
     "date-fns-tz": "^2.0.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^5.5.1",
     "@hypernym/nuxt-anime": "^2.1.1",
     "@nuxt/devtools": "^1.0.4",
     "@nuxt/eslint-config": "^0.2.0",

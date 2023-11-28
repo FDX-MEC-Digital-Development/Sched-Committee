@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppLayout class="safe-area-inset-bottom safe-area-inset-top safe-area-inset-left safe-area-inset-right">
+    <AppLayout>
       <NuxtPwaManifest />
       <NuxtPage />
     </AppLayout>
@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="ts">
+
 useHead({
   title: 'Scheduling Committee',
   meta: [
