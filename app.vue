@@ -1,6 +1,7 @@
 <template>
   <div>
     <AppLayout class="safe-area-inset-bottom safe-area-inset-top safe-area-inset-left safe-area-inset-right">
+      <VitePwaManifest />
       <NuxtPage />
     </AppLayout>
   </div>
@@ -9,6 +10,16 @@
 <script setup lang="ts">
 useHead({
   title: 'Scheduling Committee',
+  meta: [
+    { name: 'viewport', content: 'width=device-width,initial-scale=1' },
+    { name: 'description', content: 'ALPA Scheduling Committee' },
+    { name: 'theme-color', content: '#18181b' },
+  ],
+  link: [
+    { rel: 'icon', href: '/favicon.ico' },
+    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
+    { rel: 'mask-icon', href: '/mask-icon.svg', color: '#FFFFFF' },
+  ],
   bodyAttrs: {
     class: 'h-full',
   },

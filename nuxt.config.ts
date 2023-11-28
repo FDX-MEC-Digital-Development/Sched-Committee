@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@vuepic/vue-datepicker'],
   },
+  experimental: {
+    payloadExtraction: true, // for PWA
+  },
   nitro: {
     preset: process.env.NITRO_PRESET || undefined, // this is for github pages
   },
@@ -34,6 +37,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     'nuxt-headlessui',
     // '@nuxtjs/ionic',
+    '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@nuxt/ui',
     '@hypernym/nuxt-anime',
@@ -44,6 +48,37 @@ export default defineNuxtConfig({
   },
   headlessui: {
     prefix: 'Headless',
+  },
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'FDX ALPA Scheduling Committee',
+      short_name: 'Scheduling Committee',
+      description: 'FDX ALPA Scheduling Committee',
+      theme_color: '#000000',
+      icons: [
+        {
+          src: 'pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable',
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+    },
+    client: { installPrompt: true },
   },
 
   ssr: false,
