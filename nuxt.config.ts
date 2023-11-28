@@ -87,6 +87,11 @@ export default defineNuxtConfig({
     },
     client: { installPrompt: true },
   },
+  vite: {
+    optimizeDeps: {
+      include: ['pwa-512x512.png', 'pwa-192x192.png'],
+    },
+  },
 
   ssr: false,
 
