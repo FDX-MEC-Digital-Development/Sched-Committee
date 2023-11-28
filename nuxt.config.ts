@@ -1,6 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { VitePWA } from 'vite-plugin-pwa';
-
 export default defineNuxtConfig({
   app: {
     baseURL: process.env.NITRO_PRESET ? '/Sched-Committee/' : undefined, // this is for github pages
@@ -39,7 +37,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     'nuxt-headlessui',
     // '@nuxtjs/ionic',
-    // '@vite-pwa/nuxt',
+    '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@nuxt/ui',
     '@hypernym/nuxt-anime',
@@ -51,42 +49,43 @@ export default defineNuxtConfig({
   headlessui: {
     prefix: 'Headless',
   },
-  vite: {
-    plugins: [
-      VitePWA({
-        registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
-        manifest: {
-          name: 'ALPA Scheduling Committee',
-          short_name: 'Scheduling',
-          description: 'ALPA Scheduling Committee App',
-          theme_color: '#18181b',
-          icons: [
-            {
-              src: 'pwa-192x192.png',
-              sizes: '192x192',
-              type: 'image/png',
-            },
-            {
-              src: 'pwa-512x512.png',
-              sizes: '512x512',
-              type: 'image/png',
-            },
-            {
-              src: 'pwa-512x512.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'any',
-            },
-            {
-              src: 'pwa-512x512.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'maskable',
-            },
-          ],
+  pwa: {
+    registerType: 'autoUpdate',
+    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
+    manifest: {
+      name: 'FDX ALPA Scheduling Committee',
+      short_name: 'Scheduling Committee',
+      description: 'FDX ALPA Scheduling Committee',
+      theme_color: '#18181b',
+      icons: [
+        {
+          src: 'assets/pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
         },
-      })],
+        {
+          src: 'assets/pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'any',
+        },
+        {
+          src: 'assets/pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: 'assets/pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any',
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+    },
+    client: { installPrompt: true },
   },
 
   ssr: false,
