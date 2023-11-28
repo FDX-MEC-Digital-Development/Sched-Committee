@@ -7,11 +7,9 @@
       </div>
       <div class="py-6 sm:py-0 lg:pb-40">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="mx-auto max-w-2xl text-center">
-            <div class="w-full justify-center flex mb-8">
-              <div>
-                <LogoAnimation :skip-animation="false" class="object-scale-down w-full h-full" />
-              </div>
+          <div class="mx-auto max-w-xl text-center justify-center flex-row">
+            <div class="w-80 justify-center flex mb-10 mx-auto">
+              <LogoAnimation :skip-animation="false" class="object-scale-down w-full h-full" />
             </div>
             <h1 class="text-4xl font-bold tracking-tight dark:text-white text-black sm:text-6xl">
               ALPA Scheduling Committee
