@@ -20,7 +20,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        BASE_URL: 'https://acrobid.github.io/Sched-Committee/'
+        baseURL: 'https://acrobid.github.io/Sched-Committee/'
     - uses: actions/upload-artifact@v3
       if: always()
       with:

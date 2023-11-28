@@ -51,11 +51,12 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: 'autoUpdate',
+    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
     manifest: {
       name: 'FDX ALPA Scheduling Committee',
       short_name: 'Scheduling Committee',
       description: 'FDX ALPA Scheduling Committee',
-      theme_color: '#000000',
+      theme_color: '#18181b',
       icons: [
         {
           src: 'assets/pwa-192x192.png',
@@ -66,6 +67,12 @@ export default defineNuxtConfig({
           src: 'assets/pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
+        },
+        {
+          src: 'assets/pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any',
         },
         {
           src: 'assets/pwa-512x512.png',
