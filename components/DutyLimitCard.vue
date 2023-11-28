@@ -1,11 +1,11 @@
 <template>
   <div class="lg:col-start-3 lg:row-end-1  flex  justify-between  h-full">
     <h2 class="sr-only">
-      Title
+      {{ title }}
     </h2>
     <div class="rounded-lg bg-gray-50 flex flex-wrap flex-col shadow-sm ring-1 ring-gray-900/5 card-background">
       <dl class="flex flex-wrap mb-6">
-        <div class="flex-none pl-6 pt-6">
+        <div class="flex-none pl-6 pt-6" :aria-label="`title ${title}`">
           <dt class="text-sm font-semibold leading-6 text-gray-900">
             {{ title }}
           </dt>
@@ -13,7 +13,7 @@
             {{ duration }} hours
           </dd>
         </div>
-        <div class="flex-none  px-6 pt-4 ml-auto">
+        <div class="flex-none  px-6 pt-4 ml-auto" :aria-label="`time remaining ${title}`">
           <dt class="sr-only">
             Time remaining
           </dt>
@@ -24,14 +24,14 @@
             <span class="sr-only">Duty end time</span>
             <Icon name="heroicons-solid:at-symbol" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
-          <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full">
+          <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full" :aria-label="`duty end time ${title}`">
             <UBadge>{{ dutyEndTime }}Z</UBadge>
           </dd>
           <dd v-if="false">
             <UButton icon="i-heroicons-bell" color="gray" variant="solid" class="self-end" />
           </dd>
         </div>
-        <div v-if="notes" class="mt-4 flex w-full flex-none gap-x-4 px-6">
+        <div v-if="notes" class="mt-4 flex w-full flex-none gap-x-4 px-6" :aria-label="`notes ${title}`">
           <dt class="flex-none">
             <span class="sr-only">Notes</span>
             <Icon name="heroicons-solid:shield-exclamation" class="h-6 w-5 text-gray-400" aria-hidden="true" />
@@ -40,7 +40,7 @@
             {{ notes }}
           </dd>
         </div>
-        <div v-if="blockHours" class="mt-4 flex w-full flex-none gap-x-4 px-6">
+        <div v-if="blockHours" class="mt-4 flex w-full flex-none gap-x-4 px-6" :aria-label="`block hours ${title}`">
           <dt class="flex-none">
             <span class="sr-only">Block hours</span>
             <Icon
@@ -53,7 +53,7 @@
             {{ blockHours }}
           </dd>
         </div>
-        <div v-if="landings" class="mt-4 flex w-full flex-none gap-x-4 px-6">
+        <div v-if="landings" class="mt-4 flex w-full flex-none gap-x-4 px-6" :aria-label="`landings ${title}`">
           <dt class="flex-none">
             <span class="sr-only">Landings</span>
             <Icon

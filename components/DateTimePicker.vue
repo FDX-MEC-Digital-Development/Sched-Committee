@@ -72,18 +72,15 @@ function handleDatePickerUpdate ({ dateString, timeObject }: {dateString?: strin
   if (dateString === undefined && timeObject === undefined) {
     return;
   }
-  console.log({ dateString, timeObject });
   if (dateString !== undefined) {
     const [year, month, day, hour, minute] = dateString.split(/[-T:]/).map(x => parseInt(x, 10));
     const newDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
     if (isValid(newDate)) {
-      console.log(`Updating dutyStartTimeZulu to ${newDate}`);
       emit('update:date', newDate);
     }
   } else if (timeObject !== undefined) {
     const newDate = new UTCDateMini(Date.UTC(props.date.getFullYear(), props.date.getMonth(), props.date.getDate(), timeObject.hours, timeObject.minutes));
     if (isValid(newDate)) {
-      console.log(`Updating dutyStartTimeZulu to ${newDate}`);
       emit('update:date', newDate);
     }
   }
