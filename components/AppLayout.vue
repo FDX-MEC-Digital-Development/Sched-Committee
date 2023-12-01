@@ -87,7 +87,7 @@ const navigation = computed(() => ([
   { name: 'Home', href: '/', icon: 'heroicons:home', current: route.name === 'index' },
   { name: 'Duty Limits', href: '/dutyLimits', icon: 'heroicons:clock', current: route.name === 'dutyLimits' },
   { name: 'Fatigue', href: '/fatigue', icon: 'heroicons:bell-alert', current: route.name === 'fatigue' },
-  { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
+  // { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
 
 ]));
 
