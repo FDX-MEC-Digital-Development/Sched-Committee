@@ -6,6 +6,7 @@
       utc="preserve"
       date-picker
       timezone="utc"
+      auto-apply
       :dark="isDark"
       :enable-time-picker="false"
       :clearable="false"
@@ -19,6 +20,7 @@
       utc="preserve"
       timezone="utc"
       :dark="isDark"
+      auto-apply
       :clearable="false"
       :format="`HH:mm'Z'`"
       @update:model-value="(timeObject) => handleDatePickerUpdate({timeObject})"
