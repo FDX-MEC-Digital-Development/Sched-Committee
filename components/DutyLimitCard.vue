@@ -68,8 +68,8 @@
         </div>
       </dl>
       <div class="mt-auto border-t border-gray-900/5 px-6 py-6 w-full">
-        <NuxtLink href="/fatigue" class="text-sm font-semibold leading-6 text-gray-900">
-          Fatigue assessment <span aria-hidden="true">&rarr;</span>
+        <NuxtLink :to="link.link" class="text-sm font-semibold leading-6 text-gray-900">
+          {{ link.title }} <span aria-hidden="true">&rarr;</span>
         </NuxtLink>
       </div>
     </div>
@@ -78,7 +78,7 @@
 
 <script setup>
 
-defineProps({
+const props = defineProps({
   title: { type: String, required: true },
   duration: { type: String, required: true },
   timeRemaining: { type: String, required: false, default: '' },
@@ -87,6 +87,30 @@ defineProps({
   notes: { type: String, required: false, default: '' },
   blockHours: { type: String, required: false, default: '' },
   landings: { type: String, required: false, default: '' },
+});
+
+const fatigueAssessmentLinks = {
+  scheduled: {
+    title: 'Fatigue Assessment',
+    link: { path: '/fatigue' },
+  },
+  operational: {
+    title: 'Call in fatigued',
+    link: { path: '/fatigue', hash: '#carma-checklist' },
+  },
+  far: {
+    title: 'Beyond operational',
+    link: { path: '/fatigue', hash: '#extension' },
+  },
+
+};
+
+const link = computed(() => {
+  if (props.title === 'Operational duty limit') { return fatigueAssessmentLinks.operational; }
+
+  if (props.title === 'FAR duty limit') { return fatigueAssessmentLinks.far; }
+
+  return fatigueAssessmentLinks.scheduled;
 });
 
 </script>
