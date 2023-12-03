@@ -1,7 +1,6 @@
 import { addMinutes, isValid } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { computed, toRef, toValue } from 'vue';
-// import { DomesticDutyLimit } from '../sched-committee-types';
 import type { Domicile, DomesticDutyLimit, DutyLimitOptions, InternationalDuty, InternationalDutyLimit } from '~/sched-committee-types';
 
 // Domestic duty limits in format [scheduled, operational, far]
@@ -185,35 +184,10 @@ const timeZonesLBT = {
 } as const;
 
 export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: MaybeRef<DutyLimitOptions>) {
-  /**
-   * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit?]: [number, number, number?] - in minutes
-   */
-
   const dutyStartTimeZuluRef = isValid(toValue(dutyStartTimeZulu)) ? toRef(dutyStartTimeZulu) : toRef(new Date());
   const optionsRef = toRef(options);
   const domicile = computed(() => optionsRef?.value?.domicile ? optionsRef?.value?.domicile : 'MEM');
 
-  /* const dutyLimits = computed(() => {
-    if (!dutyStartTimeZuluRef.value || !domicileRef.value) { return undefined; }
-    if (!isValid(dutyStartTimeZuluRef.value)) { return undefined; }
-
-    const calculatedDomesticDutyLimits = calculateDomesticDutyLimit(dutyStartTimeZuluRef.value, domicileRef.value, optionsRef.value);
-
-    if (!optionsRef.value?.isInternational && calculatedDomesticDutyLimits !== undefined) {
-      const [scheduledDutyLimit, operationalDutyLimit, farDutyLimit] = calculatedDomesticDutyLimits;
-      return { scheduledDutyLimit, operationalDutyLimit, farDutyLimit };
-    }
-
-    return undefined;
-  }); */
-
-  // const scheduledDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.scheduledDutyLimit : 0);
-  // const operationalDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.operationalDutyLimit : 0);
-  // const farDutyLimit = computed(() => (dutyLimits.value) ? dutyLimits.value.farDutyLimit : 0);
-  // const endOfScheduledDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.scheduledDutyLimit) : undefined);
-  // const endOfOperationalDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.operationalDutyLimit) : undefined);
-  // const endOfFARDutyTime = computed(() => (dutyLimits.value) ? calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimits.value.farDutyLimit) : undefined);
-  //
   const domestic = computed<DomesticDutyLimit>(() => {
     const [scheduled, operational, far] = calculateDomesticDutyLimit(dutyStartTimeZuluRef.value, domicile.value, optionsRef.value);
     const [endOfScheduledDutyDate, endOfOperationalDutyDate, endOfFARDutyDate] = [scheduled, operational, far].map(dutyLimit => calculateEndOfDutyTime(dutyStartTimeZuluRef.value, dutyLimit));
@@ -240,10 +214,7 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
 
     return results;
   });
-  /**
-   *
-   * returns [scheduledDutyLimit, operationalDutyLimit, farDutyLimit]: [number, number, number] - in minutes
-   */
+
   function calculateDomesticDutyLimit (dutyStartTime: Date, dom: Domicile, options?: DutyLimitOptions) {
     // get local time of duty start time based on domicile using timeZonesLBT using date-fns
     const localDutyStartTime = getLBTInHHMM(dutyStartTime, dom); // returns in format 0500, 0530, 0600, etc.
