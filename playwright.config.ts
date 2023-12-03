@@ -42,10 +42,11 @@ export default defineConfig({
     //   use: { ...devices['Desktop Firefox'] },
     // },
 
-    {
+    // issues getting webkit to work on windows
+    /* {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-    },
+    }, */
 
     /* Test against mobile viewports. */
     // {

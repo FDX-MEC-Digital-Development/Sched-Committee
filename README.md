@@ -87,59 +87,62 @@ Start the development server on `http://localhost:3000`:
 # npm
 npm run dev
 
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
+
+## Testing
+
+# Unit testing - vitest
+
+```bash
+#npm
+npm run test
+
+```
+
+# e2e testing - Playwright
+
+```bash
+#npm - start dev server
+npm run dev
+npx playwright test
+```
+
 
 ## Production
 
-Build the application for production:
+Build the application for production. Not necessary if deploying to Vercel or Github pages.
 
 ```bash
 # npm
 npm run build
 
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
-
 Locally preview production build:
 
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 ## Mobile app
 
+## build app for deployment using capacitor (generate + sync)
+```bash
+npm run sync
+```
+Shorthand for the following commands:
+
 # build static elements
+```bash
 npm run generate
+```
 
 # create native build
+```bash
 npx cap sync
+```
 
-# run ios emulator
+## run ios emulator
+```bash
 npx cap run ios
+```
