@@ -7,9 +7,9 @@
         <div>
           <FatigueAssessmentDescription />
 
-          <div class="mt-10 flex hidden">
+          <!-- <div class="mt-10 flex hidden">
             <a href="#" class="text-base font-semibold leading-7 text-indigo-600">Learn more about our company <span aria-hidden="true">&rarr;</span></a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div id="personal-assessment" class="mx-auto  pt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">

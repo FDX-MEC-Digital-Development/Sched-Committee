@@ -18,7 +18,7 @@
             </p>
           </div>
         </div>
-        <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto hidden">
+        <!-- <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto hidden">
           <div class="flex -space-x-0.5">
             <dt class="sr-only">
               Commenters
@@ -36,8 +36,8 @@
               ??
             </dd>
           </div>
-        </dl>
-        <template #panel="{ close}">
+        </dl> -->
+        <template #panel="{ close }">
           <PopoverCard v-if="question.popoverText !== undefined" :description="question.popoverText" @close="close()" />
         </template>
       </UPopover>
