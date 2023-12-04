@@ -16,7 +16,7 @@
               </li>
               <li>
                 <UButton @click="TermsAndConditionsVisible = true">
-                  Terms of Service
+                  Terms and Conditions
                 </UButton>
                 <TermsAndConditions v-model:is-open="TermsAndConditionsVisible" />
               </li>
