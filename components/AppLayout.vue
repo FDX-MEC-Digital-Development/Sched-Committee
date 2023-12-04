@@ -1,12 +1,4 @@
 <template>
-  <!--
-    This example requires updating your template:
-
-    ```
-    <html class="h-full bg-white">
-    <body class="h-full">
-    ```
-  -->
   <div>
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog as="div" class="relative z-40 lg:hidden" @close="closeSidebar()">
@@ -49,7 +41,6 @@
                   </button>
                 </div>
               </TransitionChild>
-              <!-- Sidebar component, swap this element with another sidebar if you like -->
               <AppLayoutSidebar :navigation="navigation" :hide-animation="hideAnimation" @route-change="closeSidebar()" />
             </DialogPanel>
           </TransitionChild>
@@ -59,7 +50,6 @@
 
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:w-72 lg:flex-col">
-      <!-- Sidebar component, swap this element with another sidebar if you like -->
       <AppLayoutSidebar :navigation="navigation" />
     </div>
 
@@ -93,13 +83,6 @@ const navigation = computed(() => ([
 
 const sidebarOpen = ref(false);
 const hideAnimation = ref(false);
-
-onMounted(() => {
-  // const path = document.querySelectorAll('path'); // Select all path elements
-
-  // Start the staggered animation when the component is mounted
-  // drawPath(path);
-});
 
 function closeSidebar () {
   sidebarOpen.value = false;

@@ -9,10 +9,16 @@
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
               <li class="mb-4">
-                <a href="#" class="hover:underline">Privacy Policy</a>
+                <UButton @click="privacyPolicyVisible = true">
+                  Privacy Policy
+                </UButton>
+                <PrivacyPolicy v-model:is-open="privacyPolicyVisible" />
               </li>
               <li>
-                <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                <UButton @click="TermsAndConditionsVisible = true">
+                  Terms of Service
+                </UButton>
+                <TermsAndConditions v-model:is-open="TermsAndConditionsVisible" />
               </li>
             </ul>
           </div>
@@ -41,6 +47,9 @@
 </template>
 
 <script lang="ts" setup>
+
+const privacyPolicyVisible = ref(false);
+const TermsAndConditionsVisible = ref(false);
 
 </script>
 
