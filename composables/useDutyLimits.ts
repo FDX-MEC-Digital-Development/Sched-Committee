@@ -157,7 +157,7 @@ const INTERNATIONAL_NON_GRID_DUTY_LIMITS = {
       operational: 'May exceed 12-in-24 due to ATC, winds, or other unavoidable circumstances to continue to base or destination. Must receive legal rest prior to next block out.',
     },
     operationalDuty: 15 * 60,
-    operationalNotes: '16:30 hours for extenuating circumstances, or 17:30 for deadhead only',
+    operationalNotes: '16:30 hours for extenuating circumstances, or 17:30 for deadhead only. See CBA 12.D.6.c.',
 
   },
   fourPilots: {
