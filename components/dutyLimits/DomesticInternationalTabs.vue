@@ -2,7 +2,7 @@
   <div>
     <HeadlessRadioGroup :model-value="items[selectedTabIndex]" @update:model-value="(newTab: TabItem)=>handleUpdateIsInternational(newTab )">
       <HeadlessRadioGroupLabel class="sr-only">
-        Server size
+        Domestic or International
       </HeadlessRadioGroupLabel>
       <div class="space-y-4">
         <HeadlessRadioGroupOption v-for="item in items" :key="item.label" v-slot="{ active, checked }" as="template" :value="item">
