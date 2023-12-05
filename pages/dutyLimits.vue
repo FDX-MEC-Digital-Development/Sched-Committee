@@ -37,7 +37,7 @@ definePageMeta({
   title: 'Duty Limits',
 });
 
-const dutyStartTimeZulu = ref<Date>(new UTCDateMini());
+const dutyStartTimeZulu = useState<Date>(() => new UTCDateMini());
 const options = ref<DutyLimitOptions>({
   is2TripsWithOneOptional: false,
   isDayRoomScheduledAndReserved: false,

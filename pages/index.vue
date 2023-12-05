@@ -17,9 +17,8 @@
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <UButton label="Duty Limits" class="result execute rounded-md bg-red-600 dark:bg-red-600 px-3 py-2 text-sm font-semibold text-white dark:text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" to="/dutyLimits" />
               <UButton label="Fatigue" class="result execute rounded-md bg-red-600 dark:bg-red-600 px-3 py-2 text-sm font-semibold text-white dark:text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" to="/fatigue" />
-              <!-- <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</a> -->
-              <!-- <a href="#" class="text-sm font-semibold leading-6 dark:text-white text-black">Learn more <span aria-hidden="true">→</span></a> -->
-            </div>            <TextSequencer v-slot="{activeContent}" v-auto-animate linear :interval="1000" :content="schedulingCommitteeFunctions">
+            </div>
+            <TextSequencer v-slot="{ activeContent }" v-auto-animate linear :interval="1000" :content="schedulingCommitteeFunctions">
               <div :key="activeContent" class="mt-4 flex items-center justify-center gap-x-6">
                 <p class="text-lg leading-8 dark:text-gray-300 text-gray-700">
                   {{ activeContent }}
