@@ -21,7 +21,7 @@
     "@formkit/auto-animate": "^0.8.1",
     "@nuxt/ui": "^2.11.0",
     "@vuepic/vue-datepicker": "^7.3.0",
-    "@vueuse/components": "^10.6.1",
+    "@vueuse/components": "^10.7.0",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0"
   },
@@ -35,11 +35,11 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@playwright/test": "^1.40.1",
-    "@types/node": "^20.10.2",
+    "@types/node": "^20.10.3",
     "@vite-pwa/assets-generator": "^0.0.11",
     "@vite-pwa/nuxt": "^0.3.3",
-    "@vueuse/core": "^10.6.1",
-    "@vueuse/nuxt": "^10.6.1",
+    "@vueuse/core": "^10.7.0",
+    "@vueuse/nuxt": "^10.7.0",
     "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -50,9 +50,9 @@
     "nuxt-icon": "^0.6.6",
     "prettier": "^3.1.0",
     "typescript": "^5.3.2",
-    "vite-plugin-pwa": "^0.17.2",
+    "vite-plugin-pwa": "^0.17.3",
     "vitest": "^0.33.0",
-    "vue": "^3.3.9",
+    "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   }
 }
