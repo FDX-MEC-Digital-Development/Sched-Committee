@@ -255,7 +255,7 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
     }
   }
 
-  // TODO: Does not account for reset: 30 hours for EUR SIBA only following DH to theater
+  // Does not account for reset: 30 hours for EUR SIBA only following DH to theater (12.D.2.a.i)
   function getSleepState (layoverLength: number) {
     if (layoverLength >= 32) { return 'reset'; }
     if (layoverLength >= 18) { return 'adjusted'; }
