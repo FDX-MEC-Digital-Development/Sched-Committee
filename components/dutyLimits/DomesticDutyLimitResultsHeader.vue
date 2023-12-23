@@ -2,13 +2,13 @@
   <div>
     <Transition name="fade-slide-down" appear>
       <SectionHeader title="Duty limits" :aria-label="`based on`">
-        Based on a duty start time of <UBadge aria-label="based on date">
+        Based on a duty start time of <UBadge aria-label="based on date" size="lg">
           {{ formattedBasedOnDate }}Z
-        </UBadge> <UBadge aria-label="based on lbt">
+        </UBadge> <UBadge aria-label="based on lbt" size="lg">
           {{ props.dutyStartTimeLBT.toString().padStart(4, '0') }} LBT
-        </UBadge> you have <UBadge aria-label="day night or critical">
+        </UBadge> you have <UBadge aria-label="day night or critical" size="lg">
           {{ dayNightOrCritical }}
-        </UBadge> <UBadge aria-label="duty limit type">
+        </UBadge> <UBadge aria-label="duty limit type" size="lg">
           {{ dutyLimitType }}
         </UBadge> duty limits.
       </SectionHeader>

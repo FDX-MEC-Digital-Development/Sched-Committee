@@ -1,9 +1,9 @@
 <template>
   <div class=" border-gray-200 pb-5">
-    <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+    <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
       {{ title }}
     </h3>
-    <p v-if="subtitle || $slots" class="mt-2 max-w-4xl text-sm text-gray-500 leading-7">
+    <p v-if="subtitle || $slots" class="mt-2 max-w-4xl text-md text-gray-900 dark:text-white leading-7">
       {{ subtitle }}<slot />
     </p>
   </div>
