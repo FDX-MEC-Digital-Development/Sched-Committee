@@ -277,8 +277,9 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
       return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     } else if (localDutyStartTime <= 530 && localDutyStartTime >= 500) {
       const slopeAdjustment = calculateMinuteDifference(localDutyStartTime, 500) * 4; // 30 minutes is 2 hours
-      const [startingScheduledDutyLimit, operationalDutyLimit, farDutyLimit] = !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL;
+      const [startingScheduledDutyLimit, , farDutyLimit] = !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL;
       const blendedScheduledDutyLimit = startingScheduledDutyLimit + slopeAdjustment; // from 11 hours to 13 hours
+      const operationalDutyLimit = blendedScheduledDutyLimit + 30; //  12.C.5.a.ii scheduled duty limit + 30 minutes
       return [blendedScheduledDutyLimit, operationalDutyLimit, farDutyLimit];
     }
 

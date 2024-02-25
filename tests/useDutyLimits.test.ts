@@ -44,10 +44,10 @@ describe('test domestic duty limits', async () => {
 
     const expectedDutyLimits = {
       scheduled: 11 * 60,
-      operational: 13.5 * 60,
+      operational: 11 * 60 + 30, // 12.C.5.a.ii scheduled duty limit + 30 minutes
       far: 16 * 60,
       endOfScheduledDutyDate: new Date('2021-09-02T00:00:00Z'),
-      endOfOperationalDutyDate: new Date('2021-09-02T02:30:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T00:30:00Z'),
       endOfFARDutyDate: new Date('2021-09-02T05:00:00Z'),
     };
 
@@ -64,10 +64,10 @@ describe('test domestic duty limits', async () => {
 
     const expectedDutyLimits = {
       scheduled: 11 * 60 + 4,
-      operational: 13.5 * 60,
+      operational: 11 * 60 + 4 + 30, // 12.C.5.a.ii scheduled duty limit + 30 minutes
       far: 16 * 60,
       endOfScheduledDutyDate: new Date('2021-09-02T00:05:00Z'),
-      endOfOperationalDutyDate: new Date('2021-09-02T02:31:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T00:35:00Z'),
       endOfFARDutyDate: new Date('2021-09-02T05:01:00Z'),
     };
 
@@ -85,11 +85,11 @@ describe('test domestic duty limits', async () => {
 
     const expectedDutyLimits = {
       scheduled: 12 * 60,
-      operational: 13.5 * 60,
+      operational: 12 * 60 + 30, // 12.C.5.a.ii scheduled duty limit + 30 minutes
       far: 16 * 60,
 
       endOfScheduledDutyDate: new Date('2021-09-02T01:15:00Z'),
-      endOfOperationalDutyDate: new Date('2021-09-02T02:45:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T01:45:00Z'),
       endOfFARDutyDate: new Date('2021-09-02T05:15:00Z'),
     };
 
@@ -107,7 +107,7 @@ describe('test domestic duty limits', async () => {
 
     const expectedDutyLimits = {
       scheduled: 13 * 60,
-      operational: 13.5 * 60,
+      operational: 13 * 60 + 30, // 12.C.5.a.ii scheduled duty limit + 30 minutes
       far: 16 * 60,
 
       endOfScheduledDutyDate: new Date('2021-09-02T02:30:00Z'),
