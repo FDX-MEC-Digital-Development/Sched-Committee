@@ -66,7 +66,7 @@ describe('test domestic duty limits', async () => {
       scheduled: 11 * 60 + 4,
       operational: 13.5 * 60,
       far: 16 * 60,
-      endOfScheduledDutyDate: new Date('2021-09-02T00:04:00Z'),
+      endOfScheduledDutyDate: new Date('2021-09-02T00:05:00Z'),
       endOfOperationalDutyDate: new Date('2021-09-02T02:31:00Z'),
       endOfFARDutyDate: new Date('2021-09-02T05:01:00Z'),
     };
