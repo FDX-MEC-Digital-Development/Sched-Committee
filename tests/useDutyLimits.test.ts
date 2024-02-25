@@ -35,6 +35,46 @@ describe('test domestic duty limits', async () => {
     expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
+  it('day flight 1300 ANC showtime (should be 0500 LBT)', () => {
+    const dutyStartTimeZulu = new Date('2021-09-01T13:00:00Z');
+    const options: DutyLimitOptions = { domicile: 'ANC' };
+    const expectedLBT = 500;
+
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = {
+      scheduled: 11 * 60,
+      operational: 13.5 * 60,
+      far: 16 * 60,
+      endOfScheduledDutyDate: new Date('2021-09-02T00:00:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T02:30:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T05:00:00Z'),
+    };
+
+    expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
+    expect(domestic.value).toEqual(expectedDutyLimits);
+  });
+
+  it('day flight 1301 ANC showtime (should be 0501 LBT)', () => {
+    const dutyStartTimeZulu = new Date('2021-09-01T13:01:00Z');
+    const options: DutyLimitOptions = { domicile: 'ANC' };
+    const expectedLBT = 501;
+
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = {
+      scheduled: 11 * 60 + 4,
+      operational: 13.5 * 60,
+      far: 16 * 60,
+      endOfScheduledDutyDate: new Date('2021-09-02T00:04:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T02:31:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T05:01:00Z'),
+    };
+
+    expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
+    expect(domestic.value).toEqual(expectedDutyLimits);
+  });
+
   it('day flight 1315 ANC showtime (should be 0515 LBT)', () => {
     // blended duty limit
     const dutyStartTimeZulu = new Date('2021-09-01T13:15:00Z');
