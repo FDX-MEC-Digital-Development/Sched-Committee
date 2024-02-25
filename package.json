@@ -22,7 +22,7 @@
     "@nuxt/ui": "^2.14.1",
     "@vuepic/vue-datepicker": "^8.1.1",
     "@vueuse/components": "^10.8.0",
-    "date-fns": "^2.30.0",
+    "date-fns": "2.30.0",
     "date-fns-tz": "^2.0.0"
   },
   "devDependencies": {
