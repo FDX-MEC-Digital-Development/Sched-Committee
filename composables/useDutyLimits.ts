@@ -6,7 +6,7 @@ import type { Domicile, DomesticDutyLimit, DutyLimitOptions, InternationalDuty, 
 // Domestic duty limits in format [scheduled, operational, far]
 const DOMESTIC_DAY_DUTY_LIMITS = [13 * 60, 14.5 * 60, 16 * 60];
 const DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 = [11 * 60, 13.5 * 60, 16 * 60]; // if a pilot's showtime is 0500-0530, then the operational duty limit is 13:30.
-const DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 = [13 * 60, 14 * 60, 16 * 60]; // If a pilot's showtime is 0531-0600, operational limits are 14:00
+const DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0600 = [13 * 60, 14 * 60, 16 * 60]; // If a pilot's showtime is 0531-0600, operational limits are 14:00
 const DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL = [13.5 * 60, 15 * 60, 16 * 60]; // TODO: Understand this: If a day or night duty period comprised of 2 trips exceeds scheduled on duty limitations, then the duty period shall be limted to a max of 13:30 Day/13:00 night
 const DOMESTIC_NIGHT_DUTY_LIMITS = [11.5 * 60, 13 * 60, 16 * 60];
 const DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL = [13 * 60, 14.5 * 60, 16 * 60];// TODO: Understand this: If a day or night duty period comprised of 2 trips exceeds scheduled on duty limitations, then the duty period shall be limted to a max of 13:30 Day/13:00 night
@@ -227,7 +227,7 @@ export function useDutyLimits (dutyStartTimeZulu: MaybeRef<Date>, options?: Mayb
     // non-blended
     if (localDutyStartTime < 1559) {
       if (localDutyStartTime > 600) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
-      if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0630 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
+      if (localDutyStartTime > 530) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0530_0600 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
       if (localDutyStartTime > 500) { return !options?.is2TripsWithOneOptional ? DOMESTIC_DAY_DUTY_LIMITS_WITH_SHOWTIME_BETWEEN_0500_0530 : DOMESTIC_DAY_DUTY_LIMITS_WITH_OPTIONAL; }
     }
     if (localDutyStartTime > 1600 || localDutyStartTime < 100) { return !options?.is2TripsWithOneOptional ? DOMESTIC_NIGHT_DUTY_LIMITS : DOMESTIC_NIGHT_DUTY_LIMITS_WTIH_OPTIONAL; }
