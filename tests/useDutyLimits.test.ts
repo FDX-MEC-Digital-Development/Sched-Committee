@@ -97,6 +97,28 @@ describe('test domestic duty limits', async () => {
     expect(domestic.value).toEqual(expectedDutyLimits);
   });
 
+  it('day flight 1330 ANC showtime (should be 0530 LBT)', () => {
+    // blended duty limit
+    const dutyStartTimeZulu = new Date('2021-09-01T13:30:00Z');
+    const options: DutyLimitOptions = { domicile: 'ANC' };
+    const expectedLBT = 530;
+
+    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
+
+    const expectedDutyLimits = {
+      scheduled: 13 * 60,
+      operational: 13.5 * 60,
+      far: 16 * 60,
+
+      endOfScheduledDutyDate: new Date('2021-09-02T02:30:00Z'),
+      endOfOperationalDutyDate: new Date('2021-09-02T03:00:00Z'),
+      endOfFARDutyDate: new Date('2021-09-02T05:30:00Z'),
+    };
+
+    expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
+    expect(domestic.value).toEqual(expectedDutyLimits);
+  });
+
   it('day flight 1045Z MEM showtime (should be 0545 LBT)', () => {
     const dutyStartTimeZulu = new Date('2021-09-01T10:45:00Z');
     const options: DutyLimitOptions = { domicile: 'MEM' };
