@@ -1,7 +1,7 @@
 <template>
   <div>
     <USlideover :model-value="isOpen" @update:model-value="(event)=> $emit('update:isOpen', event)">
-      <UCard class="flex flex-col flex-1" :ui="{ body: { base: 'flex-1' }, ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+      <UCard class="flex flex-col flex-1 overflow-y-auto" :ui="{ body: { base: 'flex-1' }, ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
         <template #header>
           <div class="flex items-start justify-between">
             {{ header }}

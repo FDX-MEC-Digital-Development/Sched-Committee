@@ -21,8 +21,7 @@ defineProps({
 
 defineEmits(['update:isOpen']);
 const privacyPolicyPlaceholderContent = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut semper libero. Sed euismod, nisl quis tincidunt aliquet, enim diam aliquam nunc, vit'];
-
+  'The FedEx MEC Scheduling Committee (“Committee”) is committed to respecting and protecting the privacy of its members.  The Committee has adopted a set of guidelines that serve as the basis for the relationship between member data and the Committee’s Flight Time/Duty Time App.  While these guidelines have been developed with the recognition that Internet technologies rapidly change, currently the use of the Committee’s Flight Time/Duty Time Appdoes not request or require personal member information and as such, no member information is stored on the App’s server.  Should future versions of this App require the disclosure of personal information, users will be notified of such a change, and will be directed to view the Committee’s revised Privacy Policy.'];
 const caption = 'Privacy Policy';
 const title = 'Privacy Policy';
 const header = 'Privacy Policy';
