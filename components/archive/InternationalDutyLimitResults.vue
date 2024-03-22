@@ -2,10 +2,10 @@
   <div>
     <Transition name="fade-slide-down" appear>
       <div class="px-4 sm:px-0">
-        <h3 class="text-base font-semibold leading-7 text-gray-900  dark:text-white">
+        <h3 class="text-base font-semibold leading-10 text-gray-900  dark:text-white">
           Duty limits
         </h3>
-        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+        <p class="mt-1 max-w-2xl text-sm leading-10 text-gray-500">
           Based on a duty start time of {{ formattedBasedOnDate }}Z, you have {{ props?.options?.isGrid ? 'grid' : 'non-grid' }} duty limits..
         </p>
       </div>

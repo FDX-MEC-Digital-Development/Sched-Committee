@@ -16,8 +16,8 @@
   // Auto fix
 
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": false
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
   },
 
   // If you're using VSCode, you can install the Tailwind CSS IntelliSense extension to get autocompletion for the classes.
