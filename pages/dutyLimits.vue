@@ -21,7 +21,6 @@
           <InternationalDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :options="options" />
           <InternationalResults :international-duty-limits="internationalDutyLimits" />
         </div><CBAReference :is-international="options.isInternational" />
-        <DutyLimitDisclaimer />
       </div>
     </div>
   </main>

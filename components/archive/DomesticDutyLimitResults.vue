@@ -33,7 +33,6 @@
           </div>
         </div>
 
-        <DutyLimitDisclaimer />
         <CBAReference />
       </dl>
     </div>

@@ -39,7 +39,7 @@
           GNU Affero General Public License for more details.
         </p>
         <p class="text-sm text-gray-500 sm:text-left dark:text-gray-400">
-          Copyright 2023 Joshua Carter (Acrobid.com).
+          © 2024 Air Line Pilots Association, International.
         </p>
       </div>
     </div>
