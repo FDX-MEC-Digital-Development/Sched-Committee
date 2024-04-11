@@ -4,11 +4,12 @@
       <img class="h-16 w-auto" src="./../assets/logo.svg" alt="Scheduling committee logo">
     </div>
     <NavigationVertical :navigation="navigation" @route-change="$emit('routeChange')">
-      <li class="mt-auto">
+      <li class="mt-auto grid grid-flow-col-dense auto-cols-min justify-between">
         <ColorModeButton />
+        <PWAInstallButton />
       </li><li v-if="false" class="mt-auto">
         <a href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white">
-          <Icon name="heroicons-cog-6-tooth" class="h-6 w-6 shrink-0" aria-hidden="true" />
+          <Icon name="i-heroicons-cog-6-tooth" class="h-6 w-6 shrink-0" aria-hidden="true" />
           Settings
         </a>
       </li>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppLayout>
-      <NuxtPwaManifest />
+      <NuxtPwaAssets />
       <NuxtPage />
     </AppLayout>
   </div>
@@ -17,9 +17,9 @@ useHead({
     { name: 'theme-color', content: '#18181b' },
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' },
-    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
-    { rel: 'mask-icon', href: '/mask-icon.svg', color: '#FFFFFF' },
+    { rel: 'icon', href: 'favicon.ico' },
+    { rel: 'apple-touch-icon', href: 'apple-touch-icon.png', sizes: '180x180' },
+    { rel: 'mask-icon', href: 'mask-icon.svg', color: '#FFFFFF' },
   ],
   bodyAttrs: {
     class: 'h-full',
