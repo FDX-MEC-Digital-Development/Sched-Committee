@@ -11,6 +11,8 @@
           </li>
         </ul>
       </li>
+      <UButton icon="i-heroicons-device-phone-mobile" variant="ghost" @click="handlePWAInstall" />
+      <pwa-install id="pwa-install" manifest-url="manifest.json" />
       <slot />
     </ul>
   </nav>
@@ -18,6 +20,7 @@
 
 <script lang="ts" setup>
 import type { NavigationLink } from '~/sched-committee-types';
+import '@khmyznikov/pwa-install';
 
 defineProps({
   navigation: {
@@ -27,6 +30,14 @@ defineProps({
 });
 
 defineEmits(['routeChange']);
+
+function handlePWAInstall () {
+  const pwaInstall = document.getElementsByTagName('pwa-install')[0];
+  console.log(pwaInstall);
+
+  // @ts-expect-error pwaInstall is not typed
+  pwaInstall.showDialog();
+};
 
 </script>
 
