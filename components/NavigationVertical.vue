@@ -12,7 +12,9 @@
         </ul>
       </li>
       <UButton icon="i-heroicons-device-phone-mobile" variant="ghost" @click="handlePWAInstall" />
-      <pwa-install id="pwa-install" manifest-url="manifest.json" />
+      <teleport to="body">
+        <pwa-install id="pwa-install" manifest-url="manifest.json" />
+      </teleport>
       <slot />
     </ul>
   </nav>
@@ -32,7 +34,7 @@ defineProps({
 defineEmits(['routeChange']);
 
 function handlePWAInstall () {
-  const pwaInstall = document.getElementsByTagName('pwa-install')[0];
+  const pwaInstall = document.getElementById('pwa-install');
   console.log(pwaInstall);
 
   // @ts-expect-error pwaInstall is not typed
