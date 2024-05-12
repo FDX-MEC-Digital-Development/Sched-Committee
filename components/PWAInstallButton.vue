@@ -2,7 +2,7 @@
   <div>
     <UButton v-if="showButton" square icon="i-heroicons-device-phone-mobile" variant="outline" @click="handlePWAInstall" />
     <teleport to="body">
-      <pwa-install id="pwa-install-navigation" ref="PWAInstallRef" manifest-url="/Sched-Committee/manifest.webmanifest" />
+      <pwa-install id="pwa-install-navigation" ref="PWAInstallRef" manifest-url="/manifest.webmanifest" />
     </teleport>
   </div>
 </template>

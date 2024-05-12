@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
-    baseURL: process.env.NITRO_PRESET ? '/Sched-Committee/' : undefined, // this is for github pages
+    // baseURL: process.env.NITRO_PRESET ? '/Sched-Committee/' : undefined, // this is for github pages
     pageTransition: { name: 'page', mode: 'out-in' },
 
   },
@@ -11,9 +11,9 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: true, // for PWA
   },
-  nitro: {
-    preset: process.env.NITRO_PRESET || undefined, // this is for github pages
-  },
+  // nitro: {
+  //   preset: process.env.NITRO_PRESET || undefined, // this is for github pages
+  // },
   // head: [{ name: 'viewport', content: 'initial-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover' }],
 
   css: [
@@ -59,23 +59,23 @@ export default defineNuxtConfig({
       theme_color: '#18181b',
       icons: [
         {
-          src: '/Sched-Committee/pwa-192x192.png',
+          src: '/pwa-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: '/Sched-Committee/pwa-192x192.png',
+          src: '/pwa-192x192.png',
           sizes: '192x192',
           type: 'image/png',
           purpose: 'any',
         },
         {
-          src: '/Sched-Committee/pwa-512x512.png',
+          src: '/pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
         },
         {
-          src: '/Sched-Committee/pwa-512x512.png',
+          src: '/pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
           purpose: 'any',
