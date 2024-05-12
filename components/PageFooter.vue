@@ -40,13 +40,14 @@
         </p>
         <p class="text-sm text-gray-500 sm:text-left dark:text-gray-400">
           © 2024 Air Line Pilots Association, International.
-        </p>
+        </p><GithubIconLink />
       </div>
     </div>
   </footer>
 </template>
 
 <script lang="ts" setup>
+import GithubIconLink from './GithubIconLink.vue';
 
 const privacyPolicyVisible = ref(false);
 const TermsAndConditionsVisible = ref(false);

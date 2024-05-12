@@ -18,6 +18,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@khmyznikov/pwa-install": "^0.3.6",
     "@nuxt/ui": "^2.15.1",
+    "@typescript-eslint/typescript-estree": "^7.8.0",
     "@vuepic/vue-datepicker": "^8.4.0",
     "@vueuse/components": "^10.9.0",
     "date-fns": "2.30.0",
