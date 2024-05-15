@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   },
   experimental: {
     payloadExtraction: true, // for PWA
+    appManifest: true,
   },
   // nitro: {
   //   preset: process.env.NITRO_PRESET || undefined, // this is for github pages
