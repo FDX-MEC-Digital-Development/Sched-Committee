@@ -7,6 +7,10 @@ export default defineNuxtConfig({
   },
   build: {
     transpile: ['@vuepic/vue-datepicker'],
+
+  },
+  nitro: {
+    preset: 'azure',
   },
   experimental: {
     payloadExtraction: true, // for PWA
@@ -94,6 +98,7 @@ export default defineNuxtConfig({
       isCustomElement: tag => tag === 'sodipodi:namedview' || tag === 'pwa-install',
     },
   },
-  ssr: false,
+
+  ssr: true,
 
 });
