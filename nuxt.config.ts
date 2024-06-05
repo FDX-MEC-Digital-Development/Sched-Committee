@@ -92,6 +92,9 @@ export default defineNuxtConfig({
     },
     client: { installPrompt: true },
   },
+  ui: {
+    icons: ['mdi', 'heroicons', 'heroicons-solid'],
+  },
 
   vue: {
     compilerOptions: {

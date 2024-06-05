@@ -22,7 +22,7 @@
         <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
           <dt class="flex-none">
             <span class="sr-only">Duty end time</span>
-            <Icon name="heroicons-solid:at-symbol" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            <UIcon name="i-heroicons-at-symbol-solid" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
           <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full" :aria-label="`duty end time ${title}`">
             <UBadge size="lg">
@@ -36,7 +36,7 @@
         <div v-if="notes" class="mt-4 flex w-full flex-none gap-x-4 px-6" :aria-label="`notes ${title}`">
           <dt class="flex-none">
             <span class="sr-only">Notes</span>
-            <Icon name="heroicons-solid:shield-exclamation" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            <UIcon name="i-heroicons-shield-exclamation-solid" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
           <dd class="text-sm leading-6 text-gray-500">
             {{ notes }}
@@ -45,8 +45,8 @@
         <div v-if="blockHours" class="mt-4 flex w-full flex-none gap-x-4 px-6" :aria-label="`block hours ${title}`">
           <dt class="flex-none">
             <span class="sr-only">Block hours</span>
-            <Icon
-              name="mdi:airplane-clock"
+            <UIcon
+              name="i-mdi-airplane-clock"
               class="h-6 w-5 text-gray-400"
               aria-hidden="true"
             />
@@ -58,8 +58,8 @@
         <div v-if="landings" class="mt-4 flex w-full flex-none gap-x-4 px-6" :aria-label="`landings ${title}`">
           <dt class="flex-none">
             <span class="sr-only">Landings</span>
-            <Icon
-              name="mdi:airplane-landing"
+            <UIcon
+              name="i-mdi-airplane-landing"
               class="h-6 w-5 text-gray-400"
               aria-hidden="true"
             />
@@ -78,17 +78,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-const props = defineProps({
-  title: { type: String, required: true },
-  duration: { type: String, required: true },
-  timeRemaining: { type: String, required: false, default: '' },
-  minutesRemaining: { type: Number, required: false, default: 780 },
-  dutyEndTime: { type: String, required: true },
-  notes: { type: String, required: false, default: '' },
-  blockHours: { type: String, required: false, default: '' },
-  landings: { type: String, required: false, default: '' },
+const props = withDefaults(defineProps<{
+  title: string
+  duration: string
+  timeRemaining?: string
+  minutesRemaining?: number
+  dutyEndTime: string
+  notes?: string
+  blockHours?: string
+  landings?: string
+}>(), {
+  timeRemaining: '',
+  minutesRemaining: 780,
+  notes: '',
+  blockHours: '',
+  landings: '',
 });
 
 const fatigueAssessmentLinks = {
