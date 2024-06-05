@@ -16,6 +16,7 @@
   "dependencies": {
     "@date-fns/utc": "1.1.1",
     "@formkit/auto-animate": "^0.8.2",
+    "@iconify-json/heroicons-solid": "^1.1.11",
     "@iconify-json/mdi": "^1.1.66",
     "@khmyznikov/pwa-install": "^0.3.8",
     "@nuxt/ui": "^2.16.0",
