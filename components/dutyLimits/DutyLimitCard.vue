@@ -20,7 +20,7 @@
           <TimeRemainingBadge v-if="Math.abs(minutesRemaining) < (60 * 24 * 2)" :label="timeRemaining" :minutes-remaining="minutesRemaining" />
         </div>
         <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
-          <dt class="flex-none">
+          <dt class="flex self-center">
             <span class="sr-only">Duty end time</span>
             <UIcon name="i-heroicons-at-symbol-solid" class="h-6 w-5 text-gray-400" aria-hidden="true" />
           </dt>
