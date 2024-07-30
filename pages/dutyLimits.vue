@@ -1,29 +1,23 @@
 <template>
-  <main class="-mt-8">
-    <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div class="rounded-lg bg-grey dark:bg-gray-900 px-5 py-6 sm:px-6" aria-label="title-section">
-        <CardHeading title="Duty Limits" description="Use this tool to calulate scheduled, operational, and FAR duty limits." />
+  <GenericToolPage title="Duty Limits" description="Use this tool to calulate scheduled, operational, and FAR duty limits." :is-results-visible="isDutyLimitsVisible">
+    <template #form>
+      <DutyLimitForm v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:options="options">
+        <template #button>
+          <UButton label="View Duty Limits" class="result execute rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" @click="handleViewDutyLimits" />
+        </template>
+      </DutyLimitForm>
+    </template>
+    <template #results>
+      <div v-if="!options.isInternational">
+        <DomesticDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :duty-limits="domesticDutyLimits" :duty-start-time-l-b-t="dutyStartTimeLBT" />
+        <DomesticResults :domestic-duty-limits="domesticDutyLimits" :duty-start-time-l-b-t="dutyStartTimeLBT" />
       </div>
-      <div class="rounded-lg bg-grey dark:bg-gray-900 px-6    py-6  sm:px-6">
-        <DutyLimitForm v-model:dutyStartTimeZulu="dutyStartTimeZulu" v-model:options="options">
-          <template #button>
-            <UButton label="View Duty Limits" class="result execute rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" @click="handleViewDutyLimits" />
-          </template>
-        </DutyLimitForm>
-      </div>
-
-      <div v-if="isDutyLimitsVisible" class="rounded-lg bg-grey dark:bg-gray-900 px-5 py-6  sm:px-6">
-        <div v-if="!options.isInternational">
-          <DomesticDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :duty-limits="domesticDutyLimits" :duty-start-time-l-b-t="dutyStartTimeLBT" />
-          <DomesticResults :domestic-duty-limits="domesticDutyLimits" :duty-start-time-l-b-t="dutyStartTimeLBT" />
-        </div>
-        <div v-else>
-          <InternationalDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :options="options" />
-          <InternationalResults :international-duty-limits="internationalDutyLimits" />
-        </div><CBAReference :is-international="options.isInternational" />
-      </div>
-    </div>
-  </main>
+      <div v-else>
+        <InternationalDutyLimitResultsHeader :based-on-time="dutyStartTimeZulu" :options="options" />
+        <InternationalResults :international-duty-limits="internationalDutyLimits" />
+      </div><CBAReference :is-international="options.isInternational" />
+    </template>
+  </GenericToolPage>
 </template>
 
 <script setup lang="ts">
