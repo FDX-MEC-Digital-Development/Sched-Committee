@@ -14,6 +14,7 @@
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { addMinutes } from 'date-fns';
+import type { RestOptions, CBALink } from '~/sched-committee-types';
 
 const DOMESTIC_REQUIRED_REST = {
   pairingConstructedGreaterThan48HoursPriorToShowtime: {
@@ -138,32 +139,6 @@ const INTERNATIONAL_REQUIRED_REST = {
 
   },
 };
-type DutyType = 'Operational' | 'Deadhead' | 'HotelStby'
-interface CBALink {
-  reference: string, // 12.D.8
-  link: string,
-  description?: string,
-}
-interface InternationalRestOptions {
-  doubleCrew: Boolean,
-  willExceed8BlockHoursOr12HoursOnDuty: Boolean,
-  lateArrival: Boolean,
-}
-interface DomesticRestOptions {
-  operatingInCriticalPeriod: Boolean, // must also receive less than 11 hours of rest operationally for this condition to be true
-  hotelStbyScenario: Boolean,
-  priorToExceed8BlockHoursIn24Hours: Boolean,
-  afterExceed8BlockHoursIn24Hours: Boolean,
-  exception12C2d: Boolean,
-}
-interface RestOptions {
-  isInternational: Boolean,
-  internationalOptions?: InternationalRestOptions,
-  domesticOptions?: DomesticRestOptions,
-  minutesPairingConstructedPriorToShowtime: number,
-  nextDuty: DutyType,
-  prevDuty: DutyType,
-}
 
 export const useUseRestRecover = (dutyEndTimeZulu: MaybeRef<Date>, restOptions: MaybeRef<RestOptions>) => {
   const endTime = toValue(dutyEndTimeZulu);
