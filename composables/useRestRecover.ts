@@ -30,8 +30,20 @@ const DOMESTIC_REQUIRED_REST = {
     nextDutyDeadhead: 8 * 60, // 8:00
 
   },
+  operatingInCriticalPeriod: {
 
-  // TODO: DOMESTIC Hotel standby
+    baseline: 12,
+    notes: ['May be reduced when deadheading or an operational emergency.', '12.C.6.d'],
+  },
+  hotelStbyScenario: {
+    baseline: 12,
+    notes: ['12.B.3.b'],
+  },
+  priorToExceed8BlockHoursIn24Hours: {
+    baseline: 9,
+    notes: [''],
+
+  },
 
 };
 
@@ -51,9 +63,11 @@ const INTERNATIONAL_REQUIRED_REST = {
   },
   pairingConstructedLessThan96HoursPriorToShowtime: {
     baseline: 12,
+    notes: ['12.D.7.a'],
     exceed8BlockHoursOr12HoursOnDuty: {
-      baseline: 17,
-      operationallyReducable: 16,
+      scheduled: 17,
+      operational: 16,
+      notes: ['May be operationally reduced to 16 hours, unless actual block hours did not exceed 8:00 and actual hours on duty did not exceed 12:00. In that case, rest is operationally reduceable to 12 hours.', '12.D.7.c'],
     },
     lateArrival: {
       baseline: 12,
@@ -61,18 +75,34 @@ const INTERNATIONAL_REQUIRED_REST = {
         'May reduce the layover to protect an on-time departure.',
         'Add 1 minute for each minute the previous (late) duty period exceeded the applicable scheduled on-duty limitation.',
         'Example: if the previous duty period was exceeded by 30 minutes, the required rest is 12:30.',
+        '12.D.7.d',
       ],
     },
     doubleCrew: {
       scheduled: 17,
       operational: 16,
+      notes: ['12.D.8'],
     },
 
   },
 };
 type DutyType = 'Operational' | 'Deadhead' | 'HotelStby'
+interface InternationalRestOptions {
+  doubleCrew: Boolean,
+  willExceed8BlockHoursOr12HoursOnDuty: Boolean,
+  lateArrival: Boolean,
+}
+interface DomesticRestOptions {
+  operatingInCriticalPeriod: Boolean, // must also receive less than 11 hours of rest operationally for this condition to be true
+  hotelStbyScenario: Boolean,
+  priorToExceed8BlockHoursIn24Hours: Boolean,
+  afterExceed8BlockHoursIn24Hours: Boolean,
+  exception12C2d: Boolean,
+}
 interface RestOptions {
   isInternational: Boolean,
+  internationalOptions?: InternationalRestOptions,
+  domesticOptions?: DomesticRestOptions,
   minutesPairingConstructedPriorToShowtime: number,
   nextDuty: DutyType,
   prevDuty: DutyType,
@@ -82,6 +112,7 @@ export const useUseRestRecover = (dutyEndTimeZulu: MaybeRef<Date>, restOptions: 
   const endTime = toValue(dutyEndTimeZulu);
   const options = toValue(restOptions);
   const restMinutesRequired = ref();
+  const notes = ref<string[]>([]);
   const restMinutesOperationallyReducableTo = ref();
 
   if (!options.isInternational) {
@@ -110,14 +141,28 @@ export const useUseRestRecover = (dutyEndTimeZulu: MaybeRef<Date>, restOptions: 
           restMinutesRequired.value = restLimits.previousDutyOther.nextDutyHotelStby;
         }
       }
-    } else {
+    } else { // constructed less than 96 hours prior to showtime
       const restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime;
 
-      restMinutesRequired.value = restLimits.baseline;
+      if (options?.internationalOptions?.doubleCrew) {
+        restMinutesRequired.value = restLimits.doubleCrew.scheduled;
+        restMinutesOperationallyReducableTo.value = restLimits.doubleCrew.operational;
+        notes.value = [...restLimits.doubleCrew.notes];
+      } else if (options?.internationalOptions?.willExceed8BlockHoursOr12HoursOnDuty) {
+        restMinutesRequired.value = restLimits.exceed8BlockHoursOr12HoursOnDuty.scheduled;
+        restMinutesOperationallyReducableTo.value = restLimits.exceed8BlockHoursOr12HoursOnDuty.operational;
+        notes.value = [...restLimits.exceed8BlockHoursOr12HoursOnDuty.notes];
+      } else if (options?.internationalOptions?.lateArrival) {
+        restMinutesRequired.value = restLimits.lateArrival.baseline;
+        notes.value = [...restLimits.lateArrival.notes];
+      } else {
+        restMinutesRequired.value = restLimits.baseline;
+        notes.value = [...restLimits.notes];
+      }
     }
   }
 
-  const restEndTimeZulu = addMinutes(endTime, restMinutesRequired.value);
+  const restEndTimeZulu = computed(() => addMinutes(endTime, restMinutesRequired.value));
 
-  return { restMinutesRequired, restEndTimeZulu };
+  return { restMinutesRequired, restMinutesOperationallyReducableTo, restEndTimeZulu, notes };
 };
