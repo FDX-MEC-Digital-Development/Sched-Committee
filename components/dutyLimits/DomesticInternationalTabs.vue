@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeadlessRadioGroup :model-value="items[selectedTabIndex]" @update:model-value="(newTab: TabItem)=>handleUpdateIsInternational(newTab )">
+    <HeadlessRadioGroup :model-value="items[selectedTabIndex]" @update:model-value="(newTab: TabItem)=>isInternational = newTab.isInternational">
       <HeadlessRadioGroupLabel class="sr-only">
         Domestic or International
       </HeadlessRadioGroupLabel>
@@ -21,14 +21,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  isInternational: {
-    type: Boolean,
-    default: false,
-  },
-});
-
-const emit = defineEmits(['update:isInternational']);
+const isInternational = defineModel<boolean>('isInternational', { required: true });
 
 interface TabItem {
   label: string;
@@ -43,14 +36,7 @@ const items = [{
 }];
 
 const selectedTabIndex = computed(() => {
-  return props.isInternational ? 1 : 0;
+  return isInternational.value ? 1 : 0;
 });
 
-/* function handleChange (event: number) {
-  emit('update:isInternational', items[event].isInternational);
-} */
-
-function handleUpdateIsInternational (newTab: TabItem) {
-  emit('update:isInternational', newTab.isInternational);
-}
 </script>
