@@ -16,10 +16,19 @@
 import { addMinutes } from 'date-fns';
 import type { RestOptions, CBALink } from '~/sched-committee-types';
 
+type RestLimit = {
+  scheduled: number,
+  operational?: number,
+  notes?: string[],
+  cbaLink?: CBALink,
+}
+
 const DOMESTIC_REQUIRED_REST = {
+  notes: ['The required rest is determined by when the pairing is built, along with the subsequent type of activity.'],
+
   pairingConstructedGreaterThan48HoursPriorToShowtime: {
     nextDutyOperational: 10 * 60 + 15, // 10:15
-    nextDutyDeadhead: 8 * 60, // 8:00
+    nextDutyDeadhead: 8 * 60, // 8:00,
   },
   pairingConstructedLessThan48HoursPriorToShowtime: {
     nextDutyOperational: 9 * 60, // 9:00
@@ -60,6 +69,7 @@ const DOMESTIC_REQUIRED_REST = {
   afterExceed8BlockHoursIn24Hours: {
     scheduled: 17 * 60,
     operational: 8 * 60,
+    notes: [],
     cbaLink: {
       reference: '12.C.2.b and 12.C.6.b',
       link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
@@ -149,54 +159,59 @@ export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions:
   const restMinutesOperationallyReducableTo = ref();
 
   function calculateRest () {
-    let restLimits;
+    // reset state
+    let restLimits: RestLimit;
+    restMinutesOperationallyReducableTo.value = undefined;
+    notes.value = [];
+    cbaLink.value = undefined;
+    restMinutesRequiredScheduled.value = undefined;
+
     if (!options.isInternational) {
-      if (!options?.domesticOptions) {
-        restLimits = options.minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.pairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.pairingConstructedLessThan48HoursPriorToShowtime;
-        restMinutesRequiredScheduled.value = options.nextDuty === 'Deadhead' ? restLimits.nextDutyDeadhead : restLimits.nextDutyOperational;
-        restMinutesOperationallyReducableTo.value = options.nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducable.nextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducable.nextDutyOperational;
-      } else {
-        if (options.domesticOptions.afterExceed8BlockHoursIn24Hours) {
-          restLimits = DOMESTIC_REQUIRED_REST.afterExceed8BlockHoursIn24Hours;
-        } else if (options.domesticOptions.operatingInCriticalPeriod) {
-          restLimits = DOMESTIC_REQUIRED_REST.operatingInCriticalPeriod;
+      if (options.domesticOptions.afterExceed8BlockHoursIn24Hours) {
+        restLimits = DOMESTIC_REQUIRED_REST.afterExceed8BlockHoursIn24Hours;
+      } else if (options.domesticOptions.operatingInCriticalPeriod) {
+        restLimits = DOMESTIC_REQUIRED_REST.operatingInCriticalPeriod;
         // restMinutesRequiredScheduled.value = restLimits.scheduled;
         // notes.value = [...restLimits.notes];
-        } else if (options.domesticOptions.hotelStbyScenario) {
-          restLimits = DOMESTIC_REQUIRED_REST.hotelStbyScenario;
+      } else if (options.domesticOptions.hotelStbyScenario) {
+        restLimits = DOMESTIC_REQUIRED_REST.hotelStbyScenario;
         // restMinutesRequiredScheduled.value = restLimits.scheduled;
         // notes.value = [...restLimits.notes];
-        } else { // if (options?.domesticOptions?.priorToExceed8BlockHoursIn24Hours) TODO: improve this else logic
-          restLimits = DOMESTIC_REQUIRED_REST.priorToExceed8BlockHoursIn24Hours;
+      } else if (options.domesticOptions.priorToExceed8BlockHoursIn24Hours) { // if (options?.domesticOptions?.priorToExceed8BlockHoursIn24Hours) TODO: improve this else logic
+        restLimits = DOMESTIC_REQUIRED_REST.priorToExceed8BlockHoursIn24Hours;
         // restMinutesRequiredScheduled.value = restLimits.scheduled;
         // restMinutesOperationallyReducableTo.value = restLimits.operational;
         // notes.value = [...restLimits.notes];
-        }
-
-        restMinutesRequiredScheduled.value = restLimits.scheduled;
-        restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
-        notes.value = 'notes' in restLimits ? [...restLimits.notes] : [];
+      } else {
+        const pairingType = options.minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.pairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.pairingConstructedLessThan48HoursPriorToShowtime;
+        restLimits = { scheduled: options.nextDuty === 'Deadhead' ? pairingType.nextDutyDeadhead : pairingType.nextDutyOperational };
+        restLimits.operational = options.nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducable.nextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducable.nextDutyOperational;
+        restLimits.notes = [...DOMESTIC_REQUIRED_REST.notes];
       }
+
+      restMinutesRequiredScheduled.value = restLimits.scheduled;
+      restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
+      notes.value = restLimits.notes ? [...restLimits.notes] : [];
     } else { // international
     // eslint-disable-next-line no-lonely-if
       if (options.minutesPairingConstructedPriorToShowtime / 60 > 96) {
-        const restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedGreaterThan96HoursPriorToShowtime;
+        const pairingType = INTERNATIONAL_REQUIRED_REST.pairingConstructedGreaterThan96HoursPriorToShowtime;
         if (options.prevDuty === 'Operational') {
           if (options.nextDuty === 'Operational') {
-            restMinutesRequiredScheduled.value = restLimits.previousDutyRevenue.nextDutyRevenue;
+            restLimits = { scheduled: pairingType.previousDutyRevenue.nextDutyRevenue };
           } else if (options.nextDuty === 'Deadhead') {
-            restMinutesRequiredScheduled.value = restLimits.previousDutyRevenue.nextDutyDeadhead;
+            restLimits = { scheduled: pairingType.previousDutyRevenue.nextDutyDeadhead };
           } else { // Hotel standby
-            restMinutesRequiredScheduled.value = restLimits.previousDutyRevenue.nextDutyHotelStby;
+            restLimits = { scheduled: pairingType.previousDutyRevenue.nextDutyHotelStby };
           }
         } else { // previous duty deadhead or hotel standby TODO: understand lonely-if
         // eslint-disable-next-line no-lonely-if
           if (options.nextDuty === 'Operational') {
-            restMinutesRequiredScheduled.value = restLimits.previousDutyOther.nextDutyRevenue;
+            restLimits = { scheduled: pairingType.previousDutyOther.nextDutyRevenue };
           } else if (options.nextDuty === 'Deadhead') {
-            restMinutesRequiredScheduled.value = restLimits.previousDutyOther.nextDutyDeadhead;
+            restLimits = { scheduled: pairingType.previousDutyOther.nextDutyDeadhead };
           } else { // Hotel standby
-            restMinutesRequiredScheduled.value = restLimits.previousDutyOther.nextDutyHotelStby;
+            restLimits = { scheduled: pairingType.previousDutyOther.nextDutyHotelStby };
           }
         }
       } else { // constructed less than 96 hours prior to showtime
@@ -224,7 +239,7 @@ export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions:
 
         restMinutesRequiredScheduled.value = restLimits.scheduled;
         restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
-        notes.value = 'notes' in restLimits ? [...restLimits.notes] : [];
+        notes.value = restLimits.notes ? [...restLimits.notes] : [];
       }
     }
 
@@ -232,6 +247,7 @@ export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions:
   }
 
   watchEffect(() => {
+    // calculate rest when dependencies change
     calculateRest();
   });
 

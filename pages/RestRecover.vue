@@ -44,6 +44,7 @@ const isResultsVisible = ref(false);
 
 const results = useUseRestRecover(dutyEndTimeZulu, options);
 
+// eslint-disable-next-line no-console
 watchEffect(() => console.log({ results }));
 
 </script>
