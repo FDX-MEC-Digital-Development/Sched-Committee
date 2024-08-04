@@ -82,21 +82,21 @@ export interface CBALink {
   description?: string,
 }
 export interface InternationalRestOptions {
-  doubleCrew: Boolean,
-  willExceed8BlockHoursOr12HoursOnDuty: Boolean,
-  lateArrival: Boolean,
+  doubleCrew: boolean,
+  willExceed8BlockHoursOr12HoursOnDuty: boolean,
+  lateArrival: boolean,
 }
 export interface DomesticRestOptions {
-  operatingInCriticalPeriod: Boolean, // must also receive less than 11 hours of rest operationally for this condition to be true
-  hotelStbyScenario: Boolean,
-  priorToExceed8BlockHoursIn24Hours: Boolean,
-  afterExceed8BlockHoursIn24Hours: Boolean,
-  exception12C2d: Boolean,
+  operatingInCriticalPeriod: boolean, // must also receive less than 11 hours of rest operationally for this condition to be true
+  hotelStbyScenario: boolean,
+  priorToExceed8BlockHoursIn24Hours: boolean,
+  afterExceed8BlockHoursIn24Hours: boolean,
+  exception12C2d: boolean,
 }
 export interface RestOptions {
-  isInternational: Boolean,
-  internationalOptions?: InternationalRestOptions,
-  domesticOptions?: DomesticRestOptions,
+  isInternational: boolean,
+  internationalOptions: InternationalRestOptions,
+  domesticOptions: DomesticRestOptions,
   minutesPairingConstructedPriorToShowtime: number,
   nextDuty: DutyType,
   prevDuty: DutyType,
