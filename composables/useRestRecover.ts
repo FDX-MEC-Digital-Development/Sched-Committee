@@ -14,6 +14,7 @@
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { addMinutes } from 'date-fns';
+import { computed, ref, watchEffect, toValue } from 'vue';
 import type { RestOptions, CBALink } from '~/sched-committee-types';
 
 type RestLimit = {
@@ -150,10 +151,10 @@ const INTERNATIONAL_REQUIRED_REST = {
   },
 };
 
-export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions: MaybeRef<RestOptions>) {
+export function useRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions: MaybeRef<RestOptions>) {
   const endTime = toValue(dutyEndTimeZulu);
   const options = toValue(restOptions);
-  const restMinutesRequiredScheduled = ref();
+  const restMinutesRequiredScheduled = ref<number>(0);
   const notes = ref<string[]>([]);
   const cbaLink = ref<CBALink>();
   const restMinutesOperationallyReducableTo = ref();
@@ -164,7 +165,7 @@ export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions:
     restMinutesOperationallyReducableTo.value = undefined;
     notes.value = [];
     cbaLink.value = undefined;
-    restMinutesRequiredScheduled.value = undefined;
+    restMinutesRequiredScheduled.value = 0;
 
     if (!options.isInternational) {
       if (options.domesticOptions.afterExceed8BlockHoursIn24Hours) {
@@ -217,6 +218,7 @@ export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions:
       } else { // constructed less than 96 hours prior to showtime
       // const restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime;
 
+        // eslint-disable-next-line no-lonely-if
         if (options?.internationalOptions?.doubleCrew) {
           restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime.doubleCrew;
         // restMinutesRequiredScheduled.value = restLimits.doubleCrew.scheduled;
@@ -236,12 +238,11 @@ export function useUseRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions:
         // restMinutesRequiredScheduled.value = restLimits.scheduled;
         // notes.value = [...restLimits.notes];
         }
-
-        restMinutesRequiredScheduled.value = restLimits.scheduled;
-        restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
-        notes.value = restLimits.notes ? [...restLimits.notes] : [];
       }
     }
+    restMinutesRequiredScheduled.value = restLimits.scheduled;
+    restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
+    notes.value = restLimits.notes ? [...restLimits.notes] : [];
 
     cbaLink.value = restLimits && 'cbaLink' in restLimits ? restLimits?.cbaLink : undefined;
   }

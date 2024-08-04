@@ -1,10 +1,25 @@
 import { describe, expect, it } from 'vitest';
 import { setup } from '@nuxt/test-utils';
 
-import { useDutyLimits } from '../composables/useDutyLimits';
-import type { DutyLimitOptions } from '~/sched-committee-types';
+import { useRestRecover } from '../composables/useRestRecover';
+import type { DomesticRestOptions, InternationalRestOptions, RestOptions } from '~/sched-committee-types';
 
 // npm run test
+
+const defaultDomesticRestOptions: DomesticRestOptions = {
+  afterExceed8BlockHoursIn24Hours: false,
+  exception12C2d: false,
+  hotelStbyScenario: false,
+  operatingInCriticalPeriod: false,
+  priorToExceed8BlockHoursIn24Hours: false,
+};
+
+const defaultInternationalRestOptions: InternationalRestOptions = {
+
+  doubleCrew: false,
+  lateArrival: false,
+  willExceed8BlockHoursOr12HoursOnDuty: false,
+};
 
 describe('test domestic rest', async () => {
   await setup({
@@ -17,6 +32,24 @@ describe('test domestic rest', async () => {
 
   // no exceptions
   // pairing construction > 48 hours prior to showtime
+  it('pairing construction > 48 hours prior to showtime', () => {
+    const dutyEndTimeZulu = new Date('2021-09-01T18:00:00Z');
+    const options: RestOptions = {
+      isInternational: false,
+      internationalOptions: defaultInternationalRestOptions,
+      domesticOptions: defaultDomesticRestOptions,
+      minutesPairingConstructedPriorToShowtime: 60 * 49,
+      nextDuty: 'Operational',
+      prevDuty: 'Operational',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { restMinutesRequiredScheduled, restMinutesOperationallyReducableTo, restEndTimeZulu, notes, cbaLink } = useRestRecover(dutyEndTimeZulu, options);
+
+    const expectedScheduled = 10 * 60 + 15;
+
+    expect(restMinutesRequiredScheduled.value).toEqual(expectedScheduled);
+  });
 
   // pairing construction < 48 hours prior to showtime
 
@@ -30,33 +63,30 @@ describe('test domestic rest', async () => {
   // after exceeding 8 in 24
 
   // exception 12.C.2.D
-
-  it('day flight 1800Z MEM showtime', () => {
-    const dutyStartTimeZulu = new Date('2021-09-01T18:00:00Z');
-    const options: DutyLimitOptions = { domicile: 'MEM' };
-    const expectedLBT = 1300;
-
-    const { domestic, dutyStartTimeLBT } = useDutyLimits(dutyStartTimeZulu, options);
-
-    const expectedDutyLimits = {
-      scheduled: 13 * 60,
-      operational: 14.5 * 60,
-      far: 16 * 60,
-      endOfScheduledDutyDate: new Date('2021-09-02T07:00:00Z'),
-      endOfOperationalDutyDate: new Date('2021-09-02T08:30:00Z'),
-      endOfFARDutyDate: new Date('2021-09-02T10:00:00Z'),
-    };
-
-    expect(dutyStartTimeLBT.value).toEqual(expectedLBT);
-    expect(domestic.value).toEqual(expectedDutyLimits);
-  });
 });
 
 describe('test international rest', () => {
-
   // tests
 
   // pairing construction > 96 hours prior to showtime
+  it('pairing construction > 96 hours prior to showtime', () => {
+    const dutyEndTimeZulu = new Date('2021-09-01T18:00:00Z');
+    const options: RestOptions = {
+      isInternational: true,
+      internationalOptions: defaultInternationalRestOptions,
+      domesticOptions: defaultDomesticRestOptions,
+      minutesPairingConstructedPriorToShowtime: 60 * 97,
+      nextDuty: 'Operational',
+      prevDuty: 'Operational',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { restMinutesRequiredScheduled, restMinutesOperationallyReducableTo, restEndTimeZulu, notes, cbaLink } = useRestRecover(dutyEndTimeZulu, options);
+
+    const expectedScheduled = 14 * 60;
+
+    expect(restMinutesRequiredScheduled.value).toEqual(expectedScheduled);
+  });
 
   // pairing construction < 96 hours prior to showtime
   // no exceptions
@@ -66,5 +96,4 @@ describe('test international rest', () => {
   // will exceed 8 block hours or 12 hours on duty
 
   // late arrivals
-
 });

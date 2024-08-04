@@ -42,7 +42,7 @@ const options = ref<RestOptions>({
 const dutyEndTimeZulu = ref<Date>(new Date());
 const isResultsVisible = ref(false);
 
-const results = useUseRestRecover(dutyEndTimeZulu, options);
+const results = useRestRecover(dutyEndTimeZulu, options);
 
 // eslint-disable-next-line no-console
 watchEffect(() => console.log({ results }));
