@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { setup } from '@nuxt/test-utils';
+import { ref } from 'vue';
 
 import { useRestRecover } from '../composables/useRestRecover';
 import type { DomesticRestOptions, InternationalRestOptions, RestOptions } from '~/sched-committee-types';
@@ -33,15 +34,15 @@ describe('test domestic rest', async () => {
   // no exceptions
   // pairing construction > 48 hours prior to showtime
   it('pairing construction > 48 hours prior to showtime', () => {
-    const dutyEndTimeZulu = new Date('2021-09-01T18:00:00Z');
-    const options: RestOptions = {
+    const dutyEndTimeZulu = ref(new Date('2021-09-01T18:00:00Z'));
+    const options = ref<RestOptions>({
       isInternational: false,
       internationalOptions: defaultInternationalRestOptions,
       domesticOptions: defaultDomesticRestOptions,
       minutesPairingConstructedPriorToShowtime: 60 * 49,
       nextDuty: 'Operational',
       prevDuty: 'Operational',
-    };
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { restMinutesRequiredScheduled, restMinutesOperationallyReducableTo, restEndTimeZulu, notes, cbaLink } = useRestRecover(dutyEndTimeZulu, options);
@@ -70,15 +71,15 @@ describe('test international rest', () => {
 
   // pairing construction > 96 hours prior to showtime
   it('pairing construction > 96 hours prior to showtime', () => {
-    const dutyEndTimeZulu = new Date('2021-09-01T18:00:00Z');
-    const options: RestOptions = {
+    const dutyEndTimeZulu = ref(new Date('2021-09-01T18:00:00Z'));
+    const options = ref< RestOptions>({
       isInternational: true,
       internationalOptions: defaultInternationalRestOptions,
       domesticOptions: defaultDomesticRestOptions,
       minutesPairingConstructedPriorToShowtime: 60 * 97,
       nextDuty: 'Operational',
       prevDuty: 'Operational',
-    };
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { restMinutesRequiredScheduled, restMinutesOperationallyReducableTo, restEndTimeZulu, notes, cbaLink } = useRestRecover(dutyEndTimeZulu, options);
