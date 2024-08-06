@@ -30,6 +30,15 @@ npm run dev
 npx playwright test
 ```
 
+# Preview deployments
+
+Automatically generated when pull request is created.
+
+Available at: 
+```
+https://gentle-grass-0608be90f-<pull-request-number>.5.azurestaticapps.net/
+```
+
 
 ## Production
 
