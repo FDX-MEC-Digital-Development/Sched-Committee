@@ -71,7 +71,7 @@
             </div>
 
             <div v-else class="xs:mt-2">
-              <RestRecoverInternationalOptions v-model:options="options" />
+              <RestRecoverInternationalOptions v-model:options="options" :minutes-pairing-constructed-prior-to-showtime="options.minutesPairingConstructedPriorToShowtime" />
             </div>
           </div>
         </div>
@@ -92,9 +92,7 @@ const hoursCustructedPriorToShowtime = ref(100);
 
 watchEffect(() => {
   const minutes = hoursCustructedPriorToShowtime.value * 60;
-  console.log(minutes);
   options.value.minutesPairingConstructedPriorToShowtime = minutes;
-  console.log(options.value);
 });
 
 /*
