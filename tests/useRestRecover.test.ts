@@ -8,7 +8,8 @@ import type { DomesticRestOptions, InternationalRestOptions, RestOptions } from 
 
 const defaultDomesticRestOptions: DomesticRestOptions = {
   afterExceed8BlockHoursIn24Hours: false,
-  exception12C2d: false,
+  exception12C2dAfterExceeding735ActualBlockHours: false,
+  exception12C2dPriorToExceeding735ActualBlockHours: false,
   hotelStbyScenario: false,
   operatingInCriticalPeriod: false,
   priorToExceed8BlockHoursIn24Hours: false,
@@ -39,8 +40,8 @@ describe('test domestic rest', async () => {
       internationalOptions: defaultInternationalRestOptions,
       domesticOptions: defaultDomesticRestOptions,
       minutesPairingConstructedPriorToShowtime: 60 * 49,
-      nextDuty: 'Operational',
-      prevDuty: 'Operational',
+      nextDuty: 'Revenue',
+      prevDuty: 'Revenue',
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -76,8 +77,8 @@ describe('test international rest', () => {
       internationalOptions: defaultInternationalRestOptions,
       domesticOptions: defaultDomesticRestOptions,
       minutesPairingConstructedPriorToShowtime: 60 * 97,
-      nextDuty: 'Operational',
-      prevDuty: 'Operational',
+      nextDuty: 'Revenue',
+      prevDuty: 'Revenue',
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

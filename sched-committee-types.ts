@@ -75,7 +75,7 @@ export interface DutyLimitCard {
 
 // rest and recover types
 
-type DutyType = 'Operational' | 'Deadhead' | 'HotelStby'
+type DutyType = 'Revenue' | 'Deadhead' | 'HotelStby'
 export interface CBALink {
   reference: string, // 12.D.8
   link: string,
@@ -91,7 +91,8 @@ export interface DomesticRestOptions {
   hotelStbyScenario: boolean,
   priorToExceed8BlockHoursIn24Hours: boolean,
   afterExceed8BlockHoursIn24Hours: boolean,
-  exception12C2d: boolean,
+  exception12C2dPriorToExceeding735ActualBlockHours: boolean,
+  exception12C2dAfterExceeding735ActualBlockHours: boolean,
 }
 export interface RestOptions {
   isInternational: boolean,

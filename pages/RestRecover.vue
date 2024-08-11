@@ -17,7 +17,8 @@ import type { DomesticRestOptions, InternationalRestOptions, RestOptions } from 
 
 const defaultDomesticRestOptions: DomesticRestOptions = {
   afterExceed8BlockHoursIn24Hours: false,
-  exception12C2d: false,
+  exception12C2dAfterExceeding735ActualBlockHours: false,
+  exception12C2dPriorToExceeding735ActualBlockHours: false,
   hotelStbyScenario: false,
   operatingInCriticalPeriod: false,
   priorToExceed8BlockHoursIn24Hours: false,
@@ -35,8 +36,8 @@ const options = ref<RestOptions>({
   internationalOptions: defaultInternationalRestOptions,
   domesticOptions: defaultDomesticRestOptions,
   minutesPairingConstructedPriorToShowtime: 0,
-  nextDuty: 'Operational',
-  prevDuty: 'Operational',
+  nextDuty: 'Revenue',
+  prevDuty: 'Revenue',
 });
 
 const dutyEndTimeZulu = ref<Date>(new Date());

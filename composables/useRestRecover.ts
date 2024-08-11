@@ -15,7 +15,7 @@
 
 import { addMinutes } from 'date-fns';
 import { computed, ref, watchEffect, toValue } from 'vue';
-import type { RestOptions, CBALink } from '~/sched-committee-types';
+import type { RestOptions, CBALink, DomesticRestOptions } from '~/sched-committee-types';
 
 type RestLimit = {
   scheduled: number,
@@ -24,25 +24,70 @@ type RestLimit = {
   cbaLink?: CBALink,
 }
 
-const DOMESTIC_REQUIRED_REST = {
+type DomesticRestOptionKeys = keyof DomesticRestOptions;
+
+type MappedDomesticRestOptions = {
+  [key in DomesticRestOptionKeys]: RestLimit
+};
+
+type DomesticRequiredRest = MappedDomesticRestOptions & {
+  notes: string[],
+  scheduledIfPairingConstructedGreaterThan48HoursPriorToShowtime: {
+    ifNextDutyOperational: number,
+    ifNextDutyDeadhead: number,
+  },
+  scheduledIfPairingConstructedLessThan48HoursPriorToShowtime: {
+    ifNextDutyOperational: number,
+    ifNextDutyDeadhead: number,
+  },
+  operationallyReducableTo: {
+    ifNextDutyOperational: number,
+    ifNextDutyDeadhead: number,
+  },
+}
+type PairingConstructedLessThan96HoursPriorToShowtimeKeys = 'doubleCrew' | 'willExceed8BlockHoursOr12HoursOnDuty' | 'lateArrival';
+type MappedInternationalRestOptions = {
+  [key in PairingConstructedLessThan96HoursPriorToShowtimeKeys]: RestLimit
+}
+
+type InternationalRequiredRest = {
+  pairingConstructedGreaterThan96HoursPriorToShowtime: {
+    ifPreviousDutyRevenue: {
+      ifNextDutyRevenue: number,
+      ifNextDutyDeadhead: number,
+      ifNextDutyHotelStby: number,
+    },
+    ifPreviousDutyOther: {
+      ifNextDutyRevenue: number,
+      ifNextDutyDeadhead: number,
+      ifNextDutyHotelStby: number,
+    },
+  },
+  pairingConstructedLessThan96HoursPriorToShowtime: MappedInternationalRestOptions & {
+    scheduled: number,
+    notes: string[],
+  },
+
+}
+
+const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
   notes: ['The required rest is determined by when the pairing is built, along with the subsequent type of activity.'],
 
-  pairingConstructedGreaterThan48HoursPriorToShowtime: {
-    nextDutyOperational: 10 * 60 + 15, // 10:15
-    nextDutyDeadhead: 8 * 60, // 8:00,
+  scheduledIfPairingConstructedGreaterThan48HoursPriorToShowtime: {
+    ifNextDutyOperational: 10 * 60 + 15, // 10:15
+    ifNextDutyDeadhead: 8 * 60, // 8:00,
   },
-  pairingConstructedLessThan48HoursPriorToShowtime: {
-    nextDutyOperational: 9 * 60, // 9:00
-    nextDutyDeadhead: 8 * 60, // 8:00
+  scheduledIfPairingConstructedLessThan48HoursPriorToShowtime: {
+    ifNextDutyOperational: 9 * 60, // 9:00
+    ifNextDutyDeadhead: 8 * 60, // 8:00
 
   },
-  operationallyReducable: {
-    nextDutyOperational: 8 * 60, // 8:00
-    nextDutyDeadhead: 8 * 60, // 8:00
+  operationallyReducableTo: {
+    ifNextDutyOperational: 8 * 60, // 8:00
+    ifNextDutyDeadhead: 8 * 60, // 8:00
 
   },
   operatingInCriticalPeriod: {
-
     scheduled: 12 * 60,
     notes: ['May be reduced when deadheading or an operational emergency.'],
     cbaLink: {
@@ -76,47 +121,45 @@ const DOMESTIC_REQUIRED_REST = {
       link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
     },
   },
-  exception12C2d: {
-    priorToExceeding735ActualBlockHours: {
-      scheduled: 10 * 60 + 15,
-      operational: 9 * 60 + 15,
-      notes: ['Flight Segment Restriction: For further restrictions outside the scope of this required rest article, see 12.C.2.d.ii.'],
-      cbaLink: {
-        reference: '12.C.2.d.ii.',
-        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
-      },
+  exception12C2dPriorToExceeding735ActualBlockHours: {
+    scheduled: 10 * 60 + 15,
+    operational: 9 * 60 + 15,
+    notes: ['Flight Segment Restriction: For further restrictions outside the scope of this required rest article, see 12.C.2.d.ii.'],
+    cbaLink: {
+      reference: '12.C.2.d.ii.',
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
     },
-    afterExceeding735ActualBlockHours: {
-      scheduled: 13 * 60,
-      operational: 12 * 60,
-      notes: ['Flight Segment Restriction: For further restrictions outside the scope of this required rest article, see 12.C.2.d.ii.'],
-      cbaLink: {
-        reference: '12.C.2.d.ii.',
-        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
-      },
+  },
+  exception12C2dAfterExceeding735ActualBlockHours: {
+    scheduled: 13 * 60,
+    operational: 12 * 60,
+    notes: ['Flight Segment Restriction: For further restrictions outside the scope of this required rest article, see 12.C.2.d.ii.'],
+    cbaLink: {
+      reference: '12.C.2.d.ii.',
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
     },
   },
 
 };
 
-const INTERNATIONAL_REQUIRED_REST = {
+const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
   pairingConstructedGreaterThan96HoursPriorToShowtime: {
-    previousDutyRevenue: {
-      nextDutyRevenue: 14 * 60,
-      nextDutyDeadhead: 14 * 60,
-      nextDutyHotelStby: 12 * 60,
+    ifPreviousDutyRevenue: {
+      ifNextDutyRevenue: 14 * 60,
+      ifNextDutyDeadhead: 14 * 60,
+      ifNextDutyHotelStby: 12 * 60,
     },
-    previousDutyOther: {
-      nextDutyRevenue: 12 * 60,
-      nextDutyDeadhead: 12 * 60,
-      nextDutyHotelStby: 12 * 60,
+    ifPreviousDutyOther: {
+      ifNextDutyRevenue: 12 * 60,
+      ifNextDutyDeadhead: 12 * 60,
+      ifNextDutyHotelStby: 12 * 60,
     },
 
   },
   pairingConstructedLessThan96HoursPriorToShowtime: {
     scheduled: 12 * 60,
     notes: ['12.D.7.a'],
-    exceed8BlockHoursOr12HoursOnDuty: {
+    willExceed8BlockHoursOr12HoursOnDuty: {
       scheduled: 17 * 60,
       operational: 16 * 60,
       notes: ['May be operationally reduced to 16 hours, unless actual block hours did not exceed 8:00 and actual hours on duty did not exceed 12:00. In that case, rest is operationally reduceable to 12 hours.'],
@@ -168,75 +211,48 @@ export function useRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions: Ma
     restMinutesRequiredScheduled.value = 0;
 
     if (!options.isInternational) {
-      if (options.domesticOptions.afterExceed8BlockHoursIn24Hours) {
-        restLimits = DOMESTIC_REQUIRED_REST.afterExceed8BlockHoursIn24Hours;
-      } else if (options.domesticOptions.operatingInCriticalPeriod) {
-        restLimits = DOMESTIC_REQUIRED_REST.operatingInCriticalPeriod;
-        // restMinutesRequiredScheduled.value = restLimits.scheduled;
-        // notes.value = [...restLimits.notes];
-      } else if (options.domesticOptions.hotelStbyScenario) {
-        restLimits = DOMESTIC_REQUIRED_REST.hotelStbyScenario;
-        // restMinutesRequiredScheduled.value = restLimits.scheduled;
-        // notes.value = [...restLimits.notes];
-      } else if (options.domesticOptions.priorToExceed8BlockHoursIn24Hours) { // if (options?.domesticOptions?.priorToExceed8BlockHoursIn24Hours) TODO: improve this else logic
-        restLimits = DOMESTIC_REQUIRED_REST.priorToExceed8BlockHoursIn24Hours;
-        // restMinutesRequiredScheduled.value = restLimits.scheduled;
-        // restMinutesOperationallyReducableTo.value = restLimits.operational;
-        // notes.value = [...restLimits.notes];
-      } else {
-        const pairingType = options.minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.pairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.pairingConstructedLessThan48HoursPriorToShowtime;
-        restLimits = { scheduled: options.nextDuty === 'Deadhead' ? pairingType.nextDutyDeadhead : pairingType.nextDutyOperational };
-        restLimits.operational = options.nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducable.nextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducable.nextDutyOperational;
+      const optionKey = (Object.keys(options.domesticOptions) as (keyof typeof options.domesticOptions)[]).find(
+        key => options.domesticOptions[key],
+      ); // find the key that is true (if any)
+      if (optionKey === undefined) { // no exceptions
+        const pairingType = options.minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedLessThan48HoursPriorToShowtime;
+        restLimits = { scheduled: options.nextDuty === 'Deadhead' ? pairingType.ifNextDutyDeadhead : pairingType.ifNextDutyOperational };
+        restLimits.operational = options.nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyOperational;
         restLimits.notes = [...DOMESTIC_REQUIRED_REST.notes];
+      } else {
+        restLimits = DOMESTIC_REQUIRED_REST[optionKey as keyof DomesticRestOptions];
       }
-
-      restMinutesRequiredScheduled.value = restLimits.scheduled;
-      restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
-      notes.value = restLimits.notes ? [...restLimits.notes] : [];
     } else { // international
     // eslint-disable-next-line no-lonely-if
       if (options.minutesPairingConstructedPriorToShowtime / 60 > 96) {
         const pairingType = INTERNATIONAL_REQUIRED_REST.pairingConstructedGreaterThan96HoursPriorToShowtime;
-        if (options.prevDuty === 'Operational') {
-          if (options.nextDuty === 'Operational') {
-            restLimits = { scheduled: pairingType.previousDutyRevenue.nextDutyRevenue };
+        if (options.prevDuty === 'Revenue') {
+          if (options.nextDuty === 'Revenue') {
+            restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyRevenue };
           } else if (options.nextDuty === 'Deadhead') {
-            restLimits = { scheduled: pairingType.previousDutyRevenue.nextDutyDeadhead };
+            restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyDeadhead };
           } else { // Hotel standby
-            restLimits = { scheduled: pairingType.previousDutyRevenue.nextDutyHotelStby };
+            restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyHotelStby };
           }
         } else { // previous duty deadhead or hotel standby TODO: understand lonely-if
         // eslint-disable-next-line no-lonely-if
-          if (options.nextDuty === 'Operational') {
-            restLimits = { scheduled: pairingType.previousDutyOther.nextDutyRevenue };
+          if (options.nextDuty === 'Revenue') {
+            restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyRevenue };
           } else if (options.nextDuty === 'Deadhead') {
-            restLimits = { scheduled: pairingType.previousDutyOther.nextDutyDeadhead };
+            restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyDeadhead };
           } else { // Hotel standby
-            restLimits = { scheduled: pairingType.previousDutyOther.nextDutyHotelStby };
+            restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyHotelStby };
           }
         }
       } else { // constructed less than 96 hours prior to showtime
-      // const restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime;
+        const optionsKey = (Object.keys(INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime) as PairingConstructedLessThan96HoursPriorToShowtimeKeys[]).find(
+          key => options.internationalOptions[key],
+        ); // find the key that is true (if any)
 
-        // eslint-disable-next-line no-lonely-if
-        if (options?.internationalOptions?.doubleCrew) {
-          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime.doubleCrew;
-        // restMinutesRequiredScheduled.value = restLimits.doubleCrew.scheduled;
-        // restMinutesOperationallyReducableTo.value = restLimits.doubleCrew.operational;
-        // notes.value = [...restLimits.doubleCrew.notes];
-        } else if (options?.internationalOptions?.willExceed8BlockHoursOr12HoursOnDuty) {
-          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime.exceed8BlockHoursOr12HoursOnDuty;
-        // restMinutesRequiredScheduled.value = restLimits.exceed8BlockHoursOr12HoursOnDuty.scheduled;
-        // restMinutesOperationallyReducableTo.value = restLimits.exceed8BlockHoursOr12HoursOnDuty.operational;
-        // notes.value = [...restLimits.exceed8BlockHoursOr12HoursOnDuty.notes];
-        } else if (options?.internationalOptions?.lateArrival) {
-          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime.lateArrival;
-        // restMinutesRequiredScheduled.value = restLimits.lateArrival.scheduled;
-        // notes.value = [...restLimits.lateArrival.notes];
+        if (optionsKey === undefined) {
+          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime; // no exceptions
         } else {
-          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime;
-        // restMinutesRequiredScheduled.value = restLimits.scheduled;
-        // notes.value = [...restLimits.notes];
+          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime[optionsKey];
         }
       }
     }
