@@ -75,7 +75,7 @@ export interface DutyLimitCard {
 
 // rest and recover types
 
-type DutyType = 'Revenue' | 'Deadhead' | 'HotelStby'
+export type DutyType = 'Revenue' | 'Deadhead' | 'HotelStby'
 export interface CBALink {
   reference: string, // 12.D.8
   link: string,

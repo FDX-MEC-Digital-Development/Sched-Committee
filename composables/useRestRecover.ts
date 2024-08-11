@@ -216,6 +216,7 @@ export function useRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions: Ma
       ); // find the key that is true (if any)
       if (optionKey === undefined) { // no exceptions
         const pairingType = options.minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedLessThan48HoursPriorToShowtime;
+        console.log('pairingType', pairingType);
         restLimits = { scheduled: options.nextDuty === 'Deadhead' ? pairingType.ifNextDutyDeadhead : pairingType.ifNextDutyOperational };
         restLimits.operational = options.nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyOperational;
         restLimits.notes = [...DOMESTIC_REQUIRED_REST.notes];
