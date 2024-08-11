@@ -1,5 +1,5 @@
 <template>
-  <GenericToolPage title="Rest" description="Use this tool to calulate scheduled, operational, and FAR duty limits." :is-results-visible>
+  <GenericToolPage title="Required Rest" description="Use this tool to calulate required rest after a duty period." :is-results-visible>
     <template #form>
       <RestRecoverForm v-model:options="options" v-model:duty-end-time-zulu="dutyEndTimeZulu" />
     </template>

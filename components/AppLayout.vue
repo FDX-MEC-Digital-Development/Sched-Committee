@@ -78,7 +78,7 @@ const navigation = computed(() => ([
   { name: 'Duty Limits', href: '/dutyLimits', icon: 'heroicons:clock', current: route.name === 'dutyLimits' },
   { name: 'Fatigue', href: '/fatigue', icon: 'heroicons:bell-alert', current: route.name === 'fatigue' },
   // rest
-  { name: 'Rest', href: '/RestRecover', icon: 'heroicons:moon', current: route.name === 'restRecover' },
+  { name: 'Required Rest', href: '/RestRecover', icon: 'heroicons:moon', current: route.name === 'restRecover' },
 
   { name: 'Disputed Pairings', href: '/disputedPairings', icon: 'heroicons:exclamation-circle', current: route.name === 'disputedPairings' },
   // { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
