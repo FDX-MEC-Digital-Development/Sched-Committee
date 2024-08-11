@@ -197,15 +197,12 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
 export function useRestRecover (dutyEndTimeZulu: MaybeRef<Date>, options: Ref<RestOptions>) {
   const endTime = toValue(dutyEndTimeZulu);
 
-  const internationalOptions = computed(() => options.value.internationalOptions);
-  const domesticOptions = computed(() => options.value.domesticOptions);
-  const isInternational = computed(() => options.value.isInternational);
   const domesticRestLimits = computed(() =>
-    calculateDomestic({ domesticOptions: domesticOptions.value, nextDuty: options.value.nextDuty, minutesPairingConstructedPriorToShowtime: options.value.minutesPairingConstructedPriorToShowtime }));
+    calculateDomestic({ domesticOptions: options.value.domesticOptions, nextDuty: options.value.nextDuty, minutesPairingConstructedPriorToShowtime: options.value.minutesPairingConstructedPriorToShowtime }));
   const internationalRestLimits = computed(() =>
-    calculateInternational({ internationalOptions: internationalOptions.value, minutesPairingConstructedPriorToShowtime: options.value.minutesPairingConstructedPriorToShowtime, nextDuty: options.value.nextDuty, prevDuty: options.value.prevDuty }));
+    calculateInternational({ internationalOptions: options.value.internationalOptions, minutesPairingConstructedPriorToShowtime: options.value.minutesPairingConstructedPriorToShowtime, nextDuty: options.value.nextDuty, prevDuty: options.value.prevDuty }));
 
-  const restLimits = computed(() => isInternational.value ? internationalRestLimits.value : domesticRestLimits.value);
+  const restLimits = computed(() => options.value.isInternational ? internationalRestLimits.value : domesticRestLimits.value);
   const restMinutesRequiredScheduled = computed<number>(() => restLimits.value.scheduled);
   const restMinutesOperationallyReducableTo = computed(() => 'operational' in restLimits.value ? restLimits.value.operational : undefined);
   const notes = computed(() => restLimits.value.notes ? [...restLimits.value.notes] : []);
