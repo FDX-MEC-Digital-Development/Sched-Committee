@@ -14,8 +14,8 @@
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { addMinutes } from 'date-fns';
-import { computed, ref, watchEffect, toValue } from 'vue';
-import type { RestOptions, CBALink, DomesticRestOptions } from '~/sched-committee-types';
+import { computed, toValue } from 'vue';
+import type { RestOptions, CBALink, DomesticRestOptions, DutyType, InternationalRestOptions } from '~/sched-committee-types';
 
 type RestLimit = {
   scheduled: number,
@@ -194,82 +194,78 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
   },
 };
 
-export function useRestRecover (dutyEndTimeZulu: MaybeRef<Date>, restOptions: MaybeRef<RestOptions>) {
+export function useRestRecover (dutyEndTimeZulu: MaybeRef<Date>, options: Ref<RestOptions>) {
   const endTime = toValue(dutyEndTimeZulu);
-  const options = toValue(restOptions);
-  const restMinutesRequiredScheduled = ref<number>(0);
-  const notes = ref<string[]>([]);
-  const cbaLink = ref<CBALink>();
-  const restMinutesOperationallyReducableTo = ref();
 
-  function calculateRest () {
-    // reset state
-    let restLimits: RestLimit;
-    restMinutesOperationallyReducableTo.value = undefined;
-    notes.value = [];
-    cbaLink.value = undefined;
-    restMinutesRequiredScheduled.value = 0;
+  const internationalOptions = computed(() => options.value.internationalOptions);
+  const domesticOptions = computed(() => options.value.domesticOptions);
+  const isInternational = computed(() => options.value.isInternational);
+  const domesticRestLimits = computed(() =>
+    calculateDomestic({ domesticOptions: domesticOptions.value, nextDuty: options.value.nextDuty, minutesPairingConstructedPriorToShowtime: options.value.minutesPairingConstructedPriorToShowtime }));
+  const internationalRestLimits = computed(() =>
+    calculateInternational({ internationalOptions: internationalOptions.value, minutesPairingConstructedPriorToShowtime: options.value.minutesPairingConstructedPriorToShowtime, nextDuty: options.value.nextDuty, prevDuty: options.value.prevDuty }));
 
-    if (!options.isInternational) {
-      const optionKey = (Object.keys(options.domesticOptions) as (keyof typeof options.domesticOptions)[]).find(
-        key => options.domesticOptions[key],
-      ); // find the key that is true (if any)
-      if (optionKey === undefined) { // no exceptions
-        const pairingType = options.minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedLessThan48HoursPriorToShowtime;
-        console.log('pairingType', pairingType);
-        restLimits = { scheduled: options.nextDuty === 'Deadhead' ? pairingType.ifNextDutyDeadhead : pairingType.ifNextDutyOperational };
-        restLimits.operational = options.nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyOperational;
-        restLimits.notes = [...DOMESTIC_REQUIRED_REST.notes];
-      } else {
-        restLimits = DOMESTIC_REQUIRED_REST[optionKey as keyof DomesticRestOptions];
-      }
-    } else { // international
-    // eslint-disable-next-line no-lonely-if
-      if (options.minutesPairingConstructedPriorToShowtime / 60 > 96) {
-        const pairingType = INTERNATIONAL_REQUIRED_REST.pairingConstructedGreaterThan96HoursPriorToShowtime;
-        if (options.prevDuty === 'Revenue') {
-          if (options.nextDuty === 'Revenue') {
-            restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyRevenue };
-          } else if (options.nextDuty === 'Deadhead') {
-            restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyDeadhead };
-          } else { // Hotel standby
-            restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyHotelStby };
-          }
-        } else { // previous duty deadhead or hotel standby TODO: understand lonely-if
-        // eslint-disable-next-line no-lonely-if
-          if (options.nextDuty === 'Revenue') {
-            restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyRevenue };
-          } else if (options.nextDuty === 'Deadhead') {
-            restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyDeadhead };
-          } else { // Hotel standby
-            restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyHotelStby };
-          }
-        }
-      } else { // constructed less than 96 hours prior to showtime
-        const optionsKey = (Object.keys(INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime) as PairingConstructedLessThan96HoursPriorToShowtimeKeys[]).find(
-          key => options.internationalOptions[key],
-        ); // find the key that is true (if any)
-
-        if (optionsKey === undefined) {
-          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime; // no exceptions
-        } else {
-          restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime[optionsKey];
-        }
-      }
-    }
-    restMinutesRequiredScheduled.value = restLimits.scheduled;
-    restMinutesOperationallyReducableTo.value = 'operational' in restLimits ? restLimits.operational : undefined;
-    notes.value = restLimits.notes ? [...restLimits.notes] : [];
-
-    cbaLink.value = restLimits && 'cbaLink' in restLimits ? restLimits?.cbaLink : undefined;
-  }
-
-  watchEffect(() => {
-    // calculate rest when dependencies change
-    calculateRest();
-  });
+  const restLimits = computed(() => isInternational.value ? internationalRestLimits.value : domesticRestLimits.value);
+  const restMinutesRequiredScheduled = computed<number>(() => restLimits.value.scheduled);
+  const restMinutesOperationallyReducableTo = computed(() => 'operational' in restLimits.value ? restLimits.value.operational : undefined);
+  const notes = computed(() => restLimits.value.notes ? [...restLimits.value.notes] : []);
+  const cbaLink = computed(() => restLimits.value && 'cbaLink' in restLimits.value ? restLimits.value?.cbaLink : undefined);
 
   const restEndTimeZulu = computed(() => addMinutes(endTime, restMinutesRequiredScheduled.value));
 
   return { restMinutesRequiredScheduled, restMinutesOperationallyReducableTo, restEndTimeZulu, notes, cbaLink };
 };
+
+function calculateDomestic ({ domesticOptions, nextDuty, minutesPairingConstructedPriorToShowtime }: { domesticOptions: DomesticRestOptions, nextDuty: DutyType, minutesPairingConstructedPriorToShowtime: number }) {
+  let restLimits: RestLimit;
+  const optionKey = (Object.keys(domesticOptions) as (keyof typeof domesticOptions)[]).find(
+    key => domesticOptions[key],
+  ); // find the key that is true (if any)
+  if (optionKey === undefined) { // no exceptions
+    const pairingType = minutesPairingConstructedPriorToShowtime / 60 > 48 ? DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedGreaterThan48HoursPriorToShowtime : DOMESTIC_REQUIRED_REST.scheduledIfPairingConstructedLessThan48HoursPriorToShowtime;
+    restLimits = { scheduled: nextDuty === 'Deadhead' ? pairingType.ifNextDutyDeadhead : pairingType.ifNextDutyOperational };
+    restLimits.operational = nextDuty === 'Deadhead' ? DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyDeadhead : DOMESTIC_REQUIRED_REST.operationallyReducableTo.ifNextDutyOperational;
+    restLimits.notes = [...DOMESTIC_REQUIRED_REST.notes];
+  } else {
+    restLimits = DOMESTIC_REQUIRED_REST[optionKey as keyof DomesticRestOptions];
+  }
+
+  return restLimits;
+}
+
+function calculateInternational ({ internationalOptions, minutesPairingConstructedPriorToShowtime, nextDuty, prevDuty }: { internationalOptions: InternationalRestOptions, minutesPairingConstructedPriorToShowtime: number, nextDuty: DutyType, prevDuty: DutyType }) {
+  let restLimits: RestLimit;
+  if (minutesPairingConstructedPriorToShowtime / 60 > 96) {
+    const pairingType = INTERNATIONAL_REQUIRED_REST.pairingConstructedGreaterThan96HoursPriorToShowtime;
+    if (prevDuty === 'Revenue') {
+      if (nextDuty === 'Revenue') {
+        restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyRevenue };
+      } else if (nextDuty === 'Deadhead') {
+        restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyDeadhead };
+      } else { // Hotel standby
+        restLimits = { scheduled: pairingType.ifPreviousDutyRevenue.ifNextDutyHotelStby };
+      }
+    } else { // previous duty deadhead or hotel standby TODO: understand lonely-if
+    // eslint-disable-next-line no-lonely-if
+      if (nextDuty === 'Revenue') {
+        restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyRevenue };
+      } else if (nextDuty === 'Deadhead') {
+        restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyDeadhead };
+      } else { // Hotel standby
+        restLimits = { scheduled: pairingType.ifPreviousDutyOther.ifNextDutyHotelStby };
+      }
+    }
+  } else { // constructed less than 96 hours prior to showtime
+    const optionsKey = (Object.keys(INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime) as PairingConstructedLessThan96HoursPriorToShowtimeKeys[]).find(
+      key => internationalOptions[key],
+    ); // find the key that is true (if any)
+
+    if (optionsKey === undefined) {
+      restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime; // no exceptions
+    } else {
+      restLimits = INTERNATIONAL_REQUIRED_REST.pairingConstructedLessThan96HoursPriorToShowtime[optionsKey];
+    }
+  }
+
+  return restLimits;
+}
