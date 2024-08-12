@@ -1,49 +1,47 @@
 <template>
-  <CardGrid>
-    <CardGridItem :key="JSON.stringify(results.cbaLink.value?.reference)" class="stagger-list ">
-      <StaggerList>
-        <ResultsCard title="Results" :link-title="results.cbaLink.value?.reference" :link-href="results.cbaLink.value?.link" class="result">
-          <template #default>
-            <div class="space-y-4">
-              <dl>
-                <dt class="flex self-center font-medium leading-6 text-gray-900  items-center  justify-between w-full ">
-                  <span class="sr-only">Scheduled</span>
-                  Scheduled
-                </dt>
-                <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full" :aria-label="`Scheduled rest`">
-                  <UBadge size="lg">
-                    {{ minutesToHours(results.restMinutesRequiredScheduled.value) }}
-                  </UBadge>
-                </dd>
-              </dl>
-              <dl v-if="results.restMinutesOperationallyReducableTo.value !== undefined">
-                <dt class="flex self-center font-medium leading-6 text-gray-900  items-center  justify-between w-full ">
-                  <span class="sr-only">Operational</span>
-                  Operational
-                </dt>
-                <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full" :aria-label="`operational rest`">
-                  <UBadge size="lg">
-                    {{ minutesToHours(results.restMinutesOperationallyReducableTo.value) }}
-                  </UBadge>
-                </dd>
-              </dl>
-            </div>
-          </template>
-          <template #notes>
-            <div v-if="notes.length > 0">
-              <dt class="flex-none">
-                <span class="sr-only">Notes</span>
-                <UIcon name="i-heroicons-shield-exclamation-solid" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+  <CardGridItem :key="JSON.stringify(results.cbaLink.value?.reference)" class="stagger-list">
+    <StaggerList class="w-full">
+      <ResultsCard title="Results" :link-title="results.cbaLink.value?.reference" :link-href="results.cbaLink.value?.link" class="result">
+        <template #default>
+          <div class="space-y-4">
+            <dl>
+              <dt class="flex self-center font-medium leading-6 text-gray-900  items-center  justify-between w-full ">
+                <span class="sr-only">Scheduled</span>
+                Scheduled
               </dt>
-              <dd v-for="note in notes" :key="note" class="text-sm leading-6 text-gray-500">
-                {{ note }}
+              <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full" :aria-label="`Scheduled rest`">
+                <UBadge size="lg">
+                  {{ minutesToHours(results.restMinutesRequiredScheduled.value) }}
+                </UBadge>
               </dd>
-            </div>
-          </template>
-        </ResultsCard>{{ results }}
-      </StaggerList>
-    </CardGridItem>
-  </CardGrid>
+            </dl>
+            <dl v-if="results.restMinutesOperationallyReducableTo.value !== undefined">
+              <dt class="flex self-center font-medium leading-6 text-gray-900  items-center  justify-between w-full ">
+                <span class="sr-only">Operational</span>
+                Operational
+              </dt>
+              <dd class="text-sm font-medium leading-6 text-gray-900  items-center flex justify-between w-full" :aria-label="`operational rest`">
+                <UBadge size="lg">
+                  {{ minutesToHours(results.restMinutesOperationallyReducableTo.value) }}
+                </UBadge>
+              </dd>
+            </dl>
+          </div>
+        </template>
+        <template #notes>
+          <div v-if="notes.length > 0" class="mt-4 flex w-full flex-none gap-x-4 px-6">
+            <dt class="flex-none ">
+              <span class="sr-only">Notes</span>
+              <UIcon name="i-heroicons-shield-exclamation-solid" class="h-6 w-5 text-gray-400" aria-hidden="true" />
+            </dt>
+            <dd v-for="note in notes" :key="note" class="text-sm leading-6 text-gray-500">
+              {{ note }}
+            </dd>
+          </div>
+        </template>
+      </ResultsCard>
+    </StaggerList>
+  </CardGridItem>
 </template>
 
 <script lang="ts" setup>

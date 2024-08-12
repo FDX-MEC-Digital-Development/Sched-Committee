@@ -1,9 +1,9 @@
 <template>
-  <div class="lg:col-start-3 lg:row-end-1  flex  justify-between  h-full">
+  <div class="lg:col-start-3 lg:row-end-1  flex  justify-between w-full  h-full">
     <h2 class="sr-only">
       {{ title }}
     </h2>
-    <div class="rounded-lg bg-gray-50 flex flex-wrap flex-col shadow-sm ring-1 ring-gray-900/5 card-background">
+    <div class="rounded-lg bg-gray-50 flex flex-wrap flex-col shadow-sm ring-1 ring-gray-900/5 card-background w-full">
       <dl class="flex flex-wrap mb-6">
         <div class="flex-none pl-6 pt-6" :aria-label="`title ${title}`">
           <dt class="text-sm font-semibold leading-6 text-gray-900">
