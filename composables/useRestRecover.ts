@@ -65,7 +65,7 @@ type InternationalRequiredRest = {
   },
   pairingConstructedLessThan96HoursPriorToShowtime: MappedInternationalRestOptions & {
     scheduled: number,
-    notes: string[],
+    cbaLink: CBALink,
   },
 
 }
@@ -92,7 +92,7 @@ const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
     notes: ['May be reduced when deadheading or an operational emergency.'],
     cbaLink: {
       reference: '12.C.6.d',
-      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C6d',
     },
   },
   hotelStbyScenario: {
@@ -100,7 +100,7 @@ const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
     notes: [], // gives a typescript error if not present
     cbaLink: {
       reference: '12.B.3.b',
-      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12B3b',
     },
   },
   priorToExceed8BlockHoursIn24Hours: {
@@ -109,7 +109,7 @@ const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
     notes: ['Your scheduled rest must be the greater of 9 hours or twice the block hours flown in previous duty period.'],
     cbaLink: {
       reference: '12.C.2.b and 12.C.6.b',
-      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C2b',
     },
   },
   afterExceed8BlockHoursIn24Hours: {
@@ -118,7 +118,7 @@ const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
     notes: [],
     cbaLink: {
       reference: '12.C.2.b and 12.C.6.b',
-      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C2b',
     },
   },
   exception12C2dPriorToExceeding735ActualBlockHours: {
@@ -127,7 +127,7 @@ const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
     notes: ['Flight Segment Restriction: For further restrictions outside the scope of this required rest article, see 12.C.2.d.ii.'],
     cbaLink: {
       reference: '12.C.2.d.ii.',
-      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C2dii',
     },
   },
   exception12C2dAfterExceeding735ActualBlockHours: {
@@ -136,7 +136,7 @@ const DOMESTIC_REQUIRED_REST: DomesticRequiredRest = {
     notes: ['Flight Segment Restriction: For further restrictions outside the scope of this required rest article, see 12.C.2.d.ii.'],
     cbaLink: {
       reference: '12.C.2.d.ii.',
-      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C2dii',
     },
   },
 
@@ -158,14 +158,17 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
   },
   pairingConstructedLessThan96HoursPriorToShowtime: {
     scheduled: 12 * 60,
-    notes: ['12.D.7.a'],
+    cbaLink: {
+      reference: '12.D.7',
+      link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D7',
+    },
     willExceed8BlockHoursOr12HoursOnDuty: {
       scheduled: 17 * 60,
       operational: 16 * 60,
       notes: ['May be operationally reduced to 16 hours, unless actual block hours did not exceed 8:00 and actual hours on duty did not exceed 12:00. In that case, rest is operationally reduceable to 12 hours.'],
       cbaLink: {
         reference: '12.D.7.c',
-        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D7',
       },
     },
     lateArrival: {
@@ -178,7 +181,7 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
       ],
       cbaLink: {
         reference: '12.D.7.d',
-        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D7',
       },
     },
     doubleCrew: {
@@ -187,7 +190,7 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
 
       cbaLink: {
         reference: '12.D.8',
-        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12C', // TODO: placeholder
+        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D8',
       },
     },
 

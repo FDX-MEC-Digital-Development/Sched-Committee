@@ -1,9 +1,9 @@
 <template>
-  <div class="lg:col-start-3 lg:row-end-1  flex  justify-between w-full  h-full">
+  <div class="lg:col-start-3 lg:row-end-1  flex  justify-between   h-full">
     <h2 class="sr-only">
       {{ title }}
     </h2>
-    <div class="rounded-lg bg-gray-50 flex flex-wrap flex-col shadow-sm ring-1 ring-gray-900/5 card-background w-full">
+    <div class="rounded-lg bg-gray-50 flex flex-wrap flex-col shadow-sm ring-1 ring-gray-900/5 card-background ">
       <dl class="flex flex-wrap mb-6">
         <div class="flex-none pl-6 pt-6" :aria-label="`title ${title}`">
           <dt class="text-sm font-semibold leading-6 text-gray-900">
@@ -32,7 +32,7 @@
           <slot name="notes" />
         </div>
       </dl>
-      <div class="mt-auto border-t border-gray-900/5 px-6 py-6 w-full">
+      <div v-if="linkTitle" class="mt-auto border-t border-gray-900/5 px-6 py-6 w-full">
         <NuxtLink :to="linkHref" class="text-sm font-semibold leading-6 text-gray-900">
           {{ linkTitle }} <span aria-hidden="true">&rarr;</span>
         </NuxtLink>
