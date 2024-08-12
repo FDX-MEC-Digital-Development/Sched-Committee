@@ -1,20 +1,20 @@
 <template>
   <form>
     <div class="space-y-6">
-      <div class="grid grid-cols-1 gap-x-8 gap-y-5 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <UAccordion class="mt-1 text-sm leading-6 text-gray-600  dark:text-gray-200" :items="dutyEndTimeList">
+        <template #duty-end>
+          <ul class="list-disc pl-5 space-y-2 text-gray-900 dark:text-white">
+            <li v-for="item in dutyEndCriteriaList" :key="item" class="italic text-gray-900 dark:text-white ">
+              {{ item }}
+            </li>
+          </ul>
+        </template>
+      </UAccordion>
+      <div v-if="false" class="grid grid-cols-1 gap-x-8 gap-y-5 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
             Duty end time (Zulu)
           </h2>
-          <UAccordion class="mt-1 text-sm leading-6 text-gray-600  dark:text-gray-200" :items="dutyEndTimeList">
-            <template #duty-end>
-              <ul class="list-disc pl-5 space-y-2 text-gray-900 dark:text-white">
-                <li v-for="item in dutyEndCriteriaList" :key="item" class="italic text-gray-900 dark:text-white ">
-                  {{ item }}
-                </li>
-              </ul>
-            </template>
-          </UAccordion>
         </div>
 
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
