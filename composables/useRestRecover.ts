@@ -162,6 +162,15 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
       reference: '12.D.7',
       link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D7',
     },
+    doubleCrew: {
+      scheduled: 17 * 60,
+      operational: 16 * 60,
+
+      cbaLink: {
+        reference: '12.D.8',
+        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D8',
+      },
+    },
     willExceed8BlockHoursOr12HoursOnDuty: {
       scheduled: 17 * 60,
       operational: 16 * 60,
@@ -171,6 +180,7 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
         link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D7',
       },
     },
+
     lateArrival: {
       scheduled: 12 * 60,
       notes: [
@@ -182,15 +192,6 @@ const INTERNATIONAL_REQUIRED_REST: InternationalRequiredRest = {
       cbaLink: {
         reference: '12.D.7.d',
         link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D7',
-      },
-    },
-    doubleCrew: {
-      scheduled: 17 * 60,
-      operational: 16 * 60,
-
-      cbaLink: {
-        reference: '12.D.8',
-        link: 'https://fdx.alpa.org/Portals/7/Documents/Committees/negotiating/contract-library/2015/2015FDXCBA_web.html#link_12D8',
       },
     },
 
