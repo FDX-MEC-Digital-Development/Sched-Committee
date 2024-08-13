@@ -8,9 +8,9 @@
         </div>
 
         <div v-else>
-          <OptionsCheckbox v-model="options.internationalOptions.doubleCrew" label="Double Crew" caption="Are you double crewing?" />
-          <OptionsCheckbox v-model="options.internationalOptions.willExceed8BlockHoursOr12HoursOnDuty" label="Exceed 8 Block Hours or 12 Hours on Duty" caption="Will you exceed 8 block hours or 12 hours on duty?" />
-          <OptionsCheckbox v-model="options.internationalOptions.lateArrival" label="Late Arrival" caption="Are you arriving late?" />
+          <OptionsCheckbox v-model="options.internationalOptions.doubleCrew" label="Double Crew" caption="Are you operating with 4 crew members?" />
+          <OptionsCheckbox v-model="options.internationalOptions.willExceed8BlockHoursOr12HoursOnDuty" label="High block/Long duty" caption="Will you exceed 8 block hours or 12 hours on duty?" />
+          <OptionsCheckbox v-model="options.internationalOptions.lateArrival" label="Late Arrival" caption="Are you arriving after your scheduled block in time?" />
         </div>
       </fieldset>
     </div>
