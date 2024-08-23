@@ -1,7 +1,7 @@
 <template>
   <CardGrid>
     <CardGridItem :key="JSON.stringify(results.cbaLink.value?.reference)" class="stagger-list">
-      <StaggerList>
+      <StaggerList class="w-full">
         <ResultsCard title="Required rest" :link-title="results.cbaLink.value?.reference" :link-href="results.cbaLink.value?.link" class="result">
           <template #default>
             <div class="space-y-4">

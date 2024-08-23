@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:col-start-3 lg:row-end-1  flex  justify-between  h-full">
+  <div class="lg:col-start-3 lg:row-end-1   justify-between  h-full">
     <h2 class="sr-only">
       {{ title }}
     </h2>
