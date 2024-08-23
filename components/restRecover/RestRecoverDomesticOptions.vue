@@ -56,9 +56,9 @@ const radioOptions = [
   { value: 'none', label: 'None', help: 'No options apply.' },
   { value: 'afterExceed8BlockHoursIn24Hours', label: 'High Block trips', help: 'Have you just exceeded 8 block hours in the last 24?' },
   { value: 'priorToExceed8BlockHoursIn24Hours', label: 'High Block trips', help: 'Are you about to exceed 8 block hours in the next 24?' },
-  { value: 'exception12C2dPriorToExceeding735ActualBlockHours', label: '12C2d Exception', help: 'Are you operating under the 12C2d exception before exceeding 7:35 actual block hours?' },
-  { value: 'exception12C2dAfterExceeding735ActualBlockHours', label: '12C2d Exception', help: 'Are you operating under the 12C2d exception after exceeding 7:35 actual block hours?' },
-  { value: 'hotelStbyScenario', label: 'Hotel Standby Scenario', help: 'Are you in a hotel standby scenario?' },
+  { value: 'exception12C2dPriorToExceeding735ActualBlockHours', label: '12C2d Exception', help: 'Does your trip (or series of trips) includes no duty (scheduled or actual) in the Critical Duty Period before exceeding 7:35 actual block hours?' },
+  { value: 'exception12C2dAfterExceeding735ActualBlockHours', label: '12C2d Exception', help: 'Does your trip (or series of trips) includes no duty (scheduled or actual) in the Critical Duty Period after exceeding 7:35 actual block hours?' },
+  { value: 'hotelStbyScenario', label: 'Hotel Standby Scenario', help: 'Is this a base hotel standby period?' },
   { value: 'operatingInCriticalPeriod', label: 'Operating in Critical Period', help: 'Are you operating in a critical period?' },
 ];
 
