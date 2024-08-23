@@ -1,6 +1,7 @@
 <template>
   <form>
     <div class="space-y-6">
+      <RelatedLink link-title="Scheduling matters - Rest and Recovery" link-href="https://fdx.alpa.org/Committees/Scheduling-Committee/Scheduling-Matters-Archive" />
       <UAccordion class="mt-1 text-sm leading-6 text-gray-600  dark:text-gray-200" :items="dutyEndTimeList">
         <template #duty-end>
           <ul class="list-disc pl-5 space-y-2 text-gray-900 dark:text-white">
