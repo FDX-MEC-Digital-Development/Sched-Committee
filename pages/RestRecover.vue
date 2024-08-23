@@ -46,9 +46,6 @@ const isResultsVisible = ref(false);
 const results = useRestRecover(dutyEndTimeZulu, options);
 const notes = computed(() => results.notes.value ? results.notes.value : []);
 
-// eslint-disable-next-line no-console
-watchEffect(() => console.log({ results }));
-
 async function handleViewResults () {
   isResultsVisible.value = true;
   await nextTick();
