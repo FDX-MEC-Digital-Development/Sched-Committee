@@ -72,3 +72,33 @@ export interface DutyLimitCard {
   blockHours?: string,
   landings?: string,
 }
+
+// rest and recover types
+
+export type DutyType = 'Revenue' | 'Deadhead' | 'HotelStby'
+export interface CBALink {
+  reference: string, // 12.D.8
+  link: string,
+  description?: string,
+}
+export interface InternationalRestOptions {
+  doubleCrew: boolean,
+  willExceed8BlockHoursOr12HoursOnDuty: boolean,
+  lateArrival: boolean,
+}
+export interface DomesticRestOptions {
+  operatingInCriticalPeriod: boolean, // must also receive less than 11 hours of rest operationally for this condition to be true
+  hotelStbyScenario: boolean,
+  priorToExceed8BlockHoursIn24Hours: boolean,
+  afterExceed8BlockHoursIn24Hours: boolean,
+  exception12C2dPriorToExceeding735ActualBlockHours: boolean,
+  exception12C2dAfterExceeding735ActualBlockHours: boolean,
+}
+export interface RestOptions {
+  isInternational: boolean,
+  internationalOptions: InternationalRestOptions,
+  domesticOptions: DomesticRestOptions,
+  minutesPairingConstructedPriorToShowtime: number,
+  nextDuty: DutyType,
+  prevDuty: DutyType,
+}
