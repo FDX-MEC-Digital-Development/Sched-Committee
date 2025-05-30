@@ -17,9 +17,6 @@
               <h4 class="font-medium text-indigo-900 dark:text-indigo-100 mb-1">
                 Ground Transportation
               </h4>
-              <UBadge color="indigo" variant="soft" size="sm">
-                GT
-              </UBadge>
             </div>
 
             <div class="text-center">
