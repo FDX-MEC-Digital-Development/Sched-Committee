@@ -3,17 +3,11 @@
     <div
       v-for="(question, index) in questions"
       :key="`question${index}`"
-      :class="[
-        'grid grid-cols-1 gap-x-6 gap-y-4 border-b border-gray-900/10 dark:border-gray-400 pb-6 sm:grid-cols-1 lg:grid-cols-5 xl:grid-cols-3 group transition-all duration-200',
-        isSimpleList ? 'hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg px-4 py-3 -mx-4' : ''
-      ]"
+      class="grid grid-cols-1 gap-x-6 gap-y-4 border-b border-gray-900/10 dark:border-gray-400 pb-6 sm:grid-cols-1 lg:grid-cols-5 xl:grid-cols-3 group transition-all duration-200"
     >
       <div class="lg:col-span-3 xl:col-span-2">
         <div
-          :class="[
-            'flex items-center gap-3',
-            isSimpleList ? 'py-1' : ''
-          ]"
+          class="flex items-center gap-3"
         >
           <h3 class="text-base font-semibold leading-7 text-gray-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
             {{ question.text }}

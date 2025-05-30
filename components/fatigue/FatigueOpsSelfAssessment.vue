@@ -30,7 +30,7 @@ const assessmentQuestions: Question[] = [
   {
     text: 'Next rest opportunity?',
     caption: 'Where and when can you get your next rest ',
-    note: '(Hotel? Hub Sleep Room?)',
+    note: 'Hotel? Hub Sleep Room?',
   },
   {
     text: 'What is my workload?',

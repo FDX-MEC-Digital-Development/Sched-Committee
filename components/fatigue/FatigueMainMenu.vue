@@ -3,11 +3,10 @@
     <ul class="space-y-2">
       <li v-for="item in menuItems" :key="item.id" class="w-full">
         <component
-          :is="item.isExternalLink ? 'a' : 'button'"
-          v-bind="item.isExternalLink ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' } : {}"
-          class="w-full px-4 py-2 text-left rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-          :class="{ 'bg-gray-100 dark:bg-gray-800': selectedItemId === item.id && !item.isExternalLink }"
-          @click="!item.isExternalLink && $emit('select', item.id)"
+          :is="item.isExternalLink ? 'a' : NuxtLink"
+          v-bind="item.isExternalLink ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' } : { to: item.href }"
+          class="w-full px-4 py-2 text-left rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 block"
+          :class="{ 'bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-300': !item.isExternalLink && $route.path === item.href }"
         >
           {{ item.label }}
           <span v-if="item.isExternalLink" class="ml-1 inline-block">
@@ -24,36 +23,42 @@
 
 <script lang="ts" setup>
 interface MenuItem {
-  id: string;
-  label: string;
-  href?: string;
-  isExternalLink?: boolean;
+  id: string
+  label: string
+  href: string
+  isExternalLink?: boolean
 }
 
 const menuItems: MenuItem[] = [
   {
     id: 'recognize-fatigue',
     label: 'Recognize Fatigue Checklist (Are you Cognitively Impaired?)',
+    href: '/fatigue/recognize-fatigue',
   },
   {
     id: 'ops-self-assessment',
     label: 'Ops Self-Assessment Checklist',
+    href: '/fatigue/ops-self-assessment',
   },
   {
     id: 'im-safe',
     label: 'IM SAFE Checklist',
+    href: '/fatigue/im-safe',
   },
   {
     id: 'carma',
     label: 'How To Call Out Fatigued Checklist (CARMA)',
+    href: '/fatigue/carma',
   },
   {
     id: 'trip-removal',
     label: 'Trip Removal and Compensation',
+    href: '/fatigue/trip-removal',
   },
   {
     id: 'reports',
     label: 'Reports',
+    href: '/fatigue/reports',
   },
   {
     id: 'frmc-home',
@@ -64,18 +69,12 @@ const menuItems: MenuItem[] = [
   {
     id: 'frmc-contact',
     label: 'FRMC Contact Info',
+    href: '/fatigue/frmc-contact',
   },
   {
     id: 'additional-resources',
     label: 'Additional Resources (Coming Soon)',
+    href: '/fatigue/additional-resources',
   },
 ];
-
-defineProps<{
-  selectedItemId: string;
-}>();
-
-defineEmits<{
-  (e: 'select', id: string): void;
-}>();
 </script>

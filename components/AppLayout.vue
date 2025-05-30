@@ -76,13 +76,25 @@ const route = useRoute();
 const navigation = computed(() => ([
   { name: 'Home', href: '/', icon: 'heroicons:home', current: route.name === 'index' },
   { name: 'Duty Limits', href: '/dutyLimits', icon: 'heroicons:clock', current: route.name === 'dutyLimits' },
-  { name: 'Fatigue', href: '/fatigue', icon: 'heroicons:bell-alert', current: route.name === 'fatigue' },
-  // rest
+  {
+    name: 'Fatigue',
+    href: '/fatigue',
+    icon: 'heroicons:bell-alert',
+    current: route.path.startsWith('/fatigue'),
+    subItems: [
+      { name: 'Overview', href: '/fatigue', icon: 'heroicons:squares-2x2', current: route.path === '/fatigue' },
+      { name: 'Recognize Fatigue', href: '/fatigue/recognize-fatigue', icon: 'heroicons:eye', current: route.path === '/fatigue/recognize-fatigue' },
+      { name: 'Self-Assessment', href: '/fatigue/ops-self-assessment', icon: 'heroicons:clipboard-document-check', current: route.path === '/fatigue/ops-self-assessment' },
+      { name: 'IM SAFE', href: '/fatigue/im-safe', icon: 'heroicons:shield-check', current: route.path === '/fatigue/im-safe' },
+      { name: 'Call Out Fatigued', href: '/fatigue/carma', icon: 'heroicons:phone', current: route.path === '/fatigue/carma' },
+      { name: 'Trip Removal', href: '/fatigue/trip-removal', icon: 'heroicons:document-text', current: route.path === '/fatigue/trip-removal' },
+      { name: 'Reports', href: '/fatigue/reports', icon: 'heroicons:document-arrow-up', current: route.path === '/fatigue/reports' },
+      { name: 'FRMC Contact', href: '/fatigue/frmc-contact', icon: 'heroicons:users', current: route.path === '/fatigue/frmc-contact' },
+      { name: 'Resources', href: '/fatigue/additional-resources', icon: 'heroicons:book-open', current: route.path === '/fatigue/additional-resources' },
+    ],
+  },
   { name: 'Required Rest', href: '/RestRecover', icon: 'heroicons:moon', current: route.name === 'restRecover' },
-
   { name: 'Disputed Pairings', href: '/disputedPairings', icon: 'heroicons:exclamation-circle', current: route.name === 'disputedPairings' },
-  // { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
-
 ]));
 
 const sidebarOpen = ref(false);
