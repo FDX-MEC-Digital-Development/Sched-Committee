@@ -35,51 +35,9 @@
           <Icon name="heroicons:chevron-right" class="h-5 w-5" />
         </span>
       </NuxtLink>
-    </div>
-
-    <!-- Content Sections -->
-    <div class="space-y-12">
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Assessment Tools
-        </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div>
-            <FatigueRecognizeList />
-          </div>
-          <div>
-            <FatigueOpsSelfAssessment />
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Safety Checklists
-        </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div>
-            <FatigueIMSAFEChecklist />
-          </div>
-          <div>
-            <FatigueCarmaChecklist />
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Resources
-        </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div>
-            <FatigueTripRemovalExplanation />
-          </div>
-          <div>
-            <FatigueReportsSection />
-          </div>
-        </div>
-      </section>
+    </div>    <!-- Child Route Content -->
+    <div class="mt-8">
+      <NuxtPage />
     </div>
   </div>
 </template>
