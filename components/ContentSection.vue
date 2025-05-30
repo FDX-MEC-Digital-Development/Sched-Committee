@@ -1,5 +1,5 @@
 <template>
-  <div class="text-base leading-7 text-gray-700 dark:text-gray-300 lg:max-w-lg">
+  <div class="text-base leading-7 text-gray-700 dark:text-gray-300 lg:max-w-xl">
     <p class="text-base font-semibold leading-7 text-indigo-600">
       {{ caption }}
     </p>
