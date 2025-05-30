@@ -5,6 +5,7 @@
     :content="[
       'You do not need to call-in fatigued to file a fatigue report.',
       'Use these reporting methods to submit new fatigue reports or access existing ones.',
+      'ART reports create Accountability and Dialogue.',
       'All reports are confidential and help improve safety for everyone.'
     ]"
   >
