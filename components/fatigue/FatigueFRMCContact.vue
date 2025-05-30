@@ -1,12 +1,16 @@
-<template>  <ContentSection
+<template>
+  <ContentSection
     title="FRMC Contact Information"
     caption="Contact the Fatigue Risk Management Committee"
     :content="[
       'For questions, concerns, or additional information about fatigue risk management, please contact the FRMC:'
     ]"
-  >    <div class="mt-4 space-y-3">
+  >
+    <div class="mt-4 space-y-3">
       <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6">
-        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">FRMC Committee Members:</h4>
+        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">
+          FRMC Committee Members:
+        </h4>
         <div class="space-y-3 text-sm">
           <div class="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
             <span class="font-medium text-gray-700 dark:text-gray-300">Chair:</span>
