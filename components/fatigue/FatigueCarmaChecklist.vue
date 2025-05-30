@@ -1,9 +1,19 @@
 <template>
   <div>
     <ContentSection :caption="copy.caption" :title="copy.title" :content="copy.content">
-      <p class="pb-6">
-        Crew Resource Scheduling - 1-844-495-1049
-      </p>
+      <UCard class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 mb-6">
+        <div class="flex items-center">
+          <UIcon name="i-heroicons-phone" class="h-5 w-5 text-red-600 dark:text-red-400 mr-3" />
+          <div>
+            <p class="text-red-800 dark:text-red-200 font-semibold">
+              Crew Resource Scheduling
+            </p>
+            <p class="text-lg font-bold text-red-900 dark:text-red-100">
+              1-844-495-1049
+            </p>
+          </div>
+        </div>
+      </UCard>
       <UAccordion :items="accordionItems" variant="outline" />
       <!--StackedList :questions="listSteps" /-->
     </ContentSection>

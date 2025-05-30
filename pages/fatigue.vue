@@ -76,13 +76,15 @@
 
       <!-- Mobile Navigation DropdownMenu -->
       <div class="sm:hidden">
-        <UDropdownMenu
+        <UDropdown
           :items="dropdownMenuItems"
           :ui="{
-            content: 'w-64'
+            content: 'w-64',
+
           }"
         >
           <UButton
+            :key="currentPageItem?.href"
             :icon="currentPageItem?.icon || 'heroicons:bars-3'"
             :label="currentPageItem?.title || 'Navigate'"
             color="neutral"
@@ -90,13 +92,12 @@
             trailing-icon="heroicons:chevron-down"
             block
           />
-        </UDropdownMenu>
+        </UDropdown>
       </div>
-    </div>
-
-    <!-- Child Route Content -->
-    <div class="mt-8 ">
-      <NuxtPage />
+      <!-- Child Route Content -->
+      <div class="mt-8 ">
+        <NuxtPage />
+      </div>
     </div>
   </div>
 </template>
@@ -106,20 +107,6 @@ const route = useRoute();
 
 // Check if we're on the base fatigue route
 const isBaseRoute = computed(() => route.path === '/fatigue');
-
-// Find the current page item for display in compact navigation
-const currentPageItem = computed(() => {
-  return fatigueItems.find(item => item.href === route.path);
-});
-
-// Items for UDropdownMenu component
-const dropdownMenuItems = computed(() => {
-  return fatigueItems.map(item => ({
-    label: item.title,
-    icon: item.icon,
-    to: item.href,
-  }));
-});
 
 const fatigueItems = [
   {
@@ -141,9 +128,9 @@ const fatigueItems = [
     icon: 'heroicons:shield-check',
   },
   {
-    title: 'Call Out Fatigued',
-    description: 'CARMA checklist for fatigue calls',
-    href: '/fatigue/Carma',
+    title: 'Calling In Fatigued',
+    description: 'How to call in fatigued',
+    href: '/fatigue/CallingInFatigued',
     icon: 'heroicons:phone',
   },
   {
@@ -171,4 +158,19 @@ const fatigueItems = [
     icon: 'heroicons:book-open',
   },
 ];
+
+// Find the current page item for display in compact navigation
+const currentPageItem = computed(() => {
+  return fatigueItems.find(item => item.href === route.path);
+});
+
+// Items for UDropdownMenu component
+const dropdownMenuItems = computed(() =>
+  fatigueItems.map(item => ([{
+    label: item.title,
+    icon: item.icon,
+    to: item.href,
+  }])),
+);
+
 </script>

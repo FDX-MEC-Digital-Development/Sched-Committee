@@ -47,8 +47,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 'carma',
-    label: 'How To Call Out Fatigued Checklist (CARMA)',
-    href: '/fatigue/carma',
+    label: 'How To Call Out Fatigued Checklist',
+    href: '/fatigue/CallingInFatigued',
   },
   {
     id: 'trip-removal',
