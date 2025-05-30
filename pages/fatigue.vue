@@ -72,14 +72,25 @@
           <Icon :name="item.icon" class="h-3 w-3 mr-2" />
           {{ item.title }}
         </NuxtLink>
-      </div>      <!-- Mobile Navigation Select -->
+      </div>
+
+      <!-- Mobile Navigation DropdownMenu -->
       <div class="sm:hidden">
-        <USelect
-          v-model="selectedPage"
-          :options="selectOptions"
-          placeholder="Navigate to another section"
-          @change="navigateToPage"
-        />
+        <UDropdownMenu
+          :items="dropdownMenuItems"
+          :ui="{
+            content: 'w-64'
+          }"
+        >
+          <UButton
+            :icon="currentPageItem?.icon || 'heroicons:bars-3'"
+            :label="currentPageItem?.title || 'Navigate'"
+            color="neutral"
+            variant="outline"
+            trailing-icon="heroicons:chevron-down"
+            block
+          />
+        </UDropdownMenu>
       </div>
     </div>
 
@@ -92,7 +103,6 @@
 
 <script setup lang="ts">
 const route = useRoute();
-const selectedPage = ref('');
 
 // Check if we're on the base fatigue route
 const isBaseRoute = computed(() => route.path === '/fatigue');
@@ -102,20 +112,14 @@ const currentPageItem = computed(() => {
   return fatigueItems.find(item => item.href === route.path);
 });
 
-// Options for USelect component
-const selectOptions = computed(() => {
+// Items for UDropdownMenu component
+const dropdownMenuItems = computed(() => {
   return fatigueItems.map(item => ({
     label: item.title,
-    value: item.href,
+    icon: item.icon,
+    to: item.href,
   }));
 });
-
-// Function to navigate when selection changes
-const navigateToPage = (selectedValue: string) => {
-  if (selectedValue) {
-    navigateTo(selectedValue);
-  }
-};
 
 const fatigueItems = [
   {
