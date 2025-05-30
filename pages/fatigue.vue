@@ -1,45 +1,91 @@
 <template>
   <div class="bg-white dark:bg-gray-900 py-0 sm:py-8">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <!--NavigationVertical :navigation="fatigueNavigation" /-->
-      <div class="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatigueQuotes />
-        <div>
-          <FatigueAssessmentDescription />
+      <!-- Navigation Menu -->
+      <div class="lg:grid lg:grid-cols-[300px_1fr] lg:gap-8">
+        <aside class="lg:block">
+          <FatigueMainMenu :selected-item-id="selectedSection" @select="setSelectedSection" />
+        </aside>
 
-          <!-- <div class="mt-10 flex hidden">
-            <a href="#" class="text-base font-semibold leading-7 text-indigo-600">Learn more about our company <span aria-hidden="true">&rarr;</span></a>
-          </div> -->
-        </div>
-      </div>
-      <div id="personal-assessment" class="mx-auto  pt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatiguePersonalAssessmentQuestions />
-        <div id="signs-of-fatigue">
-          <FatigueRecognizeList />
-        </div>
-      </div>
-      <div id="carma-checklist" class="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatigueCarmaChecklist class="mt-16" />
-        <div id="trip-removal">
-          <FatigueTripRemovalExplanation class="mt-16" />
-        </div>
-      </div>
-      <div id="extension" class="mx-auto pt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatigueExtensionConsiderations />
+        <!-- Content Area -->
+        <main>
+          <!-- Recognize Fatigue Section -->
+          <div v-if="selectedSection === 'recognize-fatigue'">
+            <FatigueRecognizeList />
+          </div>
+
+          <!-- Ops Self-Assessment Section -->
+          <div v-if="selectedSection === 'ops-self-assessment'">
+            <FatigueOpsSelfAssessment />
+          </div>
+
+          <!-- IM SAFE Checklist Section -->
+          <div v-if="selectedSection === 'im-safe'">
+            <FatigueIMSAFEChecklist />
+          </div>
+
+          <!-- CARMA Section -->
+          <div v-if="selectedSection === 'carma'">
+            <FatigueCarmaChecklist />
+            <div class="mt-4">
+              <a
+                href="https://fdx.alpa.org/Portals/7/Documents/communications/public/2024/10/2024-10-01-frmcpr.html?ver=BdymfIIe5yMZXtVZY5ihlA=="
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-indigo-600 hover:text-indigo-500"
+              >
+                View CARMA Article →
+              </a>
+            </div>
+          </div>
+
+          <!-- Trip Removal Section -->
+          <div v-if="selectedSection === 'trip-removal'">
+            <FatigueTripRemovalExplanation />
+            <div class="mt-4">
+              <a
+                href="https://fdx.alpa.org/Portals/7/Documents/Committees/fatigue/website-docs/2023-frmc-tripremoval.pdf?ver=6uTUizaUgQQuycePYoZdEg=="
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-indigo-600 hover:text-indigo-500"
+              >
+                View Trip Removal PDF →
+              </a>
+            </div>
+          </div>
+
+          <!-- Reports Section -->
+          <div v-if="selectedSection === 'reports'">
+            <FatigueReportsSection />
+          </div>
+
+          <!-- FRMC Contact Section -->
+          <div v-if="selectedSection === 'frmc-contact'">
+            <FatigueFRMCContact />
+          </div>
+
+          <!-- Additional Resources Section -->
+          <div v-if="selectedSection === 'additional-resources'">
+            <ContentSection
+              title="Additional Resources"
+              caption="Coming Soon"
+              :content="['More resources and pilot narratives will be available here soon.']"
+            />
+          </div>
+        </main>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-// import type { NavigationLink } from '~/sched-committee-types';
+import { ref } from 'vue';
 
-/* const fatigueNavigation: NavigationLink[] = [
-  { name: 'Personal Assessment', href: { hash: '#personal-assessment' }, icon: 'heroicons:home', current: false },
-  { name: 'Signs of Fatigue', href: { hash: '#signs-of-fatigue' }, icon: 'heroicons:home', current: false },
-  { name: 'Calling in Fatigued', href: { hash: '#carma-checklist' }, icon: 'heroicons:home', current: false },
-  { name: 'Trip Removal', href: { hash: '#trip-removal' }, icon: 'heroicons:home', current: false }];
- */
+const selectedSection = ref('recognize-fatigue');
+
+const setSelectedSection = (id: string) => {
+  selectedSection.value = id;
+};
 </script>
 
 <style>
