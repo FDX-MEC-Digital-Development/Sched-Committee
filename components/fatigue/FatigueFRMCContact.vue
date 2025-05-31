@@ -38,14 +38,21 @@
         <strong class="text-gray-900 dark:text-gray-100">General Email:</strong> <a href="mailto:FedEx-FRMC@alpa.org" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 break-all">FedEx-FRMC@alpa.org</a>
       </div>
     </div>    <div class="mt-6">
-      <a
-        href="https://fdx.alpa.org/Committees/Fatigue-Risk-Management-Committee"
+      <UButton
+        to="https://fdx.alpa.org/Committees/Fatigue-Risk-Management-Committee"
         target="_blank"
-        rel="noopener noreferrer"
-        class="inline-block text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors duration-200 text-sm sm:text-base"
+        color="indigo"
+        variant="outline"
+        size="sm"
       >
-        Visit FRMC Home Page →
-      </a>
+        <template #leading>
+          <UIcon name="i-heroicons-home" />
+        </template>
+        Visit FRMC Home Page
+        <template #trailing>
+          <UIcon name="i-heroicons-arrow-top-right-on-square" />
+        </template>
+      </UButton>
     </div>
   </ContentSection>
 </template>

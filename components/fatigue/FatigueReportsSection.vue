@@ -34,14 +34,21 @@
           Copy everything to a DART and reference Company report or ASAP
         </div>
 
-        <a
-          href="https://dart.alpa.org/"
+        <UButton
+          to="https://dart.alpa.org/"
           target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-green-200 dark:bg-blue-900 dark:text-green-100 dark:hover:bg-green-800 rounded-md transition-colors"
+          color="green"
+          variant="outline"
+          size="sm"
         >
-          Submit DART Report →
-        </a>
+          <template #leading>
+            <UIcon name="i-heroicons-document-arrow-up" />
+          </template>
+          Submit DART Report
+          <template #trailing>
+            <UIcon name="i-heroicons-arrow-top-right-on-square" />
+          </template>
+        </UButton>
       </div>
 
       <!-- Additional Resources -->
@@ -50,14 +57,21 @@
           Additional Resources
         </h3>
 
-        <a
-          href="https://fdx.alpa.org/Portals/7/Documents/communications/public/2024/06/2024-06-04-committeemessage-pr.html?ver=k1DPfbYS0PWpKUQh5-siLw=="
+        <UButton
+          to="https://fdx.alpa.org/Portals/7/Documents/communications/public/2024/06/2024-06-04-committeemessage-pr.html?ver=k1DPfbYS0PWpKUQh5-siLw=="
           target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900 dark:text-indigo-100 dark:hover:bg-indigo-800 rounded-md transition-colors"
+          color="indigo"
+          variant="outline"
+          size="sm"
         >
-          Fatigue Reports Analysis (June 2024) →
-        </a>
+          <template #leading>
+            <UIcon name="i-heroicons-chart-bar-square" />
+          </template>
+          Fatigue Reports Analysis (June 2024)
+          <template #trailing>
+            <UIcon name="i-heroicons-arrow-top-right-on-square" />
+          </template>
+        </UButton>
       </div>
     </div>
   </ContentSection>
