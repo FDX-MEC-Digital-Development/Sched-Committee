@@ -35,7 +35,7 @@
                 2
               </UBadge>
               <div class="flex-1">
-                <p class="text-gray-700 dark:text-gray-300">
+                <p class="tex t-gray-700 dark:text-gray-300">
                   If they cannot amend the pairing to address your concerns, accept professionally and attempt rest
                 </p>
               </div>

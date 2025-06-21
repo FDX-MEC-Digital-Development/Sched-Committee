@@ -58,7 +58,7 @@
         </h3>
 
         <UButton
-          to="https://fdx.alpa.org/Portals/7/Documents/communications/public/2024/06/2024-06-04-committeemessage-pr.html?ver=k1DPfbYS0PWpKUQh5-siLw=="
+          to="https://fdx.alpa.org/Committees/Fatigue-Risk-Management-Committee"
           target="_blank"
           color="indigo"
           variant="outline"

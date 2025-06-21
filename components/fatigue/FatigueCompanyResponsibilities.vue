@@ -5,7 +5,7 @@
         <UCard class="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-500">
           <template #header>
             <h3 class="text-lg font-medium text-indigo-900 dark:text-indigo-100">
-              Regardless of when and where you call out fatigued, the Company shall provide:
+              When calling out fatigued in the field your priority is REST. Regardless of when and where you make the fatigued call, the Company shall provide:
             </h3>
           </template>
 
@@ -50,7 +50,7 @@
           </template>
 
           <p class="text-sm text-gray-700 dark:text-gray-300">
-            Processing should occur during your rest period, with a minimum of 8 hours after you get to the hotel.
+            Processing should occur during your rest period, with a minimum of 8 hours after you get to the hotel. This only occurs if you are removed from your trip.
           </p>
         </UCard>
 
@@ -65,7 +65,7 @@
           </template>
 
           <div class="text-sm text-orange-700 dark:text-orange-300 space-y-2">
-            <p><strong>Duty Officer will create an Accepted Fare Letter</strong> covering deadhead expenses back to base.</p>
+            <p><strong>Duty Officer will create an Established Fare Letter</strong> covering deadhead expenses back to base.</p>
             <p>These funds are <strong>only usable for this specific deadhead</strong> - other deviation bank funds cannot be used for fatigue-related deadheads.</p>
           </div>
         </UCard>
@@ -111,7 +111,7 @@
           </template>
 
           <p class="text-sm text-yellow-700 dark:text-yellow-300">
-            The CARMA Checklist exists because pilots could be left on their own after a fatigue call while CRS works to re-crew the uncovered flight.
+            The reason for the CARMA Checklist is the pilot could be left on their own by the Company after a fatigue call due to CRS working to re-crew the flight that is now uncovered as a result of the fatigue call. The Duty Officer Group is working tirelessly to avoid this, but sometimes their workload is excessive, and your needs are not immediately met.
           </p>
         </UCard>
       </div>

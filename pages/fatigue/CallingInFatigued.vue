@@ -10,7 +10,7 @@
     <div class="rounded-lg bg-gray-50 dark:bg-gray-900 px-5 py-6 sm:px-6">
       <div class="flex items-center justify-center">
         <UButton
-          to="https://fdx.alpa.org/Portals/7/Documents/communications/public/2024/10/2024-10-01-frmcpr.html?ver=BdymfIIe5yMZXtVZY5ihlA=="
+          to="https://fdx.alpa.org/Committees/Fatigue-Risk-Management-Committee"
           target="_blank"
           color="indigo"
           variant="outline"

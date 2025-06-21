@@ -7,6 +7,23 @@
     ]"
   >
     <div class="mt-4 space-y-3">
+      <div class="mt-6">
+        <UButton
+          to="https://fdx.alpa.org/Committees/Fatigue-Risk-Management-Committee"
+          target="_blank"
+          color="indigo"
+          variant="outline"
+          size="sm"
+        >
+          <template #leading>
+            <UIcon name="i-heroicons-home" />
+          </template>
+          Visit FRMC Home Page
+          <template #trailing>
+            <UIcon name="i-heroicons-arrow-top-right-on-square" />
+          </template>
+        </UButton>
+      </div>
       <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6">
         <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">
           FRMC Committee Members:
@@ -37,22 +54,6 @@
       <div class="text-sm text-gray-600 dark:text-gray-400 p-3 sm:p-0">
         <strong class="text-gray-900 dark:text-gray-100">General Email:</strong> <a href="mailto:FedEx-FRMC@alpa.org" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 break-all">FedEx-FRMC@alpa.org</a>
       </div>
-    </div>    <div class="mt-6">
-      <UButton
-        to="https://fdx.alpa.org/Committees/Fatigue-Risk-Management-Committee"
-        target="_blank"
-        color="indigo"
-        variant="outline"
-        size="sm"
-      >
-        <template #leading>
-          <UIcon name="i-heroicons-home" />
-        </template>
-        Visit FRMC Home Page
-        <template #trailing>
-          <UIcon name="i-heroicons-arrow-top-right-on-square" />
-        </template>
-      </UButton>
     </div>
   </ContentSection>
 </template>
