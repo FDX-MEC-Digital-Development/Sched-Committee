@@ -9,14 +9,6 @@
       "rewrite": "/200.html"
     },
     {
-      "route": "/dutyLimits",
-      "rewrite": "/dutyLimits/index.html"
-    },
-    {
-      "route": "/fatigue",
-      "rewrite": "/fatigue/index.html"
-    },
-    {
       "route": "/",
       "rewrite": "/index.html"
     }

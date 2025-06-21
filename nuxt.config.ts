@@ -102,6 +102,11 @@ export default defineNuxtConfig({
     },
   },
 
-  ssr: true,
+  ssr: false,
+  router: {
+    options: {
+      hashMode: true, // use hash mode for routing for SPA
+    },
+  },
 
 });

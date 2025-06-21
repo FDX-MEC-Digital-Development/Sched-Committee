@@ -75,14 +75,25 @@ const route = useRoute();
 
 const navigation = computed(() => ([
   { name: 'Home', href: '/', icon: 'heroicons:home', current: route.name === 'index' },
-  { name: 'Duty Limits', href: '/dutyLimits', icon: 'heroicons:clock', current: route.name === 'dutyLimits' },
-  { name: 'Fatigue', href: '/fatigue', icon: 'heroicons:bell-alert', current: route.name === 'fatigue' },
-  // rest
+  { name: 'Duty Limits', href: '/dutyLimits', icon: 'heroicons:clock', current: route.name === 'dutyLimits' }, {
+    name: 'Fatigue',
+    href: '/fatigue',
+    icon: 'heroicons:bell-alert',
+    current: route.path.startsWith('/fatigue'),
+    subItems: [
+      { name: 'Overview', href: '/fatigue', icon: 'heroicons:squares-2x2', current: route.path === '/fatigue' },
+      { name: 'Recognize Fatigue', href: '/fatigue/RecognizeFatigue', icon: 'heroicons:eye', current: route.path === '/fatigue/RecognizeFatigue' },
+      { name: 'Self-Assessment', href: '/fatigue/OpsSelfAssessment', icon: 'heroicons:clipboard-document-check', current: route.path === '/fatigue/OpsSelfAssessment' },
+      { name: 'IM SAFE', href: '/fatigue/ImSafe', icon: 'heroicons:shield-check', current: route.path === '/fatigue/ImSafe' },
+      { name: 'Call Out Fatigued', href: '/fatigue/CallingInFatigued', icon: 'heroicons:phone', current: route.path === '/fatigue/CallingInFatigued' },
+      { name: 'Trip Removal', href: '/fatigue/TripRemoval', icon: 'heroicons:document-text', current: route.path === '/fatigue/TripRemoval' },
+      { name: 'Reports', href: '/fatigue/Reports', icon: 'heroicons:document-arrow-up', current: route.path === '/fatigue/Reports' },
+      { name: 'FRMC Contact', href: '/fatigue/FrmcContact', icon: 'heroicons:users', current: route.path === '/fatigue/FrmcContact' },
+      { name: 'Resources', href: '/fatigue/AdditionalResources', icon: 'heroicons:book-open', current: route.path === '/fatigue/AdditionalResources' },
+    ],
+  },
   { name: 'Required Rest', href: '/RestRecover', icon: 'heroicons:moon', current: route.name === 'restRecover' },
-
   { name: 'Disputed Pairings', href: '/disputedPairings', icon: 'heroicons:exclamation-circle', current: route.name === 'disputedPairings' },
-  // { name: 'Links', href: '#', icon: 'heroicons:link', current: false },
-
 ]));
 
 const sidebarOpen = ref(false);

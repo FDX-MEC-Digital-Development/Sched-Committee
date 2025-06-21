@@ -22,7 +22,7 @@ useHead({
     { rel: 'mask-icon', href: 'mask-icon.svg', color: '#FFFFFF' },
   ],
   bodyAttrs: {
-    class: 'h-full',
+    class: 'h-full bg-gray-100 dark:bg-gray-900',
   },
   htmlAttrs: {
     class: 'h-full bg-gray-100',

@@ -5,6 +5,7 @@ export interface NavigationLink {
   href: string | {hash: string};
   icon: string;
   current: boolean;
+  subItems?: NavigationLink[];
 }
 
 export interface DutyLimitOptions {

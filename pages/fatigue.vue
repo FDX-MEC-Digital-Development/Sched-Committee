@@ -1,47 +1,117 @@
 <template>
-  <div class="bg-white dark:bg-gray-900 py-0 sm:py-8">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <!--NavigationVertical :navigation="fatigueNavigation" /-->
-      <div class="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatigueQuotes />
-        <div>
-          <FatigueAssessmentDescription />
-
-          <!-- <div class="mt-10 flex hidden">
-            <a href="#" class="text-base font-semibold leading-7 text-indigo-600">Learn more about our company <span aria-hidden="true">&rarr;</span></a>
-          </div> -->
-        </div>
-      </div>
-      <div id="personal-assessment" class="mx-auto  pt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatiguePersonalAssessmentQuestions />
-        <div id="signs-of-fatigue">
-          <FatigueRecognizeList />
-        </div>
-      </div>
-      <div id="carma-checklist" class="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatigueCarmaChecklist class="mt-16" />
-        <div id="trip-removal">
-          <FatigueTripRemovalExplanation class="mt-16" />
-        </div>
-      </div>
-      <div id="extension" class="mx-auto pt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <FatigueExtensionConsiderations />
-      </div>
+  <div class="space-y-8 mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="text-center">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+        Fatigue Management
+      </h1>
+      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+        Comprehensive tools and resources for fatigue assessment and management
+      </p>
     </div>
+
+    <!-- Navigation: Full Cards on Base Route -->
+    <FatigueNavigationCardGrid v-if="isBaseRoute" :fatigue-items="fatigueItems" />
+
+    <!-- Navigation: Compact Header on Child Routes -->
+    <FatigueChildRouteHeader
+      v-else
+      :fatigue-items="fatigueItems"
+      :current-page-item="currentPageItem"
+      :dropdown-menu-items="dropdownMenuItems"
+    >
+      <template #page-content>
+        <NuxtPage />
+      </template>
+    </FatigueChildRouteHeader>
   </div>
 </template>
 
-<script lang="ts" setup>
-// import type { NavigationLink } from '~/sched-committee-types';
+<script setup lang="ts">
+import FatigueNavigationCardGrid from '~/components/fatigue/FatigueNavigationCardGrid.vue';
+import FatigueChildRouteHeader from '~/components/fatigue/FatigueChildRouteHeader.vue';
 
-/* const fatigueNavigation: NavigationLink[] = [
-  { name: 'Personal Assessment', href: { hash: '#personal-assessment' }, icon: 'heroicons:home', current: false },
-  { name: 'Signs of Fatigue', href: { hash: '#signs-of-fatigue' }, icon: 'heroicons:home', current: false },
-  { name: 'Calling in Fatigued', href: { hash: '#carma-checklist' }, icon: 'heroicons:home', current: false },
-  { name: 'Trip Removal', href: { hash: '#trip-removal' }, icon: 'heroicons:home', current: false }];
- */
+interface FatigueItem {
+  title: string;
+  description: string;
+  href: string;
+  icon: string;
+}
+
+interface DropdownMenuContentItem {
+  label: string;
+  icon: string;
+  to: string;
+}
+
+const route = useRoute();
+
+// Check if we're on the base fatigue route
+const isBaseRoute = computed(() => route.path === '/fatigue');
+
+const fatigueItems: FatigueItem[] = [
+  {
+    title: 'Recognize Fatigue',
+    description: 'Signs and symptoms of cognitive impairment',
+    href: '/fatigue/RecognizeFatigue',
+    icon: 'heroicons:eye',
+  },
+  {
+    title: 'Self-Assessment',
+    description: 'Evaluate your readiness for duty',
+    href: '/fatigue/OpsSelfAssessment',
+    icon: 'heroicons:clipboard-document-check',
+  },
+  {
+    title: 'IM SAFE Checklist',
+    description: 'Standard aviation safety assessment',
+    href: '/fatigue/ImSafe',
+    icon: 'heroicons:shield-check',
+  },
+  {
+    title: 'Calling In Fatigued',
+    description: 'How to call in fatigued',
+    href: '/fatigue/CallingInFatigued',
+    icon: 'heroicons:phone',
+  },
+  {
+    title: 'Trip Removal',
+    description: 'Understanding compensation and procedures',
+    href: '/fatigue/TripRemoval',
+    icon: 'heroicons:document-text',
+  },
+  {
+    title: 'Reports',
+    description: 'Filing fatigue reports and documentation',
+    href: '/fatigue/Reports',
+    icon: 'heroicons:document-arrow-up',
+  },
+  {
+    title: 'FRMC Contact',
+    description: 'Fatigue Risk Management Committee info',
+    href: '/fatigue/FrmcContact',
+    icon: 'heroicons:users',
+  },
+  {
+    title: 'Additional Resources',
+    description: 'More tools and pilot narratives',
+    href: '/fatigue/AdditionalResources',
+    icon: 'heroicons:book-open',
+  },
+];
+
+// Find the current page item for display in compact navigation
+const currentPageItem = computed(() => {
+  return fatigueItems.find(item => item.href === route.path);
+});
+
+// Items for UDropdownMenu component
+const dropdownMenuItems = computed((): DropdownMenuContentItem[][] =>
+  fatigueItems.map(item => ([{
+    label: item.title,
+    icon: item.icon,
+    to: item.href,
+  }])),
+);
+
 </script>
-
-<style>
-
-</style>
